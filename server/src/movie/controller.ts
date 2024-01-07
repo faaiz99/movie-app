@@ -1,6 +1,6 @@
 import { Request, Response, RequestHandler, NextFunction } from "express";
 import { handleError } from "../middewares/error";
-import { handleResponse } from "../util/response";
+import { handleResponse } from "../utils/response";
 import * as movieService from "./service";
 
 export const updateMovieById: RequestHandler = async (

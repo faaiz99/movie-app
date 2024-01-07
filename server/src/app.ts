@@ -10,7 +10,7 @@ const app: Application = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(mainRouter);
+app.use("/api", mainRouter);
 app.use(handleError);
 
 export default app;

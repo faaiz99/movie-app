@@ -9,7 +9,7 @@ export class CreateReviewDTO {
 	movieId: string;
 	userId: string;
 
-	constructor(){
+	constructor() {
 		this.id = "";
 		this.title = "";
 		this.rating = 0;
@@ -33,7 +33,6 @@ export interface IReviewRepository {
   updatebyId(reviewId: string, review: Partial<Review>): Promise<Review>;
   deletebyId(reviewId: string): Promise<void>;
 }
-
 
 const prisma = new PrismaClient();
 const reviewRepository = new ReviewRepository(prisma);

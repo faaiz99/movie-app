@@ -1,6 +1,6 @@
 import { Request, Response, RequestHandler, NextFunction } from "express";
 import { handleError } from "../middewares/error";
-import { handleResponse } from "../util/response";
+import { handleResponse } from "../utils/response";
 import * as reviewService from "./service";
 
 export const createReview: RequestHandler = async (

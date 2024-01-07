@@ -1,7 +1,7 @@
 import { Request, Response, RequestHandler, NextFunction } from "express";
 import * as userService from "./service";
 import { handleError } from "../middewares/error";
-import { handleResponse } from "../util/response";
+import { handleResponse } from "../utils/response";
 
 export const register: RequestHandler = async (
 	req: Request,

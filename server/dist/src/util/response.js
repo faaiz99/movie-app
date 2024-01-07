@@ -6,6 +6,6 @@ exports.handleResponse = void 0;
 // data from service
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handleResponse = (res, status, data) => {
-    res.status(status).json(data);
+  res.status(status).json(data);
 };
 exports.handleResponse = handleResponse;
