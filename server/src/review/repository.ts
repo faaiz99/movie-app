@@ -1,5 +1,5 @@
 import { PrismaClient, Review } from "@prisma/client";
-import { CreateReviewDTO, IReviewRepository } from "../types/types.js";
+import { CreateReviewDTO, IReviewRepository } from "./service";
 
 export class ReviewRepository implements IReviewRepository {
 	private prisma: PrismaClient;

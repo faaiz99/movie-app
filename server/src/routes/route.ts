@@ -8,5 +8,8 @@ const router = Router();
 router.use(movieRouter);
 router.use(userRouter);
 router.use(reviewRouter);
+router.get("/", (req, res) => {
+	res.send("Movie API");
+});
 
 export { router as mainRouter };

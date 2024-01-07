@@ -1,5 +1,5 @@
 import { PrismaClient, Movie } from "@prisma/client";
-import { CreateMovieDTO, IMovieRepository } from "../types/types";
+import { CreateMovieDTO, IMovieRepository } from "./service";
 
 export class MovieRepository implements IMovieRepository {
 	private prisma: PrismaClient;

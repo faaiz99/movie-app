@@ -1,5 +1,13 @@
-export const login = async () => {};
+import { User, Movie, Review } from "@prisma/client";
 
-export const register = async () => {};
+export interface IUserRepository {
+  register(user: Partial<User>): Promise<User>;
+  login(user: Partial<User>): Promise<User>;
+  refreshToken(user: Partial<User>): Promise<User>;
+}
 
-export const refreshToken = async () => {};
+export const login = async (user:User) => {};
+
+export const register = async (user:User) => {};
+
+export const refreshToken = async (token:any) => {};

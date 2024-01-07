@@ -1,12 +1,12 @@
-import { PrismaClient, User } from "@prisma/client";
-import { IUserRepository } from "./types";
+// import { PrismaClient, User } from "@prisma/client";
+// import { IUserRepository } from "./service";
 
-export class UserRepository implements IUserRepository {
-	private prisma: PrismaClient;
-	constructor(prisma: PrismaClient) {
-		this.prisma = prisma;
-	}
-	async register();
-	async login();
-	async refreshToken();
-}
+// export class UserRepository implements IUserRepository {
+// 	private prisma: PrismaClient;
+// 	constructor(prisma: PrismaClient) {
+// 		this.prisma = prisma;
+// 	}
+// 	async register();
+// 	async login();
+// 	async refreshToken();
+// }

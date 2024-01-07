@@ -1,6 +1,39 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Review } from "@prisma/client";
 import { ReviewRepository } from "./repository";
-import { CreateReviewDTO, UpdateReviewDTO } from "../types/types.js";
+
+export class CreateReviewDTO {
+	id?: string;
+	title: string;
+	rating: number;
+	description: string;
+	movieId: string;
+	userId: string;
+
+	constructor(){
+		this.id = "";
+		this.title = "";
+		this.rating = 0;
+		this.description = "";
+		this.movieId = "";
+		this.userId = "";
+	}
+}
+
+export class UpdateReviewDTO {
+	id?: string;
+	title?: string;
+	rating?: number;
+	description?: string;
+}
+
+export interface IReviewRepository {
+  getAll(): Promise<Review[]>;
+  getById(reviewId: string): Promise<Review | null>;
+  create(review: CreateReviewDTO): Promise<Review>;
+  updatebyId(reviewId: string, review: Partial<Review>): Promise<Review>;
+  deletebyId(reviewId: string): Promise<void>;
+}
+
 
 const prisma = new PrismaClient();
 const reviewRepository = new ReviewRepository(prisma);
