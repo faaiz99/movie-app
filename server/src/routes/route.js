@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.mainRouter = void 0;
+var express_1 = require("express");
+var route_1 = require("../movie/route");
+var route_2 = require("../user/route");
+var route_3 = require("../review/route");
+var router = (0, express_1.Router)();
+exports.mainRouter = router;
+router.use(route_1.movieRouter);
+router.use(route_2.userRouter);
+router.use(route_3.reviewRouter);

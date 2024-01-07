@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.movieRouter = void 0;
+var express_1 = require("express");
+var controller_1 = require("./controller");
+var router = (0, express_1.Router)();
+exports.movieRouter = router;
+router.post("/movies", controller_1.createMovie);
+router.get("/movies", controller_1.getMovies);
+router.get("/movies/:movieId", controller_1.getMovieById);
+router.post("/movies/:movieId", controller_1.updateMovieById);
+router.delete("/movies/:movieId", controller_1.deleteMovieById);
