@@ -7,12 +7,12 @@ export const validateToken: RequestHandler = (
 ) => {
 	const token = req.headers["authorization"];
 	if (!token) {
-		return res.status(403).send({ message: "No token provided!" });
+		return res.status(403).send({ status:false , message: "No token provided!" });
 	}
 	const tokenString = token.split(" ")[1];
 	const decoded = verifyToken(tokenString);
 	if (!decoded) {
-		return res.status(401).send({ message: "Unauthorized!" });
+		return res.status(401).send({status:false , message: "Unauthorized! Please Login Again" });
 	}
 	next();
 };
