@@ -1,4 +1,4 @@
-import { db } from "../src/util/prisma.db";
+import { db } from  "../lib/prisma.db";
 
 // import { PrismaClient } from "@prisma/client";
 
@@ -23,21 +23,6 @@ type Review = {
   rating: number;
 };
 
-function getReviews(): Array<Review> {
-	return [
-		{
-			title: "Good Movie",
-			description: "This is a good movie",
-			rating: 4,
-		},
-		{
-			title: "Bad Movie",
-			description: "This is a bad movie",
-			rating: 1,
-		},
-	];
-}
-
 function getUsers(): Array<User> {
 	return [
 		{
@@ -55,40 +40,57 @@ function getUsers(): Array<User> {
 	];
 }
 
-function getMovies(): Array<Movie> {
-	return [
-		{
-			title: "Oppenheimer",
-			poster:
-        "https://en.wikipedia.org/wiki/Oppenheimer_(film)#/media/File:Oppenheimer_(film).jpg",
-			trailer: "https://www.youtube.com/watch?v=uYPbbksJxIg",
-			description:
-        "During World War II, Lt. Gen. Leslie Groves Jr. appoints physicist J. Robert Oppenheimer to work on the top-secret Manhattan Project. Oppenheimer and a team of scientists spend years developing and designing the atomic bomb. Their work comes to fruition on July 16, 1945, as they witness the world's first nuclear explosion, forever changing the course of history.",
-		},
-		{
-			title: "Napoleon",
-			poster:
-        "https://en.wikipedia.org/wiki/Napoleon_(2023_film)#/media/File:Napoleon_Film_poster.jpg",
-			trailer: "https://www.youtube.com/watch?v=uYPbbksJxIg",
-			description:
-        "A look at the military commander's origins and his swift, ruthless climb to emperor, viewed through the prism of his addictive and often volatile relationship with his wife and one true love, Josephine",
-		},
-	];
-}
+// function getReviews(): Array<Review> {
+// 	return [
+// 		{
+// 			title: "Good Movie",
+// 			description: "This is a good movie",
+// 			rating: 4,
+// 		},
+// 		{
+// 			title: "Bad Movie",
+// 			description: "This is a bad movie",
+// 			rating: 1,
+// 		},
+// 	];
+// }
+
+
+
+// function getMovies(): Array<Movie> {
+// 	return [
+// 		{
+// 			title: "Oppenheimer",
+// 			poster:
+//         "https://en.wikipedia.org/wiki/Oppenheimer_(film)#/media/File:Oppenheimer_(film).jpg",
+// 			trailer: "https://www.youtube.com/watch?v=uYPbbksJxIg",
+// 			description:
+//         "During World War II, Lt. Gen. Leslie Groves Jr. appoints physicist J. Robert Oppenheimer to work on the top-secret Manhattan Project. Oppenheimer and a team of scientists spend years developing and designing the atomic bomb. Their work comes to fruition on July 16, 1945, as they witness the world's first nuclear explosion, forever changing the course of history.",
+// 		},
+// 		{
+// 			title: "Napoleon",
+// 			poster:
+//         "https://en.wikipedia.org/wiki/Napoleon_(2023_film)#/media/File:Napoleon_Film_poster.jpg",
+// 			trailer: "https://www.youtube.com/watch?v=uYPbbksJxIg",
+// 			description:
+//         "A look at the military commander's origins and his swift, ruthless climb to emperor, viewed through the prism of his addictive and often volatile relationship with his wife and one true love, Josephine",
+// 		},
+// 	];
+// }
 
 async function seed() {
-	// await Promise.all(
-	// 	getUsers().map(person =>{
-	// 		 db.user.create({
-	// 			data:{
-	// 				firstName:person.firstName,
-	// 				lastName:person.lastName,
-	// 				email:person.email,
-	// 				password:person.password,
-	// 			}
-	// 		});
-	// 	})
-	// );
+	await Promise.all(
+		getUsers().map(person =>{
+			 db.user.create({
+				data:{
+					firstName:person.firstName,
+					lastName:person.lastName,
+					email:person.email,
+					password:person.password,
+				}
+			});
+		})
+	);
 	// const person = await db.user.findFirst({
 	// 	where: {
 	// 		email: "john_adams@movie.app"
@@ -147,13 +149,13 @@ async function seed() {
 
 	// 	})
 	// );
-	const reviews = await db.review.findMany();
-	const movies = await db.movie.findMany();
-	const users = await db.user.findMany();
+	// const reviews = await db.review.findMany();
+	// const movies = await db.movie.findMany();
+	// const users = await db.user.findMany();
 
-	console.log("users", users);
-	console.log("movies", movies);
-	console.log("reviews", reviews);
+	// console.log("users", users);
+	// console.log("movies", movies);
+	// console.log("reviews", reviews);
 }
 
 seed();
