@@ -74,6 +74,12 @@ router.post("/reviews/:reviewId", checkSchema({
 		errorMessage:"UserId is required"
 	},
 }, ["body", "params"]), updateReviewById);
-router.delete("/reviews/:reviewId", deleteReviewById);
+router.delete("/reviews/:reviewId", checkSchema({
+	reviewId: {
+		isString: true,
+		notEmpty: true,
+		errorMessage:"ReviewId is required"
+	},
+},["params"]), deleteReviewById);
 
 export { router as reviewRouter };
