@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
-import { PrismaClient } from "@prisma/client";
 import { UserRepository } from "./repository";
 import { createToken } from "../utils/auth";
+import { db } from "../../lib/prisma.db";
 export class CreateUserDTO {
 	id: string;
 	firstName: string;
@@ -30,11 +30,9 @@ export interface IUserRepository {
   register(user: Partial<User>): Promise<User>;
   login(user: Partial<User>): Promise<User | null>;
   getUserByEmail(email: string): Promise<User | null>;
-  // refreshToken(user: Partial<User>): Promise<User>;
 }
 
-const prisma = new PrismaClient();
-const userRepository = new UserRepository(prisma);
+const userRepository = new UserRepository(db);
 /**
  * Get user by email
  * compare the passowrd by decrypting the password
