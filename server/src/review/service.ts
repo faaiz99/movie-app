@@ -1,12 +1,11 @@
-import { PrismaClient, Review } from "@prisma/client";
+import { Review } from "@prisma/client";
 import { ReviewRepository } from "./repository";
-
+import { db } from "../../lib/prisma.db";
 export class CreateReviewDTO {
 	id?: string;
 	title: string;
 	rating: number;
 	description: string;
-	//movieId: string;
 	userId: string;
 
 	constructor() {
@@ -14,7 +13,6 @@ export class CreateReviewDTO {
 		this.title = "";
 		this.rating = 0;
 		this.description = "";
-		//this.movieId = "";
 		this.userId = "";
 	}
 }
@@ -34,8 +32,7 @@ export interface IReviewRepository {
   deletebyId(reviewId: string): Promise<void>;
 }
 
-const prisma = new PrismaClient();
-const reviewRepository = new ReviewRepository(prisma);
+const reviewRepository = new ReviewRepository(db);
 
 export const createReview = async (review: CreateReviewDTO, movieId:string) => {
 	const reviewDTO = new CreateReviewDTO();
@@ -43,7 +40,6 @@ export const createReview = async (review: CreateReviewDTO, movieId:string) => {
 	reviewDTO.title = review.title;
 	reviewDTO.description = review.description;
 	reviewDTO.userId = review.userId;
-	//reviewDTO.movieId = review.movieId;
 
 	return await reviewRepository.create(reviewDTO, movieId);
 };
