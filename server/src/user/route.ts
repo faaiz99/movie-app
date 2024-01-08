@@ -15,7 +15,7 @@ router.post(
 		},
 		password: {
 			notEmpty: true,
-			isLength: { options: { min: 6 } },
+			isLength: { options: { min: 3 } },
 			isString: true,
 			errorMessage: "Password must be at least 6 characters long",
 		},
@@ -39,19 +39,23 @@ router.post(
 
 // router.post("/refresh-token", refreshToken);
 
-router.post("/login", checkSchema({
-	email: {
-		isEmail: true,
-		notEmpty: true,
-		normalizeEmail: true,
-		errorMessage: "Enter a Valid Email Address",
-	},
-	password: {
-		notEmpty: true,
-		isLength: { options: { min: 6 } },
-		isString: true,
-		errorMessage: "Password must be at least 6 characters long",
-	},
-}), login);
+router.post(
+	"/login",
+	checkSchema({
+		email: {
+			isEmail: true,
+			notEmpty: true,
+			normalizeEmail: true,
+			errorMessage: "Enter a Valid Email Address",
+		},
+		password: {
+			notEmpty: true,
+			isLength: { options: { min: 2 } },
+			isString: true,
+			errorMessage: "Password must be at least 3 characters long",
+		},
+	}),
+	login
+);
 
 export { router as userRouter };

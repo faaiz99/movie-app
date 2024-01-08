@@ -12,12 +12,13 @@ export const register: RequestHandler = async (
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		handleResponse(res, 422, errors.array());
-	}
-	try {
-		const data = await userService.register(req.body);
-		handleResponse(res, 201, data);
-	} catch (error) {
-		handleError(error, res, next);
+	} else {
+		try {
+			const data = await userService.register(req.body);
+			handleResponse(res, 201, data);
+		} catch (error) {
+			handleError(error, res, next);
+		}
 	}
 };
 
@@ -28,13 +29,14 @@ export const login: RequestHandler = async (
 ) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		handleResponse(res, 422, errors.array());
-	}
-	try {
-		const data = await userService.login(req.body);
-		handleResponse(res, 200, data);
-	} catch (error) {
-		handleError(error, res, next);
+		return handleResponse(res, 422, errors.array());
+	} else {
+		try {
+			const data = await userService.login(req.body);
+			handleResponse(res, 200, data);
+		} catch (error) {
+			handleError(error, res, next);
+		}
 	}
 };
 

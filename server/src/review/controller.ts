@@ -12,14 +12,15 @@ export const createReview: RequestHandler = async (
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		handleResponse(res, 422, errors.array());
-	}
-	const review = req.body;
-	const { movieId } = req.params;
-	try {
-		const data = await reviewService.createReview(review, movieId);
-		handleResponse(res, 200, data);
-	} catch (error) {
-		handleError(error, res, next);
+	} else {
+		const review = req.body;
+		const { movieId } = req.params;
+		try {
+			const data = await reviewService.createReview(review, movieId);
+			handleResponse(res, 200, data);
+		} catch (error) {
+			handleError(error, res, next);
+		}
 	}
 };
 
@@ -31,14 +32,15 @@ export const updateReviewById: RequestHandler = async (
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		handleResponse(res, 422, errors.array());
-	}
-	const { reviewId } = req.params;
-	const review = req.body;
-	try {
-		const data = await reviewService.updateReviewById(reviewId, review);
-		handleResponse(res, 200, data);
-	} catch (error) {
-		handleError(error, res, next);
+	} else {
+		const { reviewId } = req.params;
+		const review = req.body;
+		try {
+			const data = await reviewService.updateReviewById(reviewId, review);
+			handleResponse(res, 200, data);
+		} catch (error) {
+			handleError(error, res, next);
+		}
 	}
 };
 
@@ -50,13 +52,14 @@ export const deleteReviewById: RequestHandler = async (
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		handleResponse(res, 422, errors.array());
-	}
-	const { reviewId } = req.params;
-	try {
-		const data = await reviewService.deleteReviewById(reviewId);
-		handleResponse(res, 200, data);
-	} catch (error) {
-		handleError(error, res, next);
+	} else {
+		const { reviewId } = req.params;
+		try {
+			const data = await reviewService.deleteReviewById(reviewId);
+			handleResponse(res, 200, data);
+		} catch (error) {
+			handleError(error, res, next);
+		}
 	}
 };
 
@@ -68,13 +71,14 @@ export const getReviewById: RequestHandler = async (
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		handleResponse(res, 422, errors.array());
-	}
-	const { reviewId } = req.params;
-	try {
-		const data = await reviewService.getReviewById(reviewId);
-		handleResponse(res, 200, data);
-	} catch (error) {
-		handleError(error, res, next);
+	} else {
+		const { reviewId } = req.params;
+		try {
+			const data = await reviewService.getReviewById(reviewId);
+			handleResponse(res, 200, data);
+		} catch (error) {
+			handleError(error, res, next);
+		}
 	}
 };
 
@@ -86,11 +90,12 @@ export const getReviews: RequestHandler = async (
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		handleResponse(res, 422, errors.array());
-	}
-	try {
-		const data = await reviewService.getReviews();
-		handleResponse(res, 200, data);
-	} catch (error) {
-		handleError(error, res, next);
+	} else {
+		try {
+			const data = await reviewService.getReviews();
+			handleResponse(res, 200, data);
+		} catch (error) {
+			handleError(error, res, next);
+		}
 	}
 };
