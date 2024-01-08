@@ -6,6 +6,28 @@ export class MovieRepository implements IMovieRepository {
 	constructor(prisma: PrismaClient) {
 		this.prisma = prisma;
 	}
+	async getMoviesByCharactersInTheirName(characters: string): Promise<Movie[]> {
+		return await this.prisma.movie.findMany({
+			where:{
+				title:{
+					contains: characters,
+				},
+			},
+	
+		});
+	}
+	async getMoviesWithMostReviews(): Promise<Movie[]> {
+		return await this.prisma.movie.findMany({
+			include:{
+				reviews: true,
+			},
+			orderBy:{
+				reviews:{
+					_count: "desc",
+				}
+			},
+		});
+	}
 	async getAll(): Promise<Movie[]> {
 		return await this.prisma.movie.findMany();
 	}
@@ -65,4 +87,5 @@ export class MovieRepository implements IMovieRepository {
 			},
 		});
 	}
+
 }

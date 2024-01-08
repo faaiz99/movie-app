@@ -1,5 +1,6 @@
-import { PrismaClient, Movie } from "@prisma/client";
+import { Movie } from "@prisma/client";
 import { MovieRepository } from "./repository";
+import { db } from "../../lib/prisma.db";
 
 export class CreateMovieDTO {
 	id: string;
@@ -33,10 +34,20 @@ export interface IMovieRepository {
   create(movie: CreateMovieDTO): Promise<Movie>;
   updatebyId(movieId: string, movie: Partial<Movie>): Promise<Movie>;
   deletebyId(movieId: string): Promise<void>;
+  getMoviesWithMostReviews(): Promise<Movie[]>;
+  getMoviesByCharactersInTheirName(characters: string): Promise<Movie[]>
 }
 
-const prisma = new PrismaClient();
-const movieRepository = new MovieRepository(prisma);
+const movieRepository = new MovieRepository(db);
+
+
+export const getMoviesByCharactersInTheirName = async (characters: string) => {
+	return await movieRepository.getMoviesByCharactersInTheirName(characters);
+}
+
+export const getMoviesWithMostReviews = async () => {
+	return await movieRepository.getMoviesWithMostReviews();
+};
 
 export const createMovie = async (movie: CreateMovieDTO) => {
 	const movieDTO = new CreateMovieDTO();

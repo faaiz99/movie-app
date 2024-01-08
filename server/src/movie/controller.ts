@@ -3,6 +3,18 @@ import { handleError } from "../middewares/error";
 import { handleResponse } from "../utils/response";
 import * as movieService from "./service";
 
+
+export const getMoviesByCharactersInTheirName: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
+	const { term } = req.query;
+	try {
+		const data = await movieService.getMoviesByCharactersInTheirName(term as string);
+		handleResponse(res, 200, data);
+	} catch (error) {
+		handleError(error, res, next);
+	}
+
+};
+
 export const updateMovieById: RequestHandler = async (
 	req: Request,
 	res: Response,
@@ -67,6 +79,15 @@ export const createMovie: RequestHandler = async (
 	const movie = req.body;
 	try {
 		const data = await movieService.createMovie(movie);
+		handleResponse(res, 200, data);
+	} catch (error) {
+		handleError(error, res, next);
+	}
+};
+
+export const getMoviesWithMostReviews: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
+	try {
+		const data = await movieService.getMoviesWithMostReviews();
 		handleResponse(res, 200, data);
 	} catch (error) {
 		handleError(error, res, next);
