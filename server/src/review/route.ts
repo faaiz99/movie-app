@@ -8,7 +8,7 @@ import {
 } from "./controller";
 const router = Router();
 
-router.post("/reviews", createReview);
+router.post("/reviews/:movieId", createReview);
 router.get("/reviews", getReviews);
 router.get("/reviews/:reviewId", getReviewById);
 router.post("/reviews/:reviewId", updateReviewById);

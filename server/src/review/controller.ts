@@ -9,8 +9,9 @@ export const createReview: RequestHandler = async (
 	next: NextFunction,
 ) => {
 	const review = req.body;
+	const { movieId } = req.params;
 	try {
-		const data = await reviewService.createReview(review);
+		const data = await reviewService.createReview(review, movieId);
 		handleResponse(res, 200, data);
 	} catch (error) {
 		handleError(error, res, next);

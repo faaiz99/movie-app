@@ -16,9 +16,16 @@ export class ReviewRepository implements IReviewRepository {
 			},
 		});
 	}
-	async create(review: CreateReviewDTO): Promise<Review> {
+	async create(review: CreateReviewDTO, movieId:string): Promise<Review> {
+		const { title, rating, description, userId } = review;
 		return await this.prisma.review.create({
-			data: review,
+			data: {
+				title: title,
+				rating: rating,
+				description: description,
+				userId: userId,
+				movieId: movieId,
+			}
 		});
 	}
 	async updatebyId(id: string, review: Partial<Review>): Promise<Review> {

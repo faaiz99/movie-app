@@ -6,7 +6,7 @@ export class CreateReviewDTO {
 	title: string;
 	rating: number;
 	description: string;
-	movieId: string;
+	//movieId: string;
 	userId: string;
 
 	constructor() {
@@ -14,7 +14,7 @@ export class CreateReviewDTO {
 		this.title = "";
 		this.rating = 0;
 		this.description = "";
-		this.movieId = "";
+		//this.movieId = "";
 		this.userId = "";
 	}
 }
@@ -29,7 +29,7 @@ export class UpdateReviewDTO {
 export interface IReviewRepository {
   getAll(): Promise<Review[]>;
   getById(reviewId: string): Promise<Review | null>;
-  create(review: CreateReviewDTO): Promise<Review>;
+  create(review: CreateReviewDTO, movieId:string): Promise<Review>;
   updatebyId(reviewId: string, review: Partial<Review>): Promise<Review>;
   deletebyId(reviewId: string): Promise<void>;
 }
@@ -37,15 +37,15 @@ export interface IReviewRepository {
 const prisma = new PrismaClient();
 const reviewRepository = new ReviewRepository(prisma);
 
-export const createReview = async (review: CreateReviewDTO) => {
+export const createReview = async (review: CreateReviewDTO, movieId:string) => {
 	const reviewDTO = new CreateReviewDTO();
 	reviewDTO.rating = review.rating;
 	reviewDTO.title = review.title;
 	reviewDTO.description = review.description;
 	reviewDTO.userId = review.userId;
-	reviewDTO.movieId = review.movieId;
+	//reviewDTO.movieId = review.movieId;
 
-	return await reviewRepository.create(reviewDTO);
+	return await reviewRepository.create(reviewDTO, movieId);
 };
 
 export const getReviews = async () => {
