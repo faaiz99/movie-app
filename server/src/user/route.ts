@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, register, refreshToken } from "./controller";
+import { login, register, refreshToken, deleteUser } from "./controller";
 import { checkSchema } from "express-validator";
 
 const router = Router();
@@ -57,5 +57,16 @@ router.post(
 	}),
 	login
 );
+
+router.delete("/user/:emailId", checkSchema({
+	"emailId":{
+		isEmail:true,
+		notEmpty: {
+			errorMessage:"Email Id is Required"
+		},
+		normalizeEmail:true,
+		errorMessage:"Enter a Valid Email Address"
+	}
+},["params"]),deleteUser);
 
 export { router as userRouter };

@@ -7,7 +7,7 @@ export class UserRepository implements IUserRepository {
 	constructor(prisma: PrismaClient) {
 		this.prisma = prisma;
 	}
-	async register(user: CreateUserDTO): Promise<User> {
+	async register(user: CreateUserDTO): Promise<Partial<User>> {
 		const { email, firstName, lastName, password } = user;
 		const encodedPassword = await hashPassword(password);
 		return await this.prisma.user.create({
@@ -17,6 +17,11 @@ export class UserRepository implements IUserRepository {
 				lastName: lastName,
 				password: encodedPassword,
 			},
+			select:{
+				email:true,
+				firstName:true,
+				lastName:true
+			}
 		});
 	}
 	async login(user: LoginUserDTO): Promise<User | null> {
@@ -39,4 +44,11 @@ export class UserRepository implements IUserRepository {
 		});
 	}
 	// async refreshToken();
+	async deleteUser(email: string): Promise<User | null> {
+		return await this.prisma.user.delete({
+			where: {
+				email: email,
+			},
+		});
+	}
 }

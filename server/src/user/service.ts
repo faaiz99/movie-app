@@ -27,9 +27,10 @@ export class LoginUserDTO {
 }
 
 export interface IUserRepository {
-  register(user: Partial<User>): Promise<User>;
+  register(user: Partial<User>): Promise<Partial<User>>;
   login(user: Partial<User>): Promise<User | null>;
   getUserByEmail(email: string): Promise<User | null>;
+  deleteUser(email: string): Promise<User | null>;
 }
 
 const userRepository = new UserRepository(db);
@@ -101,3 +102,13 @@ export const register = async (user: CreateUserDTO) => {
 export const refreshToken = async (token: string) => {
 	return token;
 };
+
+export const deleteUser = async (email: string) => {
+	const user = await userRepository.getUserByEmail(email);
+	if (!user) {
+		throw new Error(`User not found with email ${email}`);
+	} else {
+		const deletedUser = await userRepository.deleteUser(email);
+		return deletedUser;
+	}
+}
