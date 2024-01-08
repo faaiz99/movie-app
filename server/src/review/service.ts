@@ -27,14 +27,17 @@ export class UpdateReviewDTO {
 export interface IReviewRepository {
   getAll(): Promise<Review[]>;
   getById(reviewId: string): Promise<Review | null>;
-  create(review: CreateReviewDTO, movieId:string): Promise<Review>;
+  create(review: CreateReviewDTO, movieId: string): Promise<Review>;
   updatebyId(reviewId: string, review: Partial<Review>): Promise<Review>;
   deletebyId(reviewId: string): Promise<void>;
 }
 
 const reviewRepository = new ReviewRepository(db);
 
-export const createReview = async (review: CreateReviewDTO, movieId:string) => {
+export const createReview = async (
+	review: CreateReviewDTO,
+	movieId: string
+) => {
 	const reviewDTO = new CreateReviewDTO();
 	reviewDTO.rating = review.rating;
 	reviewDTO.title = review.title;
@@ -58,7 +61,7 @@ export const deleteReviewById = async (reviewId: string) => {
 
 export const updateReviewById = async (
 	reviewId: string,
-	review: UpdateReviewDTO,
+	review: UpdateReviewDTO
 ) => {
 	const reviewDTO = new UpdateReviewDTO();
 	reviewDTO.rating = review.rating;

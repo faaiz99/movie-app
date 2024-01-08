@@ -5,7 +5,7 @@ const salt: number = parseInt(process.env.SALT || "10");
 
 export const comparePasswords = async (
 	password: string,
-	hashedPassword: string,
+	hashedPassword: string
 ) => {
 	return await bcrypt.compare(password, hashedPassword);
 };

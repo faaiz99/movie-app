@@ -3,7 +3,7 @@ import { Response, NextFunction } from "express";
 export const handleError = (
 	error: any,
 	res: Response,
-	next: NextFunction,
+	next: NextFunction
 ): void => {
 	const statusCode = error.statusCode || 500;
 	let message = error.message || "Internal Server Error";

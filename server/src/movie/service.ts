@@ -35,15 +35,14 @@ export interface IMovieRepository {
   updatebyId(movieId: string, movie: Partial<Movie>): Promise<Movie>;
   deletebyId(movieId: string): Promise<void>;
   getMoviesWithMostReviews(): Promise<Movie[]>;
-  getMoviesByCharactersInTheirName(characters: string): Promise<Movie[]>
+  getMoviesByCharactersInTheirName(characters: string): Promise<Movie[]>;
 }
 
 const movieRepository = new MovieRepository(db);
 
-
 export const getMoviesByCharactersInTheirName = async (characters: string) => {
 	return await movieRepository.getMoviesByCharactersInTheirName(characters);
-}
+};
 
 export const getMoviesWithMostReviews = async () => {
 	return await movieRepository.getMoviesWithMostReviews();
@@ -74,7 +73,7 @@ export const deleteMovieById = async (movieId: string) => {
 
 export const updateMovieById = async (
 	movieId: string,
-	movie: UpdateMovieDTO,
+	movie: UpdateMovieDTO
 ) => {
 	const movieDTO = new UpdateMovieDTO();
 	movieDTO.title = movie.title;

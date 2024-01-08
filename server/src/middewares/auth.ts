@@ -3,16 +3,21 @@ import { verifyToken } from "../utils/auth";
 export const validateToken: RequestHandler = (
 	req: Request,
 	res: Response,
-	next: NextFunction,
+	next: NextFunction
 ) => {
 	const token = req.headers["authorization"];
 	if (!token) {
-		return res.status(403).send({ status:false , message: "No token provided!" });
+		return res
+			.status(403)
+			.send({ status: false, message: "No token provided!" });
 	}
 	const tokenString = token.split(" ")[1];
 	const decoded = verifyToken(tokenString);
 	if (!decoded) {
-		return res.status(401).send({status:false , message: "Unauthorized! Please Login Again" });
+		return res.status(401).send({
+			status: false,
+			message: "Unauthorized! Please Login Again",
+		});
 	}
 	next();
 };

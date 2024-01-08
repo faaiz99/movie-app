@@ -2,12 +2,17 @@ import { Request, Response, RequestHandler, NextFunction } from "express";
 import * as userService from "./service";
 import { handleError } from "../middewares/error";
 import { handleResponse } from "../utils/response";
+import { validationResult } from "express-validator";
 
 export const register: RequestHandler = async (
 	req: Request,
 	res: Response,
-	next: NextFunction,
+	next: NextFunction
 ) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		handleResponse(res, 422, errors.array());
+	}
 	try {
 		const data = await userService.register(req.body);
 		handleResponse(res, 201, data);
@@ -19,8 +24,12 @@ export const register: RequestHandler = async (
 export const login: RequestHandler = async (
 	req: Request,
 	res: Response,
-	next: NextFunction,
+	next: NextFunction
 ) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		handleResponse(res, 422, errors.array());
+	}
 	try {
 		const data = await userService.login(req.body);
 		handleResponse(res, 200, data);
@@ -32,7 +41,7 @@ export const login: RequestHandler = async (
 export const refreshToken: RequestHandler = async (
 	req: Request,
 	res: Response,
-	next: NextFunction,
+	next: NextFunction
 ) => {
 	try {
 		const data = await userService.refreshToken(req.body);

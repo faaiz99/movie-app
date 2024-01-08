@@ -1,4 +1,4 @@
-import { db } from  "../lib/prisma.db";
+import { db } from "../lib/prisma.db";
 
 // import { PrismaClient } from "@prisma/client";
 
@@ -55,8 +55,6 @@ function getUsers(): Array<User> {
 // 	];
 // }
 
-
-
 // function getMovies(): Array<Movie> {
 // 	return [
 // 		{
@@ -80,14 +78,14 @@ function getUsers(): Array<User> {
 
 async function seed() {
 	await Promise.all(
-		getUsers().map(person =>{
-			 db.user.create({
-				data:{
-					firstName:person.firstName,
-					lastName:person.lastName,
-					email:person.email,
-					password:person.password,
-				}
+		getUsers().map((person) => {
+			db.user.create({
+				data: {
+					firstName: person.firstName,
+					lastName: person.lastName,
+					email: person.email,
+					password: person.password,
+				},
 			});
 		})
 	);

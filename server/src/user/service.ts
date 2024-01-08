@@ -49,7 +49,7 @@ export const login = async (user: LoginUserDTO) => {
 	const authenticatedUser = await userRepository.login(loginUserDTO);
 	if (!authenticatedUser) {
 		throw new Error(
-			`User not found with email ${loginUserDTO.email} or Password is incorrect`,
+			`User not found with email ${loginUserDTO.email} or Password is incorrect`
 		);
 	} else {
 		//generate token

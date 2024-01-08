@@ -8,23 +8,22 @@ export class MovieRepository implements IMovieRepository {
 	}
 	async getMoviesByCharactersInTheirName(characters: string): Promise<Movie[]> {
 		return await this.prisma.movie.findMany({
-			where:{
-				title:{
+			where: {
+				title: {
 					contains: characters,
 				},
 			},
-	
 		});
 	}
 	async getMoviesWithMostReviews(): Promise<Movie[]> {
 		return await this.prisma.movie.findMany({
-			include:{
+			include: {
 				reviews: true,
 			},
-			orderBy:{
-				reviews:{
+			orderBy: {
+				reviews: {
 					_count: "desc",
-				}
+				},
 			},
 		});
 	}
@@ -36,28 +35,28 @@ export class MovieRepository implements IMovieRepository {
 			where: {
 				id: id,
 			},
-			include:{
+			include: {
 				reviews: {
-					include:{
+					include: {
 						user: {
-							select:{
+							select: {
 								id: true,
 								firstName: true,
 								lastName: true,
 								email: true,
-							}
-						}
-					}
+							},
+						},
+					},
 				},
 				user: {
-					select:{
+					select: {
 						id: true,
 						firstName: true,
 						lastName: true,
 						email: true,
-					}
+					},
 				},
-			}
+			},
 		});
 	}
 	async create(movie: CreateMovieDTO): Promise<Movie> {
@@ -69,7 +68,7 @@ export class MovieRepository implements IMovieRepository {
 				poster: poster,
 				trailer: trailer,
 				userId: userId,
-			}
+			},
 		});
 	}
 	async updatebyId(id: string, movie: Partial<Movie>): Promise<Movie> {
@@ -87,5 +86,4 @@ export class MovieRepository implements IMovieRepository {
 			},
 		});
 	}
-
 }

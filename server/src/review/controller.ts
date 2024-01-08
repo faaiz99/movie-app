@@ -2,12 +2,17 @@ import { Request, Response, RequestHandler, NextFunction } from "express";
 import { handleError } from "../middewares/error";
 import { handleResponse } from "../utils/response";
 import * as reviewService from "./service";
+import { validationResult } from "express-validator";
 
 export const createReview: RequestHandler = async (
 	req: Request,
 	res: Response,
-	next: NextFunction,
+	next: NextFunction
 ) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		handleResponse(res, 422, errors.array());
+	}
 	const review = req.body;
 	const { movieId } = req.params;
 	try {
@@ -21,8 +26,12 @@ export const createReview: RequestHandler = async (
 export const updateReviewById: RequestHandler = async (
 	req: Request,
 	res: Response,
-	next: NextFunction,
+	next: NextFunction
 ) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		handleResponse(res, 422, errors.array());
+	}
 	const { reviewId } = req.params;
 	const review = req.body;
 	try {
@@ -36,8 +45,12 @@ export const updateReviewById: RequestHandler = async (
 export const deleteReviewById: RequestHandler = async (
 	req: Request,
 	res: Response,
-	next: NextFunction,
+	next: NextFunction
 ) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		handleResponse(res, 422, errors.array());
+	}
 	const { reviewId } = req.params;
 	try {
 		const data = await reviewService.deleteReviewById(reviewId);
@@ -50,8 +63,12 @@ export const deleteReviewById: RequestHandler = async (
 export const getReviewById: RequestHandler = async (
 	req: Request,
 	res: Response,
-	next: NextFunction,
+	next: NextFunction
 ) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		handleResponse(res, 422, errors.array());
+	}
 	const { reviewId } = req.params;
 	try {
 		const data = await reviewService.getReviewById(reviewId);
@@ -64,8 +81,12 @@ export const getReviewById: RequestHandler = async (
 export const getReviews: RequestHandler = async (
 	req: Request,
 	res: Response,
-	next: NextFunction,
+	next: NextFunction
 ) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		handleResponse(res, 422, errors.array());
+	}
 	try {
 		const data = await reviewService.getReviews();
 		handleResponse(res, 200, data);
