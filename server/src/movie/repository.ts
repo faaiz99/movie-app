@@ -14,11 +14,40 @@ export class MovieRepository implements IMovieRepository {
 			where: {
 				id: id,
 			},
+			include:{
+				reviews: {
+					include:{
+						user: {
+							select:{
+								id: true,
+								firstName: true,
+								lastName: true,
+								email: true,
+							}
+						}
+					}
+				},
+				user: {
+					select:{
+						id: true,
+						firstName: true,
+						lastName: true,
+						email: true,
+					}
+				},
+			}
 		});
 	}
 	async create(movie: CreateMovieDTO): Promise<Movie> {
+		const { title, description, poster, trailer, userId } = movie;
 		return await this.prisma.movie.create({
-			data: movie,
+			data: {
+				title: title,
+				description: description,
+				poster: poster,
+				trailer: trailer,
+				userId: userId,
+			}
 		});
 	}
 	async updatebyId(id: string, movie: Partial<Movie>): Promise<Movie> {
