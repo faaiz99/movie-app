@@ -71,7 +71,7 @@ export class MovieRepository implements IMovieRepository {
 			},
 		});
 	}
-	async updatebyId(id: string, movie: Partial<Movie>): Promise<Movie> {
+	async updateById(id: string, movie: Partial<Movie>): Promise<Movie> {
 		return await this.prisma.movie.update({
 			where: {
 				id: id,
@@ -79,7 +79,7 @@ export class MovieRepository implements IMovieRepository {
 			data: movie,
 		});
 	}
-	async deletebyId(id: string): Promise<void> {
+	async deleteById(id: string): Promise<void> {
 		await this.prisma.movie.delete({
 			where: {
 				id: id,

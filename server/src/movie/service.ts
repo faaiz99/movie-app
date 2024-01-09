@@ -32,8 +32,8 @@ export interface IMovieRepository {
   getAll(): Promise<Movie[]>;
   getById(movieId: string): Promise<Movie | null>;
   create(movie: CreateMovieDTO): Promise<Movie>;
-  updatebyId(movieId: string, movie: Partial<Movie>): Promise<Movie>;
-  deletebyId(movieId: string): Promise<void>;
+  updateById(movieId: string, movie: Partial<Movie>): Promise<Movie>;
+  deleteById(movieId: string): Promise<void>;
   getMoviesWithMostReviews(): Promise<Movie[]>;
   getMoviesByCharactersInTheirName(characters: string): Promise<Movie[]>;
 }
@@ -68,7 +68,7 @@ export const getMovieById = async (movieId: string) => {
 };
 
 export const deleteMovieById = async (movieId: string) => {
-	return await movieRepository.deletebyId(movieId);
+	return await movieRepository.deleteById(movieId);
 };
 
 export const updateMovieById = async (
@@ -81,5 +81,5 @@ export const updateMovieById = async (
 	movieDTO.poster = movie.poster;
 	movieDTO.trailer = movie.trailer;
 
-	return await movieRepository.updatebyId(movieId, movieDTO);
+	return await movieRepository.updateById(movieId, movieDTO);
 };

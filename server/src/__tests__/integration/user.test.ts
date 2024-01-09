@@ -2,7 +2,7 @@ import request from "supertest";
 import app from "../../app";
 describe("User - Controller", () => {
 	const testUser = {
-		email: "test6@gmail.com",
+		email: "test@gmail.com",
 		firstName: "test",
 		lastName: "test",
 		password: "123",
