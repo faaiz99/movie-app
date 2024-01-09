@@ -5,7 +5,7 @@ describe("User - Controller", () => {
 		email: "test6@gmail.com",
 		firstName: "test",
 		lastName: "test",
-		password: "123"
+		password: "123",
 	};
 	afterAll(async () => {
 		await request(app).delete(`/api/user/${testUser.email}`);
@@ -23,13 +23,12 @@ describe("User - Controller", () => {
 			const response = await request(app).post("/api/register").send(testUser);
 			expect(response.status).toBe(409);
 		});
-
 	});
 	describe("Login", () => {
-		it("POST api/login should return 200 OK with valid credentials", async () => { 
+		it("POST api/login should return 200 OK with valid credentials", async () => {
 			const response = await request(app).post("/api/login").send({
 				email: testUser.email,
-				password: testUser.password
+				password: testUser.password,
 			});
 			expect(response.status).toBe(200);
 			expect(response.body.user.email).toEqual(testUser.email);
@@ -40,7 +39,7 @@ describe("User - Controller", () => {
 		it("POST api/login should return 401 Unauthorized with invalid credentials", async () => {
 			const response = await request(app).post("/api/login").send({
 				email: testUser.email,
-				password: "1234"
+				password: "1234",
 			});
 			expect(response.status).toBe(401);
 		});

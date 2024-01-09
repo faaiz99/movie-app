@@ -17,11 +17,11 @@ export class UserRepository implements IUserRepository {
 				lastName: lastName,
 				password: encodedPassword,
 			},
-			select:{
-				email:true,
-				firstName:true,
-				lastName:true
-			}
+			select: {
+				email: true,
+				firstName: true,
+				lastName: true,
+			},
 		});
 	}
 	async login(user: LoginUserDTO): Promise<User | null> {

@@ -17,8 +17,10 @@ export const createReview: RequestHandler = async (
 		const { movieId } = req.params;
 		try {
 			const data = await reviewService.createReview(review, movieId);
-			handleResponse(res, 200, data);
-		} catch (error) {
+			handleResponse(res, 201, data);
+		} catch (error: any) {
+			// error.statusCode = 409;
+			// error.message = "Review already exists with title";
 			handleError(error, res, next);
 		}
 	}
@@ -38,7 +40,9 @@ export const updateReviewById: RequestHandler = async (
 		try {
 			const data = await reviewService.updateReviewById(reviewId, review);
 			handleResponse(res, 200, data);
-		} catch (error) {
+		} catch (error: any) {
+			error.statusCode = 404;
+			error.message = "Review Not Found";
 			handleError(error, res, next);
 		}
 	}
@@ -57,7 +61,9 @@ export const deleteReviewById: RequestHandler = async (
 		try {
 			const data = await reviewService.deleteReviewById(reviewId);
 			handleResponse(res, 200, data);
-		} catch (error) {
+		} catch (error: any) {
+			error.statusCode = 404;
+			error.message = "Review Not Found";
 			handleError(error, res, next);
 		}
 	}
@@ -75,8 +81,11 @@ export const getReviewById: RequestHandler = async (
 		const { reviewId } = req.params;
 		try {
 			const data = await reviewService.getReviewById(reviewId);
+			if (!data) throw new Error("Review Not Found");
 			handleResponse(res, 200, data);
-		} catch (error) {
+		} catch (error: any) {
+			error.statusCode = 404;
+			error.message = "Review Not Found";
 			handleError(error, res, next);
 		}
 	}
@@ -93,6 +102,7 @@ export const getReviews: RequestHandler = async (
 	} else {
 		try {
 			const data = await reviewService.getReviews();
+			if (!data) throw new Error("Review Not Found");
 			handleResponse(res, 200, data);
 		} catch (error) {
 			handleError(error, res, next);

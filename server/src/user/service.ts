@@ -111,4 +111,4 @@ export const deleteUser = async (email: string) => {
 		const deletedUser = await userRepository.deleteUser(email);
 		return deletedUser;
 	}
-}
+};

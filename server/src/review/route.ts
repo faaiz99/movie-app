@@ -56,6 +56,10 @@ router.get(
 				isString: true,
 				notEmpty: true,
 				errorMessage: "ReviewId is required",
+				isLength: {
+					options: { min: 36, max: 36 },
+					errorMessage: "ReviewId must be 36 characters",
+				},
 			},
 		},
 		["params"]

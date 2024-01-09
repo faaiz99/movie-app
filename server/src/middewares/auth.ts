@@ -22,10 +22,9 @@ export const validateToken: RequestHandler = (
 			});
 		}
 		next();
-	} catch (error:any) {
+	} catch (error: any) {
 		error.statusCode = 401;
 		error.message = "Invalid Token";
 		handleError(error, res, next);
 	}
-
 };

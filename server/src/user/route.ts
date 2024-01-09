@@ -58,15 +58,22 @@ router.post(
 	login
 );
 
-router.delete("/user/:emailId", checkSchema({
-	"emailId":{
-		isEmail:true,
-		notEmpty: {
-			errorMessage:"Email Id is Required"
+router.delete(
+	"/user/:emailId",
+	checkSchema(
+		{
+			emailId: {
+				isEmail: true,
+				notEmpty: {
+					errorMessage: "Email Id is Required",
+				},
+				normalizeEmail: true,
+				errorMessage: "Enter a Valid Email Address",
+			},
 		},
-		normalizeEmail:true,
-		errorMessage:"Enter a Valid Email Address"
-	}
-},["params"]),deleteUser);
+		["params"]
+	),
+	deleteUser
+);
 
 export { router as userRouter };
