@@ -18,6 +18,6 @@ export const verifyToken = (token: string) => {
 	try {
 		return jwt.verify(token, secret);
 	} catch (error) {
-		console.log("Something went wrong: ", error);
+		throw new Error("Invalid token");
 	}
 };

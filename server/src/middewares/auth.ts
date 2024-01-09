@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import { verifyToken } from "../utils/auth";
+import { handleError } from "./error";
 export const validateToken: RequestHandler = (
 	req: Request,
 	res: Response,
@@ -12,12 +13,19 @@ export const validateToken: RequestHandler = (
 			.send({ status: false, message: "No token provided!" });
 	}
 	const tokenString = token.split(" ")[1];
-	const decoded = verifyToken(tokenString);
-	if (!decoded) {
-		return res.status(401).send({
-			status: false,
-			message: "Unauthorized! Please Login Again",
-		});
+	try {
+		const decoded = verifyToken(tokenString);
+		if (!decoded) {
+			return res.status(401).send({
+				status: false,
+				message: "Unauthorized! Please Login Again",
+			});
+		}
+		next();
+	} catch (error:any) {
+		error.statusCode = 401;
+		error.message = "Invalid Token";
+		handleError(error, res, next);
 	}
-	next();
+
 };
