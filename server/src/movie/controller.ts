@@ -39,7 +39,9 @@ export const updateMovieById: RequestHandler = async (
 		try {
 			const data = await movieService.updateMovieById(movieId, movie);
 			handleResponse(res, 200, data);
-		} catch (error) {
+		} catch (error:any) {
+			error.statusCode = 404;
+			error.message = "Movie Not Found";
 			handleError(error, res, next);
 		}
 	}
@@ -58,7 +60,9 @@ export const deleteMovieById: RequestHandler = async (
 		try {
 			const data = await movieService.deleteMovieById(movieId);
 			handleResponse(res, 200, data);
-		} catch (error) {
+		} catch (error:any) {
+			error.statusCode = 404;
+			error.message = "Movie Not Found";
 			handleError(error, res, next);
 		}
 	}
@@ -76,8 +80,16 @@ export const getMovieById: RequestHandler = async (
 		const { movieId } = req.params;
 		try {
 			const data = await movieService.getMovieById(movieId);
+			/**
+			 * Since no movies are matched an exception is not thrown but a null value is returned but code is not refactored to handle this case
+			 */
+			if (!data) {
+				throw new Error("Movie Not Found");
+			}
 			handleResponse(res, 200, data);
-		} catch (error) {
+		} catch (error:any) {
+			error.statusCode = 404;
+			error.message = "Movie Not Found";
 			handleError(error, res, next);
 		}
 	}
@@ -113,8 +125,10 @@ export const createMovie: RequestHandler = async (
 		const movie = req.body;
 		try {
 			const data = await movieService.createMovie(movie);
-			handleResponse(res, 200, data);
-		} catch (error) {
+			handleResponse(res, 201, data);
+		} catch (error:any) {
+			error.statusCode = 409;
+			error.message = "Movie already exists with title";
 			handleError(error, res, next);
 		}
 	}
