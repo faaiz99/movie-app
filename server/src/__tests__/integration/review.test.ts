@@ -231,7 +231,6 @@ describe("Review - Controller", () => {
 			expect(response.body.message).toEqual("Review Not Found");
 		});
 	});
-
 });
 
 describe("Review - Controller", () => {
@@ -299,7 +298,9 @@ describe("Review - Controller", () => {
 	});
 	describe("UPDATE Reviews", () => {
 		it("POST api/reviews/reviewId should return 403 No Token with missing auth header", async () => {
-			const response = await request(app).post(`/api/reviews/${reviewId}`).send(reviewPayload);
+			const response = await request(app)
+				.post(`/api/reviews/${reviewId}`)
+				.send(reviewPayload);
 			expect(response.status).toBe(403);
 			expect(response.body.status).toEqual(false);
 			expect(response.body.message).toEqual("No token provided!");
@@ -344,9 +345,7 @@ describe("Review - Controller", () => {
 			expect(response.body.message).toEqual("Review Not Found");
 		});
 	});
-
 });
-
 
 describe("Review - Controller", () => {
 	let token: string;
@@ -413,7 +412,9 @@ describe("Review - Controller", () => {
 	});
 	describe("DELETE Reviews", () => {
 		it("DELETE api/reviews/reviewId should return 403 No Token with missing auth header", async () => {
-			const response = await request(app).delete(`/api/reviews/${reviewId}`).send(reviewPayload);
+			const response = await request(app)
+				.delete(`/api/reviews/${reviewId}`)
+				.send(reviewPayload);
 			expect(response.status).toBe(403);
 			expect(response.body.status).toEqual(false);
 			expect(response.body.message).toEqual("No token provided!");
@@ -454,5 +455,4 @@ describe("Review - Controller", () => {
 			expect(response.body.message).toEqual("Review Not Found");
 		});
 	});
-
 });

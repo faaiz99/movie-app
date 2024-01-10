@@ -27,7 +27,7 @@ export class MovieRepository implements IMovieRepository {
 			},
 		});
 	}
-	async getAll(): Promise<Movie[]> {
+	async getMovies(): Promise<Movie[]> {
 		return await this.prisma.movie.findMany();
 	}
 	async getById(id: string): Promise<Movie | null> {

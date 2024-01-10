@@ -32,9 +32,8 @@ describe("Movie Service", () => {
 				.spyOn(movieService, "getMoviesByCharactersInTheirName")
 				.mockResolvedValue(expectedMovies);
 
-			const result = await movieService.getMoviesByCharactersInTheirName(
-				characters
-			);
+			const result =
+        await movieService.getMoviesByCharactersInTheirName(characters);
 
 			expect(result).toEqual(expectedMovies);
 		});
@@ -57,7 +56,7 @@ describe("Movie Service", () => {
 	describe("createMovie", () => {
 		it("should create a new movie", async () => {
 			const createMovieDTO: CreateMovieDTO = {
-				id:"",
+				id: "",
 				title: "New Movie",
 				description: "This is a new movie",
 				poster: "new-movie-poster.jpg",
@@ -70,12 +69,10 @@ describe("Movie Service", () => {
 				id: "2",
 			};
 
-			jest
-				.spyOn(movieService, "createMovie")
-				.mockResolvedValue(expectedMovie);
+			jest.spyOn(movieService, "createMovie").mockResolvedValue(expectedMovie);
 
 			const result = await movieService.createMovie(createMovieDTO);
-
+			expect(movieService.createMovie).toHaveBeenCalledWith(createMovieDTO);
 			expect(result).toEqual(expectedMovie);
 		});
 	});
@@ -98,39 +95,35 @@ describe("Movie Service", () => {
 			};
 
 			jest
-				.spyOn(MovieRepository as any, "updatebyId")
+				.spyOn(movieService, "updateMovieById")
 				.mockResolvedValue(updatedMovie);
 
 			const result = await movieService.updateMovieById(movieId, movie);
-
+			expect(movieService.updateMovieById).toHaveBeenCalledWith(movieId, movie);
 			expect(result).toEqual(updatedMovie);
 		});
 	});
 
-	describe("getAll", () => {
+	describe("getMovies", () => {
 		it("should return all movies", async () => {
 			const expectedMovies: Movie[] = [mockMovie];
 
-			jest
-				.spyOn(MovieRepository as any, "getAll")
-				.mockResolvedValue(expectedMovies);
+			jest.spyOn(movieService, "getMovies").mockResolvedValue(expectedMovies);
 
 			const result = await movieService.getMovies();
-
+			expect(movieService.getMovies).toHaveBeenCalled();
 			expect(result).toEqual(expectedMovies);
 		});
 	});
 
-	describe("getById", () => {
+	describe("getByMovieId", () => {
 		it("should return a movie by its ID", async () => {
 			const movieId = "1";
 			const expectedMovie: Movie = mockMovie;
-			jest
-				.spyOn(MovieRepository as any, "getById")
-				.mockResolvedValue(expectedMovie);
+			jest.spyOn(movieService, "getMovieById").mockResolvedValue(expectedMovie);
 
 			const result = await movieService.getMovieById(movieId);
-
+			expect(movieService.getMovieById).toHaveBeenCalledWith(movieId);
 			expect(result).toEqual(expectedMovie);
 		});
 	});
@@ -138,12 +131,14 @@ describe("Movie Service", () => {
 	describe("deleteById", () => {
 		it("should delete a movie by its ID", async () => {
 			const movieId = "1";
-
-			jest.spyOn(MovieRepository as any, "deleteById")
+			jest
+				.spyOn(movieService, "deleteMovieById")
+			//@ts-ignore
 				.mockResolvedValue(movieId);
 
-			await movieService.deleteMovieById(movieId);
-			expect(MovieRepository.deleteById).toHaveBeenCalledWith(movieId);
+			const result = await movieService.deleteMovieById(movieId);
+			expect(movieService.deleteMovieById).toHaveBeenCalledWith(movieId);
+			expect(result).toEqual(movieId);
 		});
 	});
 });

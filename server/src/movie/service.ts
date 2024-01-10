@@ -29,7 +29,7 @@ export class UpdateMovieDTO {
 }
 
 export interface IMovieRepository {
-  getAll(): Promise<Movie[]>;
+  getMovies(): Promise<Movie[]>;
   getById(movieId: string): Promise<Movie | null>;
   create(movie: CreateMovieDTO): Promise<Movie>;
   updateById(movieId: string, movie: Partial<Movie>): Promise<Movie>;
@@ -60,7 +60,7 @@ export const createMovie = async (movie: CreateMovieDTO) => {
 };
 
 export const getMovies = async () => {
-	return await movieRepository.getAll();
+	return await movieRepository.getMovies();
 };
 
 export const getMovieById = async (movieId: string) => {
