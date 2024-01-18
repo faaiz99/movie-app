@@ -1,30 +1,43 @@
-import { create } from 'zustand'
-
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 type Session = {
-	id: string,
-	firstName: string,
-	lastName: string,
-	email: string,
-}
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+};
 
 export type State = {
-  session: Session
-  setSession: (session: Session) => void
-  resetSession: () => void
-}
+  session: Session;
+};
+export type Action = {
+  setSession: (session: Session) => void;
+  resetSession: () => void;
+};
 
-export const useAuthStore  = create((set) => ({
-  session : {
-	id: '',
-	firstName: '',
-	lastName: '',
-	email: '',
-  },
-  setSession: (session: Session) => set({ session }),
-  resetSession: () => set({ userSession: {
-	id: '',
-	firstName: '',
-	lastName: '',
-	email: '',
-  }}),
-}))
+export const useAuthStore = create<State & Action>()(
+  persist(
+    (set) => ({
+      session: {
+        id: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+      },
+      setSession: (session: Session) => set({ session }),
+      resetSession: () =>
+        set({
+          session: {
+            id: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+          },
+        }),
+    }),
+    {
+      name: "movie-night",
+      storage: createJSONStorage(() => localStorage),
+    },
+  ),
+);
