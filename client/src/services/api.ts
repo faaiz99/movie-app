@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { AxiosResponse } from "axios";
 export const api = axios.create({
   baseURL: "http://localhost:3000",
   timeout: 1000,
@@ -8,13 +8,19 @@ export const api = axios.create({
   },
 });
 
-// api.interceptors.request.use((config) => {
-// 	// get your store state here
-// 	const storeState = useAuthStore.g
-// 	config.headers.Authorization = `Bearer ${storeState.token}`;
 
-// 	return config;
-//   });
+/** Add Bearer to all requests */
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers["authorization"] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 
 /** User API Calls */
 
@@ -25,20 +31,44 @@ type User = {
   lastName: string;
 };
 
-type UserWithoutNames = Omit<User, 'firstName' | 'lastName'>;
+type UserWithoutNames = Omit<User, "firstName" | "lastName">;
 
-export const authenticationUser = async ({ email, password }: UserWithoutNames) => {
-  const response = await api.post("/login", { email, password });
+type UserResponse = {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export const authenticationUser = async ({
+  email,
+  password,
+}: UserWithoutNames) => {
+  const response = await api.post<UserResponse>("/login", { email, password });
   return response.data;
 };
 
-export const registerUser = async ({ email, password, firstName, lastName }: User) => {
-  const response = await api.post("/register", { email, password, firstName, lastName });
+export const registerUser = async ({
+  email,
+  password,
+  firstName,
+  lastName,
+}: User) => {
+  const response = await api.post<Partial<UserResponse>>("/register", {
+    email,
+    password,
+    firstName,
+    lastName,
+  });
   return response.data;
 };
 
+/** will add the reponse type later */
 export const deleteUser = async (id: string) => {
-  const response = await api.delete(`/users/${id}`);
+  const response = await api.delete<null>(`/users/${id}`);
   return response.data;
 };
 
@@ -50,44 +80,75 @@ type Movie = {
   description: string;
   poster: string;
   trailer: string;
-  userId:string
+  userId: string;
+  reviews?: Review[];
+  createdAt?: Date;
+  updatedAt?: Date;
+
 };
+
+
 
 export const getMovies = async () => {
-  const response = await api.get("/movies");
-  return response.data;
-
-};
-
-export const createMovie = async ({title, description, poster, trailer, userId}: Omit<Movie, "id">) => {
-  const response = await api.post("/movies", {title, description, poster, trailer, userId});
+  const response = await api.get<Movie[]>("/movies");
   return response.data;
 };
 
-export const updateMovieById = async ({id, title, description, poster, trailer, userId}: Movie) => {
-  const response = await api.put(`/movies/${id}`, {title, description, poster, trailer, userId});
+export const createMovie = async ({
+  title,
+  description,
+  poster,
+  trailer,
+  userId,
+}: Omit<Movie, "id">) => {
+  const response = await api.post<Movie>("/movies", {
+    title,
+    description,
+    poster,
+    trailer,
+    userId,
+  });
+  return response.data;
+};
+
+export const updateMovieById = async ({
+  id,
+  title,
+  description,
+  poster,
+  trailer,
+  userId,
+}: Movie) => {
+  const response = await api.post<Movie>(`/movies/${id}`, {
+    title,
+    description,
+    poster,
+    trailer,
+    userId,
+  });
   return response.data;
 };
 
 export const getMovieById = async (movieId: string) => {
-  const response = await api.get(`/movies/${movieId}`);
+  const response = await api.get<Movie| null>(`/movies/${movieId}`);
   return response.data;
 };
 
+/** will add the reponse type later */
 export const deleteMovie = async (movieId: string) => {
-  const response = await api.delete(`/movies/${movieId}`);
+  const response = await api.delete<null>(`/movies/${movieId}`);
   return response.data;
 };
 
 export const getFeaturedMovies = async () => {
-  const response = await api.get("/movies-featured");
+  const response = await api.get<Movie[]>("/movies-featured");
   return response.data;
 };
 
 export const getMovieByTermInTitle = async (term: string) => {
-  const response = await api.get(`/movies-search`, { params: { term:term } });
+  const response = await api.get<Movie[] | null>(`/movies-search`, { params: { term: term } });
   return response.data;
-}
+};
 
 /** Review API Calls */
 
@@ -98,30 +159,57 @@ type Review = {
   rating: number;
   userId: string;
   movieId: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
+
 export const getReviews = async () => {
-  const response = await api.get("/reviews");
+  const response = await api.get<Review[]>("/reviews");
   return response.data;
 };
 
-export const addReviewToMovie = async ({title, description, rating, userId, movieId}: Omit<Review, "id">) => {
-  const response = await api.post(`/reviews/${movieId}`, {title, description, rating, userId});
+export const addReviewToMovie = async ({
+  title,
+  description,
+  rating,
+  userId,
+  movieId,
+}: Omit<Review, "id">) => {
+  const response = await api.post<Review>(`/reviews/${movieId}`, {
+    title,
+    description,
+    rating,
+    userId,
+  });
   return response.data;
 };
 
 export const getReviewById = async (reviewId: string) => {
-  const response = await api.get(`/reviews/${reviewId}`);
-  return response.data;
-
-};
-
-export const updateReviewById = async ({id, title, description, rating, userId, movieId}: Review) => {
-  const response = await api.post(`/reviews/${id}`, {title, description, rating, userId, movieId});
+  const response = await api.get<Review | null>(`/reviews/${reviewId}`);
   return response.data;
 };
 
+export const updateReviewById = async ({
+  id,
+  title,
+  description,
+  rating,
+  userId,
+  movieId,
+}: Review) => {
+  const response = await api.post<Review>(`/reviews/${id}`, {
+    title,
+    description,
+    rating,
+    userId,
+    movieId,
+  });
+  return response.data;
+};
+
+/** will add the reponse type later */
 export const deleteReviewById = async (reviewId: string) => {
-  const response = await api.delete(`/reviews/${reviewId}`);
+  const response = await api.delete<null>(`/reviews/${reviewId}`);
   return response.data;
 };
