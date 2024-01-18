@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, register, refreshToken, deleteUser } from "./controller";
+import { login, register, deleteUser } from "./controller";
 import { checkSchema } from "express-validator";
 
 const router = Router();
