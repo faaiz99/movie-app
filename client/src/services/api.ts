@@ -25,11 +25,14 @@ export const authenticationUser = async ({
   email,
   password,
 }: UserWithoutNames) => {
-  const response = await api.post<UserResponse | any>("/login", { email, password });
+  const response = await api.post<UserResponse | any>("/login", {
+    email,
+    password,
+  });
   switch (response.status) {
     case 200: // authentication successful
       return response.data;
-    case 401: // invalid credentials 
+    case 401: // invalid credentials
       throw new Error(`Invalid credentials: ${response.data}`);
     case 422: // incomplete or invalid data
       throw new Error(`Invalid data: ${response.data}`);
@@ -83,7 +86,6 @@ type Movie = {
   reviews?: Review[];
   createdAt?: Date;
   updatedAt?: Date;
-
 };
 
 export const getMovies = async () => {
@@ -188,7 +190,9 @@ export const getFeaturedMovies = async () => {
 };
 
 export const getMovieByTermInTitle = async (term: string) => {
-  const response = await api.get<Movie[] | null>(`/movies-search`, { params: { term: term } });
+  const response = await api.get<Movie[] | null>(`/movies-search`, {
+    params: { term: term },
+  });
 
   switch (response.status) {
     case 200: // movie found
@@ -213,7 +217,6 @@ type Review = {
   createdAt?: Date;
   updatedAt?: Date;
 };
-
 
 export const getReviews = async () => {
   const response = await api.get<Review[]>("/reviews");
