@@ -91,17 +91,6 @@ export const register = async (user: CreateUserDTO) => {
 		throw new Error(`User already exists with email ${registerUserDTO.email}`);
 	}
 };
-/**
- * Get the user by token
- * the token is present in the request header
- * [Authorization] = 12233223
- * if the token is valid, generate a new token
- * return the new token
- * if the token is invalid, throw an error telling the user to login again
- */
-export const refreshToken = async (token: string) => {
-	return token;
-};
 
 export const deleteUser = async (email: string) => {
 	const user = await userRepository.getUserByEmail(email);

@@ -18,6 +18,7 @@ export class UserRepository implements IUserRepository {
 				password: encodedPassword,
 			},
 			select: {
+				id:true,
 				email: true,
 				firstName: true,
 				lastName: true,

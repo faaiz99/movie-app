@@ -60,16 +60,3 @@ export const deleteUser: RequestHandler = async (
 		}
 	}
 };
-
-export const refreshToken: RequestHandler = async (
-	req: Request,
-	res: Response,
-	next: NextFunction
-) => {
-	try {
-		const data = await userService.refreshToken(req.body);
-		handleResponse(res, 200, data);
-	} catch (error) {
-		handleError(error, res, next);
-	}
-};
