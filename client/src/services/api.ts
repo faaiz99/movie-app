@@ -1,26 +1,4 @@
-import axios from "axios";
-import { AxiosResponse } from "axios";
-export const api = axios.create({
-  baseURL: "http://localhost:3000",
-  timeout: 1000,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-
-/** Add Bearer to all requests */
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers["authorization"] = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
+import { api } from "../config/axios";
 
 /** User API Calls */
 
@@ -47,8 +25,19 @@ export const authenticationUser = async ({
   email,
   password,
 }: UserWithoutNames) => {
-  const response = await api.post<UserResponse>("/login", { email, password });
-  return response.data;
+  const response = await api.post<UserResponse | any>("/login", { email, password });
+  switch (response.status) {
+    case 200: // authentication successful
+      return response.data;
+    case 401: // invalid credentials 
+      throw new Error(`Invalid credentials: ${response.data}`);
+    case 422: // incomplete or invalid data
+      throw new Error(`Invalid data: ${response.data}`);
+    case 500: // Internal server error
+      throw new Error(`Internal Server Error: ${response.data}`);
+    default:
+      return response.data;
+  }
 };
 
 export const registerUser = async ({
@@ -57,16 +46,26 @@ export const registerUser = async ({
   firstName,
   lastName,
 }: User) => {
-  const response = await api.post<Partial<UserResponse>>("/register", {
+  const response = await api.post<Partial<UserResponse> | any>("/register", {
     email,
     password,
     firstName,
     lastName,
   });
-  return response.data;
+  switch (response.status) {
+    case 201: // User created
+      return response.data;
+    case 409:
+      throw new Error(`User already exists: ${response.data}`);
+    case 422:
+      throw new Error(`Invalid data: ${response.data}`);
+    case 500: // Internal server error
+      throw new Error(`Internal Server Error: ${response.data}`);
+    default:
+      return response.data;
+  }
 };
 
-/** will add the reponse type later */
 export const deleteUser = async (id: string) => {
   const response = await api.delete<null>(`/users/${id}`);
   return response.data;
@@ -87,11 +86,16 @@ type Movie = {
 
 };
 
-
-
 export const getMovies = async () => {
-  const response = await api.get<Movie[]>("/movies");
-  return response.data;
+  const response = await api.get<Movie[] | any>("/movies");
+  switch (response.status) {
+    case 200: // movies found
+      return response.data;
+    case 500: // Internal Server Error
+      throw new Error(`Internal Server Error: ${response.data}`);
+    default:
+      return response.data;
+  }
 };
 
 export const createMovie = async ({
@@ -101,14 +105,26 @@ export const createMovie = async ({
   trailer,
   userId,
 }: Omit<Movie, "id">) => {
-  const response = await api.post<Movie>("/movies", {
+  const response = await api.post<Movie | any>("/movies", {
     title,
     description,
     poster,
     trailer,
     userId,
   });
-  return response.data;
+
+  switch (response.status) {
+    case 201: // Movie created
+      return response.data;
+    case 409:
+      throw new Error(`Movie already exists: ${response.data}`);
+    case 422:
+      throw new Error(`Missing or Incomplete Movie Data: ${response.data}`);
+    case 500: // Internal server error
+      throw new Error(`Internal Server Error: ${response.data}`);
+    default:
+      return response.data;
+  }
 };
 
 export const updateMovieById = async ({
@@ -119,35 +135,70 @@ export const updateMovieById = async ({
   trailer,
   userId,
 }: Movie) => {
-  const response = await api.post<Movie>(`/movies/${id}`, {
+  const response = await api.post<Movie | any>(`/movies/${id}`, {
     title,
     description,
     poster,
     trailer,
     userId,
   });
-  return response.data;
+
+  switch (response.status) {
+    case 200:
+      return response.data;
+    case 404:
+      throw new Error(`Movie not found: ${response.data}`);
+    case 422:
+      throw new Error(`Missing or Incomplete Movie Data: ${response.data}`);
+    case 500: // Internal server error
+      throw new Error(`Internal Server Error: ${response.data}`);
+    default:
+      return response.data;
+  }
 };
 
 export const getMovieById = async (movieId: string) => {
-  const response = await api.get<Movie| null>(`/movies/${movieId}`);
-  return response.data;
+  const response = await api.get<Movie | null>(`/movies/${movieId}`);
+  switch (response.status) {
+    case 200: // movie found
+      return response.data;
+    case 422: // movie not found
+      throw new Error(`Movie Id is missing: ${response.data}`);
+    case 500: // Internal server error
+    default:
+      return response.data;
+  }
 };
 
-/** will add the reponse type later */
 export const deleteMovie = async (movieId: string) => {
   const response = await api.delete<null>(`/movies/${movieId}`);
   return response.data;
 };
 
 export const getFeaturedMovies = async () => {
-  const response = await api.get<Movie[]>("/movies-featured");
-  return response.data;
+  const response = await api.get<Movie[] | any>("/movies-featured");
+  switch (response.status) {
+    case 200: // movies found
+      return response.data;
+    case 500: // Internal Server Error
+      throw new Error(`Internal Server Error: ${response.data}`);
+    default:
+      return response.data;
+  }
 };
 
 export const getMovieByTermInTitle = async (term: string) => {
   const response = await api.get<Movie[] | null>(`/movies-search`, { params: { term: term } });
-  return response.data;
+
+  switch (response.status) {
+    case 200: // movie found
+      return response.data;
+    case 422: // movie not found
+      throw new Error(`Missing or Incomplete Term: ${response.data}`);
+    case 500: // server error
+    default:
+      return response.data;
+  }
 };
 
 /** Review API Calls */
@@ -166,7 +217,14 @@ type Review = {
 
 export const getReviews = async () => {
   const response = await api.get<Review[]>("/reviews");
-  return response.data;
+  switch (response.status) {
+    case 200: // reviews found
+      return response.data;
+    case 500: // Internal Server Error
+      throw new Error(`Internal Server Error: ${response.data}`);
+    default:
+      return response.data;
+  }
 };
 
 export const addReviewToMovie = async ({
@@ -182,12 +240,32 @@ export const addReviewToMovie = async ({
     rating,
     userId,
   });
-  return response.data;
+  switch (response.status) {
+    case 201: // Review created
+      return response.data;
+    case 422:
+      throw new Error(`Missing or Incomplete Review Data: ${response.data}`);
+    case 500: // Internal server error
+      throw new Error(`Internal Server Error: ${response.data}`);
+    default:
+      return response.data;
+  }
 };
 
 export const getReviewById = async (reviewId: string) => {
   const response = await api.get<Review | null>(`/reviews/${reviewId}`);
-  return response.data;
+  switch (response.status) {
+    case 200: // review found
+      return response.data;
+    case 404: // review not found
+      throw new Error(`Review Id is missing: ${response.data}`);
+    case 422:
+      throw new Error(`Missing or Incomplete Review Data: ${response.data}`);
+    case 500: // Internal server error
+      throw new Error(`Internal Server Error: ${response.data}`);
+    default:
+      return response.data;
+  }
 };
 
 export const updateReviewById = async ({
@@ -198,17 +276,27 @@ export const updateReviewById = async ({
   userId,
   movieId,
 }: Review) => {
-  const response = await api.post<Review>(`/reviews/${id}`, {
+  const response = await api.post<Review | any>(`/reviews/${id}`, {
     title,
     description,
     rating,
     userId,
     movieId,
   });
-  return response.data;
+  switch (response.status) {
+    case 200:
+      return response.data;
+    case 404:
+      throw new Error(`Review not found: ${response.data}`);
+    case 422:
+      throw new Error(`Missing or Incomplete Review Data: ${response.data}`);
+    case 500: // Internal server error
+      throw new Error(`Internal Server Error: ${response.data}`);
+    default:
+      return response.data;
+  }
 };
 
-/** will add the reponse type later */
 export const deleteReviewById = async (reviewId: string) => {
   const response = await api.delete<null>(`/reviews/${reviewId}`);
   return response.data;

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { login, register, deleteUser } from "./controller";
 import { checkSchema } from "express-validator";
+import { validateToken } from "../middewares/auth";
 
 const router = Router();
 
@@ -60,6 +61,7 @@ router.post(
 
 router.delete(
 	"/user/:emailId",
+	validateToken,
 	checkSchema(
 		{
 			emailId: {

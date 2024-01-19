@@ -8,11 +8,13 @@ import {
 	getMoviesWithMostReviews,
 	getMoviesByCharactersInTheirName,
 } from "./controller";
+import { validateToken } from "src/middewares/auth";
 import { checkSchema } from "express-validator";
 const router = Router();
 
 router.post(
 	"/movies",
+	validateToken,
 	checkSchema({
 		title: {
 			isString: true,
@@ -67,6 +69,7 @@ router.get(
 );
 router.post(
 	"/movies/:movieId",
+	validateToken,
 	checkSchema(
 		{
 			movieId: {
@@ -118,6 +121,7 @@ router.post(
 );
 router.delete(
 	"/movies/:movieId",
+	validateToken,
 	checkSchema(
 		{
 			movieId: {

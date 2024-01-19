@@ -8,9 +8,11 @@ import {
 } from "./controller";
 import { checkSchema } from "express-validator";
 const router = Router();
+import { validateToken } from "src/middewares/auth";
 
 router.post(
 	"/reviews/:movieId",
+	validateToken,
 	checkSchema(
 		{
 			movieId: {
@@ -68,6 +70,7 @@ router.get(
 );
 router.post(
 	"/reviews/:reviewId",
+	validateToken,
 	checkSchema(
 		{
 			movieId: {
@@ -113,6 +116,7 @@ router.post(
 );
 router.delete(
 	"/reviews/:reviewId",
+	validateToken,
 	checkSchema(
 		{
 			reviewId: {
