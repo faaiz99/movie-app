@@ -8,7 +8,7 @@ import {
 	getMoviesWithMostReviews,
 	getMoviesByCharactersInTheirName,
 } from "./controller";
-import { validateToken } from "src/middewares/auth";
+import { validateToken } from "../middewares/auth";
 import { checkSchema } from "express-validator";
 const router = Router();
 

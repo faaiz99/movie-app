@@ -8,7 +8,7 @@ import {
 } from "./controller";
 import { checkSchema } from "express-validator";
 const router = Router();
-import { validateToken } from "src/middewares/auth";
+import { validateToken } from "../middewares/auth";
 
 router.post(
 	"/reviews/:movieId",

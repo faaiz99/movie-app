@@ -9,9 +9,26 @@ export class MovieRepository implements IMovieRepository {
 	async getMoviesByCharactersInTheirName(characters: string): Promise<Movie[]> {
 		return await this.prisma.movie.findMany({
 			where: {
-				title: {
-					contains: characters,
-				},
+				OR: [
+					{
+						title: {
+							equals: characters,
+							mode: "insensitive",
+						}
+					},
+					{
+						title: {
+							contains: characters,
+							mode: "insensitive",
+						},
+					}, {
+						description: {
+							contains: characters,
+							mode: "insensitive",
+						},
+					},
+				]
+
 			},
 		});
 	}
@@ -28,7 +45,19 @@ export class MovieRepository implements IMovieRepository {
 		});
 	}
 	async getMovies(): Promise<Movie[]> {
-		return await this.prisma.movie.findMany();
+		return await this.prisma.movie.findMany({
+			include: {
+				reviews: true,
+				user: {
+					select: {
+						id: true,
+						firstName: true,
+						lastName: true,
+						email: true,
+					}
+				}
+			}
+		});
 	}
 	async getById(id: string): Promise<Movie | null> {
 		return await this.prisma.movie.findUnique({
