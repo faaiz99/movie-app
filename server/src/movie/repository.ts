@@ -13,22 +13,27 @@ export class MovieRepository implements IMovieRepository {
 					{
 						title: {
 							equals: characters,
-							mode: "insensitive",
-						}
+						},
 					},
 					{
 						title: {
-							contains: characters,
-							mode: "insensitive",
-						},
+							contains: characters
+						}
 					}, {
-						description: {
-							contains: characters,
-							mode: "insensitive",
-						},
+						title: {
+							endsWith: characters
+						}
+					}, {
+						title: {
+							startsWith: characters
+						}
 					},
+					{
+						description: {
+							contains: characters
+						}
+					}
 				]
-
 			},
 		});
 	}
