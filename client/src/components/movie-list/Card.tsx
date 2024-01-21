@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Card as Component } from "flowbite-react";
-import { Button } from "flowbite-react";
 import { Star } from "..";
 import { Movie } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { titleToSlug } from "../../utils/titleToSlug";
 import { HiOutlineArrowRight } from "react-icons/hi";
+import { Button } from "..";
 
 // import { Button } from "..";
 
@@ -96,13 +96,13 @@ export const Card = ({ title, movies }: CardProps) => {
                             state: { movie },
                           })
                         }
+                        title={"Watch Now"}
                         color="failure"
                         className={`w-full rounded-md ${
                           isExpanded ? "lg:mt-10" : "md:mt-10 lg:mt-24"
                         }`}
                         isProcessing={false}
                       >
-                        Watch Now
                         <HiOutlineArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                     </div>

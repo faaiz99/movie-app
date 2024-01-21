@@ -1,9 +1,9 @@
-import { Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { authenticationUser } from "../services/api";
 import { useState } from "react";
 import { useAuthStore } from "../store/store";
+import { Button } from "../components";
 type AuthenticationInputs = {
   email: string;
   password: string;
@@ -126,8 +126,8 @@ export const Login = () => {
                 type="submit"
                 className="w-full rounded-md"
                 isProcessing={loading}
+                title={"Sign in"}
               >
-                Sign in
               </Button>
               <div className="flex gap-1">
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">

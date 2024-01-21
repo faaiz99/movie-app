@@ -7,7 +7,8 @@ type ButtonProps = {
   title: string;
   isProcessing: boolean;
   children?: React.ReactNode;
-  onClick: () => void;
+  type?: "submit" 
+  onClick?: () => void;
 };
 
 export const Button = ({
@@ -17,10 +18,12 @@ export const Button = ({
   title,
   isProcessing,
   onClick,
+  type,
   children,
 }: ButtonProps) => {
   return (
     <Component
+    type={type}
       isProcessing={isProcessing}
       color={color}
       size={size}

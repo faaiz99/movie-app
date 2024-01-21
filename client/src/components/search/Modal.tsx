@@ -5,6 +5,7 @@ import { HiOutlineArrowRight } from "react-icons/hi";
 import { titleToSlug } from "../../utils/titleToSlug";
 import { useNavigate } from "react-router-dom";
 import { Button } from "..";
+import { Movie } from "../../services/api";
 
 type ModalProps = {
   show: boolean;
@@ -13,7 +14,7 @@ type ModalProps = {
 
 export const Modal = ({ show, onClose }: ModalProps) => {
   const searchMovieTermRef = useRef<HTMLInputElement>(null);
-  const [movies, setMovies] = useState<Movie>([]);
+  const [movies, setMovies] = useState<Movie[]>();
   const [loading, setLoading] = useState(false);
   const [movieTitle, setMovieTitle] = useState<string>("");
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ export const Modal = ({ show, onClose }: ModalProps) => {
         show={show}
         dismissible={false}
         onClose={onClose}
-        className="backdrop-blur-lg"
+        className="backdrop-blur-lg rounded-lg"
         initialFocus={searchMovieTermRef}
       >
         <Component.Header className="border-2 border-gray-300 dark:border-gray-700">
@@ -68,7 +69,7 @@ export const Modal = ({ show, onClose }: ModalProps) => {
             </div>
             <div className="flex flex-col flex-wrap gap-5">
               {movies &&
-                movies.map((movie: any) => {
+                movies.map((movie: Movie) => {
                   return (
                     <Card
                       className="flex flex-row rounded-md"
