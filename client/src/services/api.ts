@@ -29,10 +29,13 @@ export const authenticationUser = async ({
     email,
     password,
   });
+  console.log("here");
+  console.log(response);
   switch (response.status) {
     case 200: // authentication successful
       return response.data;
     case 401: // invalid credentials
+      console.log("here", response.data);
       throw new Error(`Invalid credentials: ${response.data}`);
     case 422: // incomplete or invalid data
       throw new Error(`Invalid data: ${response.data}`);
@@ -76,7 +79,7 @@ export const deleteUser = async (id: string) => {
 
 /** Movie API Calls */
 
-type Movie = {
+export type Movie = {
   id: string;
   title: string;
   description: string;
@@ -89,7 +92,7 @@ type Movie = {
 };
 
 export const getMovies = async () => {
-  const response = await api.get<Movie[] | any>("/movies");
+  const response = await api.get<Movie[]>("/movies");
   switch (response.status) {
     case 200: // movies found
       return response.data;
@@ -178,7 +181,7 @@ export const deleteMovie = async (movieId: string) => {
 };
 
 export const getFeaturedMovies = async () => {
-  const response = await api.get<Movie[] | any>("/movies-featured");
+  const response = await api.get<Movie[]>("/movies-featured");
   switch (response.status) {
     case 200: // movies found
       return response.data;
@@ -190,9 +193,10 @@ export const getFeaturedMovies = async () => {
 };
 
 export const getMovieByTermInTitle = async (term: string) => {
-  const response = await api.get<Movie[] | null>(`/movies-search`, {
+  const response = await api.get<Movie[]>(`/movies-search`, {
     params: { term: term },
   });
+  //console.log("res",response)
 
   switch (response.status) {
     case 200: // movie found

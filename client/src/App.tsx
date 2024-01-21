@@ -1,7 +1,7 @@
 import "./App.css";
 import { Flowbite } from "flowbite-react";
 import { Routes, Route } from "react-router-dom";
-import { Movie } from "./pages/Movie";
+import { Movies } from "./pages/Movies";
 import { MovieDetails } from "./pages/MovieDetails";
 import { Signup } from "./pages/Signup";
 import { Login } from "./pages/Login";
@@ -13,13 +13,14 @@ function App() {
       <Flowbite>
         <Navbar />
         <Routes>
-          <Route path="/" element={<div>Home</div>} />
+          <Route path="/" element={<Movies />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/movie" element={<Movie />} />
-          <Route path="/movie/:movieId" element={<MovieDetails />} />
+          <Route path="/movie/:movieTitle" element={<MovieDetails />} />
         </Routes>
-        <Footer />
+        <div className="bg-gray-50 pt-5 dark:bg-gray-900 lg:pt-10">
+          <Footer />
+        </div>
       </Flowbite>
     </>
   );
