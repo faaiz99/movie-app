@@ -1,11 +1,12 @@
 export { Navbar } from "./navbar/Navbar";
-export { Card } from "./card/Card";
 export { Footer } from "./footer/Footer";
 export { Carousel } from "./carousel/Carousel";
-export { Search } from "./search/Search";
-export { Star } from "./star/Star";
+export { Search } from "./movie-search/Search";
+export { Star } from "./dummy-stars/Star";
 export { Spinner } from "./spinner/Spinner";
-export { Card as Movie } from "./movie/Card";
-export { Card as MovieList } from "./movie-list/Card";
+export { Card as MovieCard } from "./movie/Card";
+export { Card as MovieListCard } from "./movie-list/Card";
 export { Button } from "./button/Button";
-export { VideoEmbed } from "../components/video-embed/VideoEmbed";
+export { TrailerEmbed } from "./trailer-embed/TrailerEmbed";
+export { Card as MovieDetailsCard } from "../components/movie-details/Card";
+export { Card as MovieReviewsCard } from "../components/movie-reviews/Card";

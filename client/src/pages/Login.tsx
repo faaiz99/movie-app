@@ -4,6 +4,7 @@ import { authenticationUser } from "../services/api";
 import { useState } from "react";
 import { useAuthStore } from "../store/store";
 import { Button } from "../components";
+
 type AuthenticationInputs = {
   email: string;
   password: string;
@@ -30,14 +31,12 @@ export const Login = () => {
         localStorage.setItem("movie-night-token", response.token);
       }
       console.log("res", response);
+      navigate("/movies");
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
-    // navigate to movies
-    //navigate("/movies");
-    // show error message
   };
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -127,15 +126,14 @@ export const Login = () => {
                 className="w-full rounded-md"
                 isProcessing={loading}
                 title={"Sign in"}
-              >
-              </Button>
+              ></Button>
               <div className="flex gap-1">
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Don't have an account yet?
                 </p>
                 <p
                   className="cursor-pointer text-sm font-medium text-zinc-600 hover:underline dark:text-zinc-500"
-                  onClick={() => navigate("/signup")}
+                  onClick={() => navigate("/sign-up")}
                 >
                   {" "}
                   Sign up

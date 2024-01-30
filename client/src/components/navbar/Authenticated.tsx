@@ -5,11 +5,12 @@ import { Avatar } from "flowbite-react";
 
 export const Authenticated = () => {
   const { email, firstName, lastName } = useAuthStore((state) => state.session);
-
+  const { resetSession } = useAuthStore((state) => state);
+  const navigate = useNavigate();
   function HandleLogout() {
-    const navigate = useNavigate();
-    localStorage.removeItem("movie-night-token");
-    const { resetSession } = useAuthStore((state) => state);
+    if (localStorage.getItem("movie-night-token")) {
+      localStorage.removeItem("movie-night-token");
+    }
     resetSession();
     navigate("/");
   }

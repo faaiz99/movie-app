@@ -1,59 +1,48 @@
+import { lazy } from "react";
 import { useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import { slugToTitle } from "../utils/slugToTitle";
-import { useEffect } from "react";
-import { useState } from "react";
-import { getMovieByTermInTitle } from "../services/api";
-import { Movie } from "../services/api";
+import { Spinner } from "../components/";
+
+import { useMovie } from "../hooks/useMovie";
+const MovieDetailsCard = lazy(() =>
+  import("../components/").then(({ MovieDetailsCard }) => ({
+    default: MovieDetailsCard,
+  })),
+);
+const TrailerEmbed = lazy(() =>
+  import("../components").then(({ TrailerEmbed }) => ({
+    default: TrailerEmbed,
+  })),
+);
+
 export const MovieDetails = () => {
-  const [movie, setMovies] = useState<Movie>();
-  const [loading, setLoading] = useState(false);
-  const { movieTitle } = useParams<{ movieTitle: string }>();
-  const location = useLocation();
-  console.log(loading);
-
-  useEffect(() => {
-    async function getMovie() {
-      const result = await getMovieByTermInTitle(slugToTitle(movieTitle));
-      if (result.length > 0) {
-        const [movie] = result;
-        setMovies(movie);
-      } else {
-        console.log("No movies found");
-      }
-    }
-
-    if (location?.state?.movie) {
-      setLoading(true);
-      setMovies(location.state.movie);
-      setLoading(false);
-    } else {
-      setLoading(true);
-      getMovie();
-      setLoading(false);
-    }
-  }, []);
-
-  // <div className="flex  flex-wrap gap-2 py-1 ">
-  // <Badge color="info">2024</Badge>
-  // <Badge color="gray">Military</Badge>
-  // <Badge color="failure">Politics</Badge>
-  // <Badge color="success">Revolution</Badge>
-  // </div>
+  const { movieTitle: title } = useParams<{ movieTitle: string }>();
+  const { data, isError, error, isPending } = useMovie(slugToTitle(title));
+  const movie = data ? data[0] : undefined;
+  if (isPending) return <Spinner />;
+  if (isError) return <div>{error?.message}</div>;
 
   return (
-    <div>
-      MovieDetails:
+    <>
       {movie && (
-        <div key={movie.id}>
-          <h1>{movie.title}</h1>
-          {/* <img src={movie.poster} alt={movie.title} /> */}
-          <p className="w-full rounded-md border-none px-2 py-2 text-gray-700 outline-none focus:ring-0 dark:bg-inherit dark:text-gray-400">
-            {movie.description}
-          </p>
-          <p>{movie.trailer}</p>
-        </div>
+        <>
+          <div className="flex flex-col items-center  justify-center bg-gray-50 dark:bg-gray-900">
+            <TrailerEmbed title={movie.title} link={movie.trailer} />
+            <MovieDetailsCard
+              id={movie.id}
+              title={movie.title}
+              description={movie.description}
+              poster={movie.poster}
+              trailer={movie.trailer}
+              userId={movie.userId}
+              reviews={movie.reviews}
+              createdAt={movie.createdAt}
+              updatedAt={movie.updatedAt}
+            />
+          </div>
+        </>
       )}
-    </div>
+    </>
   );
 };
+

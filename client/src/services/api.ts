@@ -211,7 +211,7 @@ export const getMovieByTermInTitle = async (term: string) => {
 
 /** Review API Calls */
 
-type Review = {
+export type Review = {
   id: string;
   title: string;
   description: string;

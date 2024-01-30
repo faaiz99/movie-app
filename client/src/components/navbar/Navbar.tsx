@@ -10,7 +10,6 @@ import { checkUserAuth } from "../../utils/checkAuthentication";
 export const Navbar = () => {
   const { mode } = useThemeMode();
   const isAuthenticated = checkUserAuth();
-  console.log("is Auth", isAuthenticated);
   return (
     <Component fluid className="shadow-xl">
       <Component.Brand href="/">

@@ -17,7 +17,7 @@ export const UnAuthenticated = () => {
         />
       }
     >
-      <Dropdown.Item onClick={() => navigate("/signin")}>Login</Dropdown.Item>
+      <Dropdown.Item onClick={() => navigate("/login")}>Login</Dropdown.Item>
     </Dropdown>
   );
 };

@@ -8,7 +8,9 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "prettier",
-    "prettier-plugin-tailwindcss"
+    "prettier-plugin-tailwindcss",
+    "plugin:@tanstack/eslint-plugin-query/recommended",
+    "plugin:simple-import-sort"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -17,7 +19,13 @@
   },
   "plugins": ["@typescript-eslint", "react"],
   "rules": {
+    "react-refresh/only-export-components": "warn",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "@tanstack/query/exhaustive-deps": "error",
+    "@tanstack/query/no-rest-destructuring": "warn",
+    "@tanstack/query/stable-query-client": "error",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
   }
 }

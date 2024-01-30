@@ -44,7 +44,7 @@ export const Modal = ({ show, onClose }: ModalProps) => {
         show={show}
         dismissible={false}
         onClose={onClose}
-        className="backdrop-blur-lg rounded-lg"
+        className="rounded-lg backdrop-blur-lg"
         initialFocus={searchMovieTermRef}
       >
         <Component.Header className="border-2 border-gray-300 dark:border-gray-700">
