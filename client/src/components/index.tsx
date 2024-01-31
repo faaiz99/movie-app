@@ -10,3 +10,4 @@ export { Button } from "./button/Button";
 export { TrailerEmbed } from "./trailer-embed/TrailerEmbed";
 export { Card as MovieDetailsCard } from "../components/movie-details/Card";
 export { Card as MovieReviewsCard } from "../components/movie-reviews/Card";
+export { Modal as ErrorModal} from "./modal/Modal";

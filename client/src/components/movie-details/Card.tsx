@@ -5,12 +5,12 @@ export const Card = ({
   id,
   title,
   description,
-  poster,
-  trailer,
+  // poster,
+  // trailer,
   userId,
   reviews,
-  createdAt,
-  updatedAt,
+  // createdAt,
+  // updatedAt,
 }: Movie) => {
   console.log(id, reviews);
   return (

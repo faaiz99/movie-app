@@ -1,8 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { getMovies, getFeaturedMovies, getMovieByTermInTitle } from "../services/api";
 export function useMovies() {
-	const query = useQuery({ queryKey: ["get-movies"], queryFn: getMovies });
-	console.log("query", query);
 	return useQuery({ queryKey: ["get-movies"], queryFn: getMovies });
 }
 export function useFeaturedMovies() {
@@ -13,7 +11,24 @@ export function useMovie(title: string) {
 	return useQuery({
 		queryKey: ["get-movie", title],
 		queryFn: () => getMovieByTermInTitle(title),
+		enabled: title.length > 0,
+
+		
+		
 	});
 }
-// const query = useQuery({ queryKey: ["get-movies"], queryFn: getMovies });
-// console.log("query", query.data);
+
+export function useCreateMovie() {
+	return useQuery({
+		queryKey: ["create-movie"],
+		queryFn: () => getMovies(),
+	});
+}
+
+
+export function useSearchMovie(title: string) {
+	return useQuery({
+		queryKey: ["get-movie", title],
+		queryFn: () => getMovieByTermInTitle(title),
+	});
+}

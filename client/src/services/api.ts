@@ -89,6 +89,7 @@ export type Movie = {
   reviews?: Review[];
   createdAt?: Date;
   updatedAt?: Date;
+  loading?: boolean;
 };
 
 export const getMovies = async () => {

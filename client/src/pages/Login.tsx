@@ -31,7 +31,7 @@ export const Login = () => {
         localStorage.setItem("movie-night-token", response.token);
       }
       console.log("res", response);
-      navigate("/movies");
+      navigate("/");
     } catch (error) {
       console.log(error);
     } finally {

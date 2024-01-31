@@ -2,6 +2,9 @@ import "./App.css";
 import { Flowbite } from "flowbite-react";
 import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
+
+const Error = lazy(() =>import("./pages/Error").then(({ Error }) => ({ default: Error })));
+
 const Movies = lazy(() =>
   import("./pages/Movies").then(({ Movies }) => ({ default: Movies })),
 );
@@ -34,6 +37,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/sign-up" element={<Signup />} />
             <Route path="/movie/:movieTitle" element={<MovieDetails />} />
+            <Route path="*" element={<Error />} />
           </Routes>
           <div className="bg-gray-50  pt-5 dark:bg-gray-900 lg:pt-10">
             <Footer />
