@@ -1,37 +1,16 @@
 import { Movie } from "@prisma/client";
 import { MovieRepository } from "./repository";
 import { db } from "../../lib/prisma.db";
+import { CreateMovieDTO } from "./dto/create";
+import { UpdateMovieDTO } from "./dto/update";
 
-export class CreateMovieDTO {
-	id: string;
-	title: string;
-	description: string;
-	poster: string;
-	trailer: string;
-	userId: string;
 
-	constructor() {
-		this.id = "";
-		this.title = "";
-		this.description = "";
-		this.poster = "";
-		this.trailer = "";
-		this.userId = "";
-	}
-}
 
-export class UpdateMovieDTO {
-	id?: string;
-	title?: string;
-	description?: string;
-	poster?: string;
-	trailer?: string;
-}
 
 export interface IMovieRepository {
   getMovies(): Promise<Movie[]>;
   getById(movieId: string): Promise<Movie | null>;
-  create(movie: CreateMovieDTO): Promise<Movie>;
+  create(movie: Partial<Movie>): Promise<Movie>;
   updateById(movieId: string, movie: Partial<Movie>): Promise<Movie>;
   deleteById(movieId: string): Promise<void>;
   getMoviesWithMostReviews(): Promise<Movie[]>;

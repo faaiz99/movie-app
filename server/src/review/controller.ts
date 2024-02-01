@@ -100,8 +100,9 @@ export const getReviews: RequestHandler = async (
 	if (!errors.isEmpty()) {
 		handleResponse(res, 422, errors.array());
 	} else {
+		const { movieId } = req.params;
 		try {
-			const data = await reviewService.getReviews();
+			const data = await reviewService.getReviews(movieId);
 			if (!data) throw new Error("Review Not Found");
 			handleResponse(res, 200, data);
 		} catch (error) {

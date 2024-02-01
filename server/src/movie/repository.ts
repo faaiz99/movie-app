@@ -1,6 +1,5 @@
 import { PrismaClient, Movie } from "@prisma/client";
-import { CreateMovieDTO, IMovieRepository } from "./service";
-
+import { IMovieRepository } from "./service";
 export class MovieRepository implements IMovieRepository {
 	private prisma: PrismaClient;
 	constructor(prisma: PrismaClient) {
@@ -93,7 +92,7 @@ export class MovieRepository implements IMovieRepository {
 			},
 		});
 	}
-	async create(movie: CreateMovieDTO): Promise<Movie> {
+	async create(movie: Partial<Movie>): Promise<Movie> {
 		const { title, description, poster, trailer, userId } = movie;
 		return await this.prisma.movie.create({
 			data: {

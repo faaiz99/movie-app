@@ -1,13 +1,17 @@
 import { PrismaClient, Review } from "@prisma/client";
-import { CreateReviewDTO, IReviewRepository } from "./service";
+import { IReviewRepository } from "./service";
 
 export class ReviewRepository implements IReviewRepository {
 	private prisma: PrismaClient;
 	constructor(prisma: PrismaClient) {
 		this.prisma = prisma;
 	}
-	async getAll(): Promise<Review[]> {
-		return await this.prisma.review.findMany();
+	async getAll(movieId:string): Promise<Review[]> {
+		return await this.prisma.review.findMany({
+			where :{
+				movieId:movieId
+			}
+		});
 	}
 	async getById(id: string): Promise<Review | null> {
 		return await this.prisma.review.findUnique({
@@ -16,7 +20,7 @@ export class ReviewRepository implements IReviewRepository {
 			},
 		});
 	}
-	async create(review: CreateReviewDTO, movieId: string): Promise<Review> {
+	async create(review: Partial<Review>, movieId: string): Promise<Review> {
 		const { title, rating, description, userId } = review;
 		return await this.prisma.review.create({
 			data: {

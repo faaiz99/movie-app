@@ -49,7 +49,21 @@ router.post(
 	),
 	createReview
 );
-router.get("/reviews", getReviews);
+router.get("/reviews/:movieId", checkSchema(
+	{
+		movieId: {
+			isString: true,
+			notEmpty: true,
+			errorMessage: "MovieId is required",
+			isLength: {
+				options: { min: 36, max: 36 },
+				errorMessage: "MovieId must be 36 characters",
+			},
+		}
+	},
+	["params"],
+
+), getReviews);
 router.get(
 	"/reviews/:reviewId",
 	checkSchema(

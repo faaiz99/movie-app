@@ -16,7 +16,7 @@ export const getMoviesByCharactersInTheirName: RequestHandler = async (
 		const { term } = req.query;
 		try {
 			const data = await movieService.getMoviesByCharactersInTheirName(
-        term as string
+				term as string
 			);
 			handleResponse(res, 200, data);
 		} catch (error) {
@@ -81,8 +81,8 @@ export const getMovieById: RequestHandler = async (
 		try {
 			const data = await movieService.getMovieById(movieId);
 			/**
-       * Since no movies are matched an exception is not thrown but a null value is returned but code is not refactored to handle this case
-       */
+	   * Since no movies are matched an exception is not thrown but a null value is returned but code is not refactored to handle this case
+	   */
 			if (!data) {
 				throw new Error("Movies Not Found");
 			}

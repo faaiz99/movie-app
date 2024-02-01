@@ -230,6 +230,13 @@ describe("Review - Controller", () => {
 			expect(response.status).toBe(404);
 			expect(response.body.message).toEqual("Review Not Found");
 		});
+		it("GET api/reviews/movieId should return 200 OK with valid data", async () => {
+			const response = await request(app)
+				.get(`/api/reviews/${movieId}`)
+				.set("authorization", `Bearer ${token}`);
+			expect(response.status).toBe(200);
+			expect(response.body.length).toBeGreaterThan(0);
+		});
 	});
 });
 
