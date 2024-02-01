@@ -1,7 +1,7 @@
-import { Select, Label } from 'flowbite-react';
+import { Select, Label } from "flowbite-react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Button } from ".."
-import { Review } from '../../services/api';
+import { Button } from "..";
+import { Review } from "../../services/api";
 
 type ReviewInputs = {
   title: string;
@@ -22,8 +22,8 @@ const Form = ({ userId, title, movieId, description, rating }: Review) => {
       description: description,
       rating: rating,
       movieId: movieId,
-      userId: userId
-    }
+      userId: userId,
+    },
   });
   const onSubmit: SubmitHandler<ReviewInputs> = (data) => console.log(data);
   return (
@@ -48,11 +48,12 @@ const Form = ({ userId, title, movieId, description, rating }: Review) => {
               type="text"
               name="title"
               id="title"
-              placeholder='Descriptive title of the review'
-              className={`${errors.title
-                ? "border-red-500 focus:border-red-500 focus:ring-red-500  dark:border-red-500 dark:focus:border-red-500 dark:focus:ring-red-500"
-                : "border-gray-300"
-                }  focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm`}
+              placeholder="Descriptive title of the review"
+              className={`${
+                errors.title
+                  ? "border-red-500 focus:border-red-500 focus:ring-red-500  dark:border-red-500 dark:focus:border-red-500 dark:focus:ring-red-500"
+                  : "border-gray-300"
+              }  focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm`}
             />
             {errors.title && (
               <span className="text-xs font-semibold text-red-500">
@@ -73,10 +74,11 @@ const Form = ({ userId, title, movieId, description, rating }: Review) => {
               name="text"
               id="description"
               placeholder="Some details about the movie"
-              className={`${errors.description
-                ? "border-red-500 focus:border-red-500 focus:ring-red-500 dark:border-red-500 dark:focus:border-red-500 dark:focus:ring-red-500"
-                : "border-gray-300"
-                } focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm`}
+              className={`${
+                errors.description
+                  ? "border-red-500 focus:border-red-500 focus:ring-red-500 dark:border-red-500 dark:focus:border-red-500 dark:focus:ring-red-500"
+                  : "border-gray-300"
+              } focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm`}
             />
             {errors.description && (
               <span className="text-xs font-semibold text-red-500">
@@ -93,22 +95,20 @@ const Form = ({ userId, title, movieId, description, rating }: Review) => {
             </Label>
             <Select
               {...register("description", { required: true })}
-
               name="rating"
               id="rating"
-              className={`${errors.rating
-                ? "border-red-500 focus:border-red-500 focus:ring-red-500 dark:border-red-500 dark:focus:border-red-500 dark:focus:ring-red-500"
-                : "border-gray-300"
-                } focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm`}
+              className={`${
+                errors.rating
+                  ? "border-red-500 focus:border-red-500 focus:ring-red-500 dark:border-red-500 dark:focus:border-red-500 dark:focus:ring-red-500"
+                  : "border-gray-300"
+              } focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm`}
             >
               <option value={5}>5</option>
               <option value={4}>4</option>
               <option value={3}>3</option>
               <option value={2}>2</option>
               <option value={1}>1</option>
-
             </Select>
-
 
             {errors.rating && (
               <span className="text-xs font-semibold text-red-500">
@@ -125,8 +125,7 @@ const Form = ({ userId, title, movieId, description, rating }: Review) => {
         </form>
       </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default Form
+export default Form;

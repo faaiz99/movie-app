@@ -1,4 +1,4 @@
-import {  Modal as Component, TextInput, Label } from "flowbite-react";
+import { Modal as Component, TextInput, Label } from "flowbite-react";
 import { useState, useRef } from "react";
 import { Movie } from "../../services/api";
 import { Card } from "./Card";
@@ -11,9 +11,8 @@ type ModalProps = {
 export const Modal = ({ show, onClose }: ModalProps) => {
   const searchMovieTermRef = useRef<HTMLInputElement>(null);
   const [movieTitle, setMovieTitle] = useState<string>("");
-  const { data:movies, isError, error, isPending } = useMovie(movieTitle);
+  const { data: movies, isError, error, isPending } = useMovie(movieTitle);
   if (isError) return <div>{error?.message}</div>;
-
 
   return (
     <>
@@ -47,9 +46,7 @@ export const Modal = ({ show, onClose }: ModalProps) => {
             <div className="flex flex-col flex-wrap gap-5">
               {movies &&
                 movies.map((movie: Movie) => {
-                  return (
-                    <Card key={movie.id} {...movie} loading={isPending} />
-                  );
+                  return <Card key={movie.id} {...movie} loading={isPending} />;
                 })}
             </div>
           </div>

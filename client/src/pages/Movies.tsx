@@ -9,7 +9,6 @@ const MovieListCard = lazy(() =>
   })),
 );
 
-
 export const Movies = () => {
   const {
     data: featuredMovies,
@@ -28,8 +27,7 @@ export const Movies = () => {
   if (isMoviesPending || isFeaturedMoviesPending) return <Spinner />;
   if (isMoviesError || isFeaturedMoviesError)
     //return <div>{moviesError?.message || featuredMoviesError?.message}</div>;
-    return <ErrorModal show={true} message= {"Movies could not be fetched"} />
-
+    return <ErrorModal show={true} message={"Movies could not be fetched"} />;
 
   return (
     <>

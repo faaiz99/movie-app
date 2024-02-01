@@ -7,26 +7,28 @@ import { addReviewToMovie } from "../services/api";
 import { Review } from "../services/api";
 
 export function useReviews(movieId: string) {
-	return useQuery({
-		queryKey: ["get-reviews", movieId],
-		queryFn: () => getReviews(movieId),
-	});
+  return useQuery({
+    queryKey: ["get-reviews", movieId],
+    queryFn: () => getReviews(movieId),
+  });
 }
 
 export function useDeleteReview() {
-	return useMutation({
-		mutationFn: (reviewId: string) => deleteReviewById(reviewId),
-	});
+  return useMutation({
+    mutationFn: (reviewId: string) => deleteReviewById(reviewId),
+  });
 }
 
 export function useUpdateReview() {
-	return useMutation({
-		mutationFn: ({ id, title, description, rating, userId, movieId }:Review) => updateReviewById({ id, title, description, rating, userId, movieId }),
-	});
+  return useMutation({
+    mutationFn: ({ id, title, description, rating, userId, movieId }: Review) =>
+      updateReviewById({ id, title, description, rating, userId, movieId }),
+  });
 }
 
 export function useCreateReview() {
-	return useMutation({
-		mutationFn: ({ title, description, rating, userId, movieId }:Review) => addReviewToMovie({ title, description, rating, userId, movieId }),
-	});
+  return useMutation({
+    mutationFn: ({ title, description, rating, userId, movieId }: Review) =>
+      addReviewToMovie({ title, description, rating, userId, movieId }),
+  });
 }

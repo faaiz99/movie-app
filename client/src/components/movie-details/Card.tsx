@@ -6,13 +6,7 @@ type MovieDetailsCardProps = {
   movie: Movie;
   isAuthenticated: boolean;
 };
-export const Card = ({
-  movie,
-  isAuthenticated
-
-  
-}: MovieDetailsCardProps) => {
-
+export const Card = ({ movie, isAuthenticated }: MovieDetailsCardProps) => {
   return (
     <>
       <div key={movie.id} className="w-auto bg-gray-50 p-5  dark:bg-gray-900">

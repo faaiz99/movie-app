@@ -3,7 +3,9 @@ import { Flowbite } from "flowbite-react";
 import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
-const Error = lazy(() =>import("./pages/Error").then(({ Error }) => ({ default: Error })));
+const Error = lazy(() =>
+  import("./pages/Error").then(({ Error }) => ({ default: Error })),
+);
 
 const Movies = lazy(() =>
   import("./pages/Movies").then(({ Movies }) => ({ default: Movies })),

@@ -224,7 +224,7 @@ export type Review = {
   user?: UserResponse;
 };
 
-export const getReviews = async (movieId:string) => {
+export const getReviews = async (movieId: string) => {
   const response = await api.get<Review[]>(`/reviews/${movieId}`);
   switch (response.status) {
     case 200: // reviews found
@@ -307,7 +307,7 @@ export const updateReviewById = async ({
 };
 
 export const deleteReviewById = async (reviewId: string) => {
-  console.log("HERE", reviewId)
+  console.log("HERE", reviewId);
   // const response = await api.delete<null>(`/reviews/${reviewId}`);
   // return response.data;
 };
