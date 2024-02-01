@@ -10,7 +10,7 @@ export class ReviewRepository implements IReviewRepository {
 		return await this.prisma.review.findMany({
 			where :{
 				movieId:movieId
-			}
+			},
 		});
 	}
 	async getById(id: string): Promise<Review | null> {

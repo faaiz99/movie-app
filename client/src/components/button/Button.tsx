@@ -1,11 +1,11 @@
 import { Button as Component } from "flowbite-react";
 
 type ButtonProps = {
-  className: string;
+  className?: string;
   color?: string;
   size?: string;
   title: string;
-  isProcessing: boolean;
+  isProcessing?: boolean;
   children?: React.ReactNode;
   type?: "submit";
   onClick?: () => void;

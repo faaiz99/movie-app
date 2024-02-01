@@ -221,10 +221,11 @@ export type Review = {
   movieId: string;
   createdAt?: Date;
   updatedAt?: Date;
+  user?: UserResponse;
 };
 
-export const getReviews = async () => {
-  const response = await api.get<Review[]>("/reviews");
+export const getReviews = async (movieId:string) => {
+  const response = await api.get<Review[]>(`/reviews/${movieId}`);
   switch (response.status) {
     case 200: // reviews found
       return response.data;
@@ -306,6 +307,7 @@ export const updateReviewById = async ({
 };
 
 export const deleteReviewById = async (reviewId: string) => {
-  const response = await api.delete<null>(`/reviews/${reviewId}`);
-  return response.data;
+  console.log("HERE", reviewId)
+  // const response = await api.delete<null>(`/reviews/${reviewId}`);
+  // return response.data;
 };

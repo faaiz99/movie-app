@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 export const Footer = () => {
   const navigate = useNavigate();
   return (
-    <Component container className="w-screen rounded-none shadow-xl ">
+    <Component container className=" rounded-none shadow-xl ">
       <Component.Copyright href="#" by="Faaiz Aslam™" year={2024} />
       <div className="flex gap-5">
         <p
