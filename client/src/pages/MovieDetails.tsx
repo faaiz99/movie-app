@@ -6,6 +6,7 @@ import { ErrorModal } from "../components/";
 import { useMovie } from "../hooks/useMovie";
 import { useReviews } from "../hooks/useReview";
 import { checkUserAuth } from "../utils/checkAuthentication";
+import { useAuthStore } from "../store/store";
 
 const MovieDetailsCard = lazy(() =>
   import("../components/").then(({ MovieDetailsCard }) => ({
@@ -24,46 +25,53 @@ const MovieReviewsCard = lazy(() =>
 );
 
 export const MovieDetails = () => {
-  const { movieTitle: title } = useParams<{ movieTitle: string }>();
+  const { title: title } = useParams<{ title: string }>();
+  const userId = useAuthStore((state) => state.session.id);
+  const isAuthenticated = checkUserAuth();
   const {
-    data: movies,
+    data: movie,
     isError: isMovieError,
     isPending: isMoviePending,
-  } = useMovie(slugToTitle(title));
+  } = useMovie(slugToTitle(title as string));
+
   const {
     data: reviews,
     isError: isReviewError,
     isPending: isReviewPending,
-  } = useReviews(movies ? movies[0].id : "");
-  const isAuthenticated = checkUserAuth();
+  } = useReviews(movie?.id as string);
+
   if (isMoviePending && isReviewPending) return <Spinner />;
   if (isMovieError || isReviewError)
     return (
       <ErrorModal
         show={true}
-        message={`Movie data ${slugToTitle(title)} could not be fetched`}
+        message={`Movie data ${slugToTitle(title as string)} could not be fetched`}
       />
     );
-
-  // undefined case will be handled by the useMovie hook
-  // Check if movies is defined before trying to access its properties
-  if (!movies) return null;
-  const movie = movies[0];
 
   return (
     <>
       <div className="flex flex-col items-center  justify-center bg-gray-50 dark:bg-gray-900">
-        <TrailerEmbed title={movie.title} link={movie.trailer} />
+        {movie && <TrailerEmbed title={movie.title} link={movie.trailer} />}
       </div>
       <div className="flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900">
-        <MovieDetailsCard isAuthenticated={isAuthenticated} movie={movie} />
+        {movie && (
+          <MovieDetailsCard
+            isAuthenticated={isAuthenticated}
+            movie={movie}
+            userId={userId}
+          />
+        )}
       </div>
       <div className="flex flex-col items-start justify-center bg-gray-50 dark:bg-gray-900">
-        <MovieReviewsCard
-          isAuthenticated={isAuthenticated}
-          userId={movie.userId}
-          reviews={reviews || []}
-        />
+        {movie && (
+          <MovieReviewsCard
+            isAuthenticated={isAuthenticated}
+            movieId={movie.id as string}
+            userId={userId}
+            reviews={reviews || []}
+          />
+        )}
       </div>
     </>
   );

@@ -1,5 +1,4 @@
 import axios from "axios";
-
 export const api = axios.create({
   baseURL: "http://localhost:3000/api",
   timeout: 1000,
@@ -8,7 +7,6 @@ export const api = axios.create({
   },
 });
 
-/** Add Token to all requests */
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("movie-night-token");
@@ -23,25 +21,28 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.group("AXIOS-API-ERROR");
+    console.group("Axios Interceptor");
+    let message;
+    let status;
     switch (error.response.status) {
       case 401: {
-        //console.log("401: Unauthorized:", error.response.data);
-        const { status, data } = error.response;
-        return { status, data };
+        throw new Error("Token Expired. Please login again.");
+      }
+      case 403: {
+        throw new Error(
+          "Forbidden: You do not have permission to access this resource.",
+        );
+      }
+      case 500: {
+        throw new Error(`Internal Server Error: ` + error.response.data);
+      }
+      default: {
+        status = error.response.status;
+        message = error.response.data.message;
         break;
       }
-      case 403:
-        console.log("403: Forbidden:", error.response.data);
-        break;
-      case 500:
-        console.log("500: Internal Server Error:", error.response.data);
-        break;
-      default:
-        console.log("Unknown error", error.response.data);
-        break;
     }
     console.groupEnd();
-    return Promise.reject(error);
+    return Promise.reject(`${"Error: " + status + " " + message}`);
   },
 );

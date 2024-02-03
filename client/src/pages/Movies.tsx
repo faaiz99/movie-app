@@ -1,7 +1,9 @@
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 import { useMovies, useFeaturedMovies } from "../hooks/useMovie";
 import { Spinner } from "../components";
 import { ErrorModal } from "../components";
+import { useAuthStore } from "../store/store";
+import { checkUserAuth } from "../utils/checkAuthentication";
 
 const MovieListCard = lazy(() =>
   import("../components").then(({ MovieListCard }) => ({
@@ -10,29 +12,38 @@ const MovieListCard = lazy(() =>
 );
 
 export const Movies = () => {
+  const userId = useAuthStore((state) => state.session.id);
   const {
     data: featuredMovies,
     isError: isFeaturedMoviesError,
-    error: featuredMoviesError,
     isPending: isFeaturedMoviesPending,
   } = useFeaturedMovies();
 
   const {
     data: movies,
     isError: isMoviesError,
-    error: moviesError,
     isPending: isMoviesPending,
   } = useMovies();
 
+  const isAuthenticated = checkUserAuth();
   if (isMoviesPending || isFeaturedMoviesPending) return <Spinner />;
   if (isMoviesError || isFeaturedMoviesError)
-    //return <div>{moviesError?.message || featuredMoviesError?.message}</div>;
     return <ErrorModal show={true} message={"Movies could not be fetched"} />;
 
   return (
     <>
-      <MovieListCard title={"Movies"} movies={movies} />
-      <MovieListCard title={"Trending Movies"} movies={featuredMovies} />
+      <MovieListCard
+        isAuthenticated={isAuthenticated}
+        title={"Movies"}
+        movies={movies}
+        userId={userId}
+      />
+      <MovieListCard
+        isAuthenticated={isAuthenticated}
+        title={"Trending Movies"}
+        movies={featuredMovies}
+        userId={userId}
+      />
     </>
   );
 };

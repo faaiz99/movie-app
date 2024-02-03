@@ -1,7 +1,7 @@
 import { Card as Component } from "flowbite-react";
 import { HiOutlineArrowRight } from "react-icons/hi";
 import { Button } from "..";
-import { Movie } from "../../services/api";
+import { Movie } from "../../services/movie";
 import { useNavigate } from "react-router-dom";
 import { titleToSlug } from "../../utils/titleToSlug";
 

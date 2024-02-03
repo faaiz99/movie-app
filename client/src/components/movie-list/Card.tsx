@@ -1,57 +1,67 @@
 import { useState } from "react";
 import { Card as Component } from "flowbite-react";
 import { Star } from "..";
-import { Movie } from "../../services/api";
+import { Movie } from "../../services/movie";
 import { useNavigate } from "react-router-dom";
 import { titleToSlug } from "../../utils/titleToSlug";
 import { HiOutlineArrowRight } from "react-icons/hi";
 import { Button } from "..";
-
-// import { Button } from "..";
+import { HiOutlinePlus } from "react-icons/hi2";
+import { AddUpdateMovieModal } from "..";
+import { NotAuthenticatedModal } from "..";
 
 type CardProps = {
   title: string;
   movies: Movie[];
+  userId: string;
+  isAuthenticated: boolean;
 };
 
-export const Card = ({ title, movies }: CardProps) => {
-  // const [movies, setMovies] = useState([
-  // 	{
-  // 		id: "039dccf4-87d0-4a62-8d28-196e2aef0da9",
-  // 		title: "Napoleon",
-  // 		description: "A look at the military commander's origins and his swift, ruthless climb to emperor, viewed through the prism of his addictive and often volatile relationship with his wife and one true love, Josephine",
-  // 		poster: "https://upload.wikimedia.org/wikipedia/en/2/2e/Napoleon_Film_poster.jpg",
-  // 		trailer: "https://www.youtube.com/watch?v=uYPbbksJxIg",
-  // 		userId: "54b3c9c9-3e4d-4de3-bf27-cc8e60fd4f97",
-  // 		createdAt: "2024-01-07T16:20:50.290Z",
-  // 		updatedAt: "2024-01-07T16:20:50.290Z"
-  // 	},
-  // 	{
-  // 		id: "8fcc29dd-4961-4be1-8cf0-ce179634a4cd",
-  // 		title: "Oppenheimer",
-  // 		description: "During World War II, Lt. Gen. Leslie Groves Jr. appoints physicist J. Robert Oppenheimer to work on the top-secret Manhattan Project. Oppenheimer and a team of scientists spend years developing and designing the atomic bomb. Their work comes to fruition on July 16, 1945, as they witness the world's first nuclear explosion, forever changing the course of history.",
-  // 		poster: "https://upload.wikimedia.org/wikipedia/en/4/4a/Oppenheimer_%28film%29.jpg",
-  // 		trailer: "sadsadasd",
-  // 		userId: "54b3c9c9-3e4d-4de3-bf27-cc8e60fd4f97",
-  // 		createdAt: "2024-01-07T16:20:50.290Z",
-  // 		updatedAt: "2024-01-07T16:20:50.290Z"
-  // 	}
-  // ])
+export const Card = ({ title, movies, isAuthenticated, userId }: CardProps) => {
   type ExpandedMovies = {
     [key: string]: boolean;
   };
+
   const [expandedMovies, setExpandedMovies] = useState<ExpandedMovies>({});
   const navigate = useNavigate();
+
+  //** ADD-Review Modal */
+  const [showAddModal, setShowAddModal] = useState(false);
+  const handleShowAddModal = () => setShowAddModal((prev) => !prev);
+
+  //** Not Authenticated Modal */
+  const [showNotAuthenticatedModal, setShowNotAuthenticatedModal] =
+    useState(false);
+  const handleShowNotAuthenticatedModal = () =>
+    setShowNotAuthenticatedModal((prev) => !prev);
+
   return (
     <>
-      <section className="bg-gray-50 dark:bg-gray-900">
-        <div className="mx-auto flex flex-col items-center justify-center px-6 py-6 lg:py-0">
-          <h3 className="p-10 text-center text-3xl font-semibold italic dark:text-white lg:text-4xl">
-            {title}
-          </h3>
+      <section className=" bg-gray-50 dark:bg-gray-900">
+        <div className=" mx-auto flex flex-col items-center justify-center px-6 py-6 lg:py-0">
+          <div className="flex justify-between space-x-5">
+            <h3 className="p-10 text-center text-3xl font-semibold italic dark:text-white lg:text-4xl">
+              {title}
+            </h3>
+            <Button
+              title={``}
+              color="green"
+              size={"md"}
+              className="h-10 w-10 self-center"
+              isProcessing={false}
+              onClick={() => {
+                isAuthenticated
+                  ? handleShowAddModal()
+                  : handleShowNotAuthenticatedModal();
+              }}
+            >
+              <HiOutlinePlus />
+            </Button>
+          </div>
+
           <div className="flex flex-wrap items-start justify-center gap-5 lg:gap-10">
             {movies.map((movie) => {
-              const isExpanded = expandedMovies[movie.id];
+              const isExpanded = expandedMovies[movie.id as string];
               return (
                 <Component
                   horizontal
@@ -81,7 +91,7 @@ export const Card = ({ title, movies }: CardProps) => {
                           onClick={() =>
                             setExpandedMovies({
                               ...expandedMovies,
-                              [movie.id]: !isExpanded,
+                              [movie.id as string]: !isExpanded,
                             })
                           }
                         >
@@ -92,9 +102,7 @@ export const Card = ({ title, movies }: CardProps) => {
                     <div>
                       <Button
                         onClick={() =>
-                          navigate(`/movie/${titleToSlug(movie.title)}`, {
-                            state: { movie },
-                          })
+                          navigate(`/movie/${titleToSlug(movie.title)}`)
                         }
                         title={"Watch Now"}
                         color="failure"
@@ -113,6 +121,27 @@ export const Card = ({ title, movies }: CardProps) => {
           </div>
         </div>
       </section>
+      {showAddModal && (
+        <AddUpdateMovieModal
+          movie={{
+            id: "",
+            userId: userId,
+            title: "",
+            description: "",
+            poster: "",
+            trailer: "",
+          }}
+          operation={"Create"}
+          show={showAddModal}
+          handleShowAddUpdateModal={handleShowAddModal}
+        />
+      )}
+      {showNotAuthenticatedModal && (
+        <NotAuthenticatedModal
+          show={showNotAuthenticatedModal}
+          message={"You need to be logged in to add a movie"}
+        />
+      )}
     </>
   );
 };

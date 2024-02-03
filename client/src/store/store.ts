@@ -5,6 +5,7 @@ type Session = {
   firstName: string;
   lastName: string;
   email: string;
+  token: string;
 };
 
 export type State = {
@@ -23,6 +24,7 @@ export const useAuthStore = create<State & Action>()(
         firstName: "",
         lastName: "",
         email: "",
+        token: "",
       },
       setSession: (session: Session) => set({ session }),
       resetSession: () =>
@@ -32,6 +34,7 @@ export const useAuthStore = create<State & Action>()(
             firstName: "",
             lastName: "",
             email: "",
+            token: "",
           },
         }),
     }),

@@ -1,8 +1,8 @@
 import { Modal as Component, TextInput, Label } from "flowbite-react";
 import { useState, useRef } from "react";
-import { Movie } from "../../services/api";
+import { Movie } from "../../services/movie";
 import { Card } from "./Card";
-import { useMovie } from "../../hooks/useMovie";
+import { useSearchMovie } from "../../hooks/useMovie";
 type ModalProps = {
   show: boolean;
   onClose: () => void;
@@ -11,7 +11,12 @@ type ModalProps = {
 export const Modal = ({ show, onClose }: ModalProps) => {
   const searchMovieTermRef = useRef<HTMLInputElement>(null);
   const [movieTitle, setMovieTitle] = useState<string>("");
-  const { data: movies, isError, error, isPending } = useMovie(movieTitle);
+  const {
+    data: movies,
+    isError,
+    error,
+    isPending,
+  } = useSearchMovie(movieTitle);
   if (isError) return <div>{error?.message}</div>;
 
   return (

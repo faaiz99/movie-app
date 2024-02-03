@@ -2,11 +2,11 @@ import "./App.css";
 import { Flowbite } from "flowbite-react";
 import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import { Spinner } from "./components";
 
 const Error = lazy(() =>
   import("./pages/Error").then(({ Error }) => ({ default: Error })),
 );
-
 const Movies = lazy(() =>
   import("./pages/Movies").then(({ Movies }) => ({ default: Movies })),
 );
@@ -27,7 +27,7 @@ const Footer = lazy(() =>
 const Navbar = lazy(() =>
   import("./components").then(({ Navbar }) => ({ default: Navbar })),
 );
-import { Spinner } from "./components";
+
 function App() {
   return (
     <>
@@ -38,7 +38,7 @@ function App() {
             <Route path="/" element={<Movies />} />
             <Route path="/login" element={<Login />} />
             <Route path="/sign-up" element={<Signup />} />
-            <Route path="/movie/:movieTitle" element={<MovieDetails />} />
+            <Route path="/movie/:title" element={<MovieDetails />} />
             <Route path="*" element={<Error />} />
           </Routes>
           <div className="bg-gray-50  pt-5 dark:bg-gray-900 lg:pt-10">

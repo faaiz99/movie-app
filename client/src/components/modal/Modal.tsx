@@ -1,7 +1,7 @@
 import { Modal as Component } from "flowbite-react";
 import { useState, useEffect } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 type ModalProps = {
   show: boolean;
@@ -10,7 +10,7 @@ type ModalProps = {
 
 export const Modal = ({ show, message }: ModalProps) => {
   const [openModal, setOpenModal] = useState(show);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   useEffect(() => {
     if (openModal) {
       const timer = setTimeout(() => {

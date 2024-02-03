@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { authenticationUser } from "../services/api";
+import { authenticationUser } from "../services/auth";
 import { useState } from "react";
 import { useAuthStore } from "../store/store";
 import { Button } from "../components";
-
+import { loginSchema } from "../schemas/user";
+import { zodResolver } from "@hookform/resolvers/zod";
 type AuthenticationInputs = {
   email: string;
   password: string;
@@ -19,17 +20,20 @@ export const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AuthenticationInputs>();
+  } = useForm<AuthenticationInputs>({
+    resolver: zodResolver(loginSchema),
+  });
   const onSubmit: SubmitHandler<AuthenticationInputs> = async (data) => {
     setLoading(true);
     const { email, password, remember } = data;
     try {
       const response = await authenticationUser({ email, password });
       if (response) setLoading(false);
-      setSession(response.user);
-      if (remember) {
-        localStorage.setItem("movie-night-token", response.token);
-      }
+      localStorage.setItem("movie-night-token", response.token);
+      remember
+        ? setSession({ ...response.user, token: response.token })
+        : setSession({ ...response.user, token: "" });
+
       console.log("res", response);
       navigate("/");
     } catch (error) {
@@ -71,7 +75,7 @@ export const Login = () => {
                 />
                 {errors.email && (
                   <span className="text-xs font-semibold text-red-500">
-                    *Email is required
+                    {errors.email?.message}
                   </span>
                 )}
               </div>
@@ -96,7 +100,7 @@ export const Login = () => {
                 />
                 {errors.password && (
                   <span className="text-xs font-semibold text-red-500">
-                    *Password is required
+                    {errors.password?.message}
                   </span>
                 )}
               </div>
@@ -125,6 +129,7 @@ export const Login = () => {
                 type="submit"
                 className="w-full rounded-md"
                 isProcessing={loading}
+                color="blue"
                 title={"Sign in"}
               ></Button>
               <div className="flex gap-1">
