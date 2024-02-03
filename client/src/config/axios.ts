@@ -37,6 +37,7 @@ api.interceptors.response.use(
         throw new Error(`Internal Server Error: ` + error.response.data);
       }
       default: {
+        console.log("Error: ", error.response);
         status = error.response.status;
         message = error.response.data.message;
         break;

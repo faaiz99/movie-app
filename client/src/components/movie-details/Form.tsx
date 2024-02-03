@@ -31,7 +31,7 @@ const Form = (props: FormProps) => {
   } = useForm<MovieInputs>({
     resolver: zodResolver(movieSchema),
     defaultValues: {
-      id: movie?.id,
+      id: movie.id,
       title: movie?.title,
       description: movie?.description,
       userId: movie.userId,
@@ -100,6 +100,16 @@ const Form = (props: FormProps) => {
             {errors.description && (
               <span className="text-xs font-semibold text-red-500">
                 {errors.description?.message}
+              </span>
+            )}
+            {errors && (
+              <span className="text-xs font-semibold text-red-500">
+                {errors.description?.message}
+                {errors.id?.message}
+                {errors.userId?.message}
+                {errors.poster?.message}
+                {errors.trailer?.message}
+                {errors.title?.message}
               </span>
             )}
           </div>

@@ -52,6 +52,8 @@ export const Card = ({
     useState(false);
   const handleShowNotAuthenticatedModal = () =>
     setShowNotAuthenticatedModal((prev) => !prev);
+
+  const [currentReview, setCurrentReview] = useState<Review>();
   return (
     <div className="w-auto flex-col bg-gray-50  px-5 dark:bg-gray-900 lg:p-5 ">
       <div className="flex justify-between pb-5">
@@ -107,6 +109,7 @@ export const Card = ({
                 <div className="flex justify-end space-x-5">
                   <Button
                     onClick={() => {
+                      setCurrentReview(review);
                       setShowUpdateModal(true);
                     }}
                     title={``}
@@ -118,6 +121,7 @@ export const Card = ({
                   </Button>
                   <Button
                     onClick={() => {
+                      setCurrentReview(review);
                       setShowDeleteModal(true);
                     }}
                     title={``}
@@ -133,7 +137,7 @@ export const Card = ({
               {showDeleteModal && (
                 <DeleteConfirmationModal
                   type={"review"}
-                  reviewId={review.id}
+                  reviewId={currentReview!.id}
                   message={`Are you sure you want to delete this Review?
                   `}
                   handleDeletion={handleDeleteReview}
@@ -143,7 +147,7 @@ export const Card = ({
               )}
               {showUpdateModal && (
                 <AddUpdateReviewModal
-                  review={review}
+                  review={currentReview!}
                   operation={"Update"}
                   show={showUpdateModal}
                   handleShowAddUpdateModal={handleShowUpdateModal}

@@ -11,18 +11,18 @@ import {
 } from "../services/movie";
 import { queryClient } from "../config/query-client";
 export function useMovies() {
-  return useQuery({ queryKey: ["get-movies"], queryFn: getMovies });
+  return useQuery({ queryKey: ["movies"], queryFn: getMovies });
 }
 export function useFeaturedMovies() {
   return useQuery({
-    queryKey: ["get-featured-movies"],
+    queryKey: ["featured-movies"],
     queryFn: getFeaturedMovies,
   });
 }
 
 export function useMovie(title: string) {
   return useQuery({
-    queryKey: ["get-movie", title],
+    queryKey: ["movie", title],
     queryFn: () => getMovieByTitle(title),
     enabled: title.length > 0,
   });
@@ -30,7 +30,7 @@ export function useMovie(title: string) {
 
 export function useSearchMovie(title: string) {
   return useQuery({
-    queryKey: ["search-movie", title],
+    queryKey: ["search-movies", title],
     queryFn: () => getMovieByTermInTitle(title),
     enabled: title.length > 0,
   });
@@ -40,9 +40,12 @@ export function useUpdateMovie() {
   return useMutation({
     mutationFn: ({ id, title, description, poster, trailer, userId }: Movie) =>
       updateMovieById({ id, title, description, poster, trailer, userId }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["get-movies", "get-featured-movies"],
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["movies"],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ["featured-movies"],
       });
     },
     onError: (error) => {
@@ -55,9 +58,15 @@ export function useCreateMovie() {
   return useMutation({
     mutationFn: ({ title, description, trailer, poster, userId }: Movie) =>
       createMovie({ title, description, trailer, poster, userId }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["get-movies", "get-featured-movies"],
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["movies"],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ["featured-movies"],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ["movie"],
       });
     },
     onError: (error) => {
@@ -69,9 +78,12 @@ export function useCreateMovie() {
 export function useDeleteMovie() {
   return useMutation({
     mutationFn: (id: string) => deleteMovieById(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["get-movies", "get-featured-movies"],
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["movies"],
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ["featured-movies"],
       });
     },
     onError: (error) => {

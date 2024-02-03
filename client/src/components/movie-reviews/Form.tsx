@@ -5,7 +5,7 @@ import { Review } from "../../services/review";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { reviewSchema } from "../../schemas/review";
 type ReviewInputs = {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   rating: number;
@@ -33,7 +33,7 @@ const Form = (props: FormProps) => {
       id: review?.id,
       title: review?.title,
       description: review?.description,
-      rating: review?.rating,
+      rating: review.rating,
       movieId: review.movieId,
       userId: review.userId,
     },
@@ -72,7 +72,7 @@ const Form = (props: FormProps) => {
             />
             {errors.title && (
               <span className="text-xs font-semibold text-red-500">
-                {errors.title.message}
+                {errors.title?.message}
               </span>
             )}
           </div>
@@ -97,7 +97,7 @@ const Form = (props: FormProps) => {
             />
             {errors.description && (
               <span className="text-xs font-semibold text-red-500">
-                {errors.description.message}
+                {errors.description?.message}
               </span>
             )}
           </div>
@@ -118,16 +118,18 @@ const Form = (props: FormProps) => {
                   : "border-gray-300"
               } focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm`}
             >
-              <option value={5}>5</option>
-              <option value={4}>4</option>
-              <option value={3}>3</option>
-              <option value={2}>2</option>
-              <option value={1}>1</option>
+              <option selected value={"5"}>
+                5
+              </option>
+              <option value={"4"}>4</option>
+              <option value={"3"}>3</option>
+              <option value={"2"}>2</option>
+              <option value={"1"}>1</option>
             </Select>
 
             {errors.rating && (
               <span className="text-xs font-semibold text-red-500">
-                {errors.rating.message}
+                {"Rating is required"}
               </span>
             )}
           </div>

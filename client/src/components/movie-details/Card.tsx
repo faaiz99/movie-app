@@ -38,6 +38,7 @@ export const Card = ({ movie, userId }: MovieDetailsCardProps) => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const handleShowUpdateModal = () => setShowUpdateModal((prev) => !prev);
 
+  const [currentMovie, setCurrentMovie] = useState<Movie>();
   return (
     <>
       <div key={movie.id} className="w-auto bg-gray-50 p-5  dark:bg-gray-900">
@@ -49,6 +50,7 @@ export const Card = ({ movie, userId }: MovieDetailsCardProps) => {
             <div className="flex justify-end space-x-5">
               <Button
                 onClick={() => {
+                  setCurrentMovie(movie);
                   setShowUpdateModal(true);
                 }}
                 title={``}
@@ -60,6 +62,7 @@ export const Card = ({ movie, userId }: MovieDetailsCardProps) => {
               </Button>
               <Button
                 onClick={() => {
+                  setCurrentMovie(movie);
                   setShowDeleteModal(true);
                 }}
                 title={``}
@@ -82,7 +85,7 @@ export const Card = ({ movie, userId }: MovieDetailsCardProps) => {
         <DeleteConfirmationModal
           type={"movie"}
           message={"Are you sure you want to delete this movie?"}
-          movieId={movie.id}
+          movieId={currentMovie!.id}
           show={showDeleteModal}
           handleShowDeleteModal={handleShowDeleteModal}
           handleDeletion={handleDeleteMovie}
@@ -90,7 +93,7 @@ export const Card = ({ movie, userId }: MovieDetailsCardProps) => {
       )}
       {showUpdateModal && (
         <AddUpdateMovieModal
-          movie={movie}
+          movie={currentMovie!}
           operation={"Update"}
           show={showUpdateModal}
           handleShowAddUpdateModal={handleShowUpdateModal}

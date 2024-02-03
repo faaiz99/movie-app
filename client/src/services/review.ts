@@ -81,6 +81,7 @@ export const updateReviewById = async ({
   movieId,
 }: Review) => {
   rating = parseInt(rating.toString());
+  console.log("reviewid", id);
   const response = await api.post<Review>(`/review/${id}`, {
     title,
     description,

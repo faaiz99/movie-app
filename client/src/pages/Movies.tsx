@@ -19,6 +19,7 @@ export const Movies = () => {
     isPending: isFeaturedMoviesPending,
   } = useFeaturedMovies();
 
+
   const {
     data: movies,
     isError: isMoviesError,
@@ -37,12 +38,14 @@ export const Movies = () => {
         title={"Movies"}
         movies={movies}
         userId={userId}
+        rank={false}
       />
       <MovieListCard
         isAuthenticated={isAuthenticated}
         title={"Trending Movies"}
         movies={featuredMovies}
         userId={userId}
+        rank={true}
       />
     </>
   );

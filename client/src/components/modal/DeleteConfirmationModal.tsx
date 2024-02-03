@@ -22,7 +22,6 @@ export const DeleteConfirmationModal = ({
   message,
   handleDeletion,
 }: DeleteConfirmationProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [openModal] = useState(show);
 
   return (

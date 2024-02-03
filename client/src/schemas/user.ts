@@ -19,7 +19,7 @@ export const userSchema = z
     message: "Password don't match",
   });
 
-type User = z.infer<typeof userSchema>;
+// type User = z.infer<typeof userSchema>;
 
 export const loginSchema = z.object({
   email: z.string().min(1, { message: "Email is required" }).email({
@@ -28,4 +28,4 @@ export const loginSchema = z.object({
   password: z.string().min(1, { message: "Password is required" }),
 });
 
-type Login = z.infer<typeof loginSchema>;
+// type Login = z.infer<typeof loginSchema>;
