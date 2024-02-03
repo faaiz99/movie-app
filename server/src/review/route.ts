@@ -144,7 +144,7 @@ router.post(
 				},
 			},
 		},
-		["body", "params"]
+		["body"]
 	),
 	updateReviewById
 );

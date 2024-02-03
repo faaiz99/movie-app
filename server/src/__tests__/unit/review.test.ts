@@ -63,10 +63,10 @@ describe("Review Service", () => {
 	describe("getReviews", () => {
 		it("should get all reviews", async () => {
 			const mockReviews: Review[] = [mockReview];
-
+			const mockMovieId = "12345";
 			jest.spyOn(reviewService, "getReviews").mockResolvedValue(mockReviews);
 
-			const result = await reviewService.getReviews();
+			const result = await reviewService.getReviews(mockMovieId);
 
 			expect(reviewService.getReviews).toHaveBeenCalled();
 			expect(result).toEqual(mockReviews);

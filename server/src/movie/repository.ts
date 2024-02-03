@@ -40,29 +40,23 @@ export class MovieRepository implements IMovieRepository {
 	}
 	async getMoviesWithMostReviews(): Promise<Movie[]> {
 		return await this.prisma.movie.findMany({
-			include: {
-				reviews: true,
+			include:{
+				_count:{
+					select:{
+						reviews:true
+					}
+				}
 			},
 			orderBy: {
-				reviews: {
-					_count: "desc",
-				},
-			},
+				reviews:{
+					_count:"desc"
+				}
+			}
 		});
 	}
 	async getMovies(): Promise<Movie[]> {
 		return await this.prisma.movie.findMany({
-			include: {
-				reviews: true,
-				user: {
-					select: {
-						id: true,
-						firstName: true,
-						lastName: true,
-						email: true,
-					},
-				},
-			},
+
 		});
 	}
 	async getByTitle(title: string): Promise<Movie | null> {
@@ -70,28 +64,7 @@ export class MovieRepository implements IMovieRepository {
 			where: {
 				title: title,
 			},
-			// include: {
-			// 	reviews: {
-			// 		include: {
-			// 			user: {
-			// 				select: {
-			// 					id: true,
-			// 					firstName: true,
-			// 					lastName: true,
-			// 					email: true,
-			// 				},
-			// 			},
-			// 		},
-			// 	},
-			// 	user: {
-			// 		select: {
-			// 			id: true,
-			// 			firstName: true,
-			// 			lastName: true,
-			// 			email: true,
-			// 		},
-			// 	},
-			// },
+
 		});
 	}
 	async create(movie: Partial<Movie>): Promise<Movie> {
