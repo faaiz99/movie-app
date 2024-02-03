@@ -243,13 +243,13 @@ describe("Movie - Controller", () => {
 		await request(app).delete(`/api/user/${testUser.email}`);
 	});
 	describe("Update Movie", () => {
-		it("POST api/movies/movieId should return 403 No Token with missing auth header", async () => {
+		it("POST api/movie/movieId should return 403 No Token with missing auth header", async () => {
 			const response = await request(app).get(`/api/movie/${movieId}`);
 			expect(response.status).toBe(403);
 			expect(response.body.status).toEqual(false);
 			expect(response.body.message).toEqual("No token provided!");
 		});
-		it("POST api/movies/movieId should return 401 Unauthorized with invalid token", async () => {
+		it("POST api/movie/movieId should return 401 Unauthorized with invalid token", async () => {
 			const response = await request(app)
 				.get(`/api/movie/${movieId}`)
 				.set("authorization", `Bearer ${token}1`)
@@ -258,7 +258,7 @@ describe("Movie - Controller", () => {
 			expect(response.body.status).toEqual("error");
 			expect(response.body.message).toEqual("Invalid Token");
 		});
-		it("POST api/movies/movieId should return 200 Movie Updated with valid data", async () => {
+		it("POST api/movie/movieId should return 200 Movie Updated with valid data", async () => {
 			const payload = {
 				title: "test-movie-updated",
 				description: "test-movie-description-updated",
@@ -278,7 +278,7 @@ describe("Movie - Controller", () => {
 			expect(response.body.userId).toEqual(userId);
 			expect(response.body.id).toEqual(movieId);
 		});
-		it("POST api/movies/movieId should return 404 Movie Not Found with invalid MovieId", async () => {
+		it("POST api/movie/movieId should return 404 Movie Not Found with invalid MovieId", async () => {
 			const modifiedMovieId = "8fcc29dd-4961-4be1-8cf0-ce179634a4ce";
 			const response = await request(app)
 				.post(`/api/movie/${modifiedMovieId}`)
@@ -287,7 +287,7 @@ describe("Movie - Controller", () => {
 			expect(response.status).toBe(404);
 			expect(response.body.message).toEqual("Movie Not Found");
 		});
-		it("POST api/movies/movieId should return 422 Movie Not Updated with missing UserId OR MovieId undefined", async () => {
+		it("POST api/movie/movieId should return 422 Movie Not Updated with missing UserId OR MovieId undefined", async () => {
 			const modifiedMovieId = undefined;
 			const modifiedPayload = JSON.parse(JSON.stringify(payload));
 			delete modifiedPayload.userId;

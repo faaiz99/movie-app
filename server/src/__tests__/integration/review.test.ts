@@ -3,18 +3,18 @@ import request from "supertest";
 import app from "../../app";
 
 type ReviewPayload = {
-  title: string;
-  description: string;
-  rating: number;
-  userId?: string;
+	title: string;
+	description: string;
+	rating: number;
+	userId?: string;
 };
 
 type MoviewPayload = {
-  title: string;
-  description: string;
-  poster: string;
-  trailer: string;
-  userId?: string;
+	title: string;
+	description: string;
+	poster: string;
+	trailer: string;
+	userId?: string;
 };
 
 describe("Review - Controller", () => {
@@ -189,14 +189,14 @@ describe("Review - Controller", () => {
 			.set("authorization", `Bearer ${token}`);
 		await request(app).delete(`/api/user/${testUser.email}`);
 	});
-	describe("GET Reviews", () => {
-		it("GET api/reviews/reviewId should return 403 No Token with missing auth header", async () => {
+	describe.only("GET Reviews", () => {
+		it("GET api/review/reviewId should return 403 No Token with missing auth header", async () => {
 			const response = await request(app).get(`/api/review/${reviewId}`);
 			expect(response.status).toBe(403);
 			expect(response.body.status).toEqual(false);
 			expect(response.body.message).toEqual("No token provided!");
 		});
-		it("GET api/reviews/reviewId should return 401 Unauthorized with invalid token", async () => {
+		it("GET api/review/reviewId should return 401 Unauthorized with invalid token", async () => {
 			const response = await request(app)
 				.get(`/api/review/${reviewId}`)
 				.set("authorization", `Bearer ${token}1`);
@@ -204,7 +204,7 @@ describe("Review - Controller", () => {
 			expect(response.body.status).toEqual("error");
 			expect(response.body.message).toEqual("Invalid Token");
 		});
-		it("GET api/reviews/reviewId should return 200 OK with valid data", async () => {
+		it("GET api/review/reviewId should return 200 OK with valid data", async () => {
 			const response = await request(app)
 				.get(`/api/review/${reviewId}`)
 				.set("authorization", `Bearer ${token}`);
@@ -214,7 +214,7 @@ describe("Review - Controller", () => {
 			expect(response.body.rating).toBe(reviewPayload.rating);
 			expect(response.body.userId).toBe(reviewPayload.userId);
 		});
-		it("GET api/reviews/reviewId should return 422 Unprocessable Content with missing reviewId", async () => {
+		it("GET api/review/reviewId should return 422 Unprocessable Content with missing reviewId", async () => {
 			const modifiedReviewId = undefined;
 			const response = await request(app)
 				.get(`/api/review/${modifiedReviewId}`)
@@ -305,7 +305,7 @@ describe("Review - Controller", () => {
 		await request(app).delete(`/api/user/${testUser.email}`);
 	});
 	describe("UPDATE Reviews", () => {
-		it("POST api/reviews/reviewId should return 403 No Token with missing auth header", async () => {
+		it("POST api/review/reviewId should return 403 No Token with missing auth header", async () => {
 			const response = await request(app)
 				.post(`/api/review/${reviewId}`)
 				.send(reviewPayload);
@@ -313,7 +313,7 @@ describe("Review - Controller", () => {
 			expect(response.body.status).toEqual(false);
 			expect(response.body.message).toEqual("No token provided!");
 		});
-		it("POST api/reviews/reviewId should return 401 Unauthorized with invalid token", async () => {
+		it("POST api/review/reviewId should return 401 Unauthorized with invalid token", async () => {
 			const response = await request(app)
 				.post(`/api/review/${reviewId}`)
 				.set("authorization", `Bearer ${token}1`)
@@ -322,7 +322,7 @@ describe("Review - Controller", () => {
 			expect(response.body.status).toEqual("error");
 			expect(response.body.message).toEqual("Invalid Token");
 		});
-		it("POST api/reviews/reviewId should return 200 OK with valid data", async () => {
+		it("POST api/review/reviewId should return 200 OK with valid data", async () => {
 			const response = await request(app)
 				.get(`/api/review/${reviewId}`)
 				.set("authorization", `Bearer ${token}`)
@@ -333,7 +333,7 @@ describe("Review - Controller", () => {
 			expect(response.body.rating).toBe(reviewPayload.rating);
 			expect(response.body.userId).toBe(reviewPayload.userId);
 		});
-		it("POST api/reviews/reviewId should return 422 Unprocessable Content with missing reviewId", async () => {
+		it("POST api/review/reviewId should return 422 Unprocessable Content with missing reviewId", async () => {
 			const modifiedReviewId = undefined;
 			const response = await request(app)
 				.get(`/api/review/${modifiedReviewId}`)
@@ -419,7 +419,7 @@ describe("Review - Controller", () => {
 		await request(app).delete(`/api/user/${testUser.email}`);
 	});
 	describe("DELETE Reviews", () => {
-		it("DELETE api/reviews/reviewId should return 403 No Token with missing auth header", async () => {
+		it("DELETE api/review/reviewId should return 403 No Token with missing auth header", async () => {
 			const response = await request(app)
 				.delete(`/api/review/${reviewId}`)
 				.send(reviewPayload);
@@ -427,7 +427,7 @@ describe("Review - Controller", () => {
 			expect(response.body.status).toEqual(false);
 			expect(response.body.message).toEqual("No token provided!");
 		});
-		it("DELETE api/reviews/reviewId should return 401 Unauthorized with invalid token", async () => {
+		it("DELETE api/review/reviewId should return 401 Unauthorized with invalid token", async () => {
 			const response = await request(app)
 				.delete(`/api/review/${reviewId}`)
 				.set("authorization", `Bearer ${token}1`)
@@ -436,14 +436,14 @@ describe("Review - Controller", () => {
 			expect(response.body.status).toEqual("error");
 			expect(response.body.message).toEqual("Invalid Token");
 		});
-		it("DELETE api/reviews/reviewId should return 200 OK with valid data", async () => {
+		it("DELETE api/review/reviewId should return 200 OK with valid data", async () => {
 			const response = await request(app)
 				.delete(`/api/review/${reviewId}`)
 				.set("authorization", `Bearer ${token}`)
 				.send(reviewPayload);
 			expect(response.status).toBe(200);
 		});
-		it("DELETE api/reviews/reviewId should return 422 Unprocessable Content with missing reviewId", async () => {
+		it("DELETE api/review/reviewId should return 422 Unprocessable Content with missing reviewId", async () => {
 			const modifiedReviewId = undefined;
 			const response = await request(app)
 				.delete(`/api/review/${modifiedReviewId}`)

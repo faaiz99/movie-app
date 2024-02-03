@@ -31,8 +31,8 @@ export const Authenticated = () => {
         <span className="block truncate text-sm font-medium">{email}</span>
       </Dropdown.Header>
       {/* <Dropdown.Item>Movies</Dropdown.Item> */}
-      <Dropdown.Item>Modify Movies</Dropdown.Item>
-      <Dropdown.Item>Delete Account</Dropdown.Item>
+      {/* <Dropdown.Item>Modify Movies</Dropdown.Item>
+      <Dropdown.Item>Delete Account</Dropdown.Item> */}
       <Dropdown.Divider />
       <Dropdown.Item onClick={HandleLogout}>Logout</Dropdown.Item>
     </Dropdown>

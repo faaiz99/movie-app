@@ -11,7 +11,7 @@ export const Navbar = () => {
   const { mode } = useThemeMode();
   const isAuthenticated = checkUserAuth();
   return (
-    <Component fluid className="shadow-xl">
+    <Component  role="navbar" fluid className="shadow-xl">
       <Component.Brand href="/">
         <div className="flex gap-x-2">
           <div>
