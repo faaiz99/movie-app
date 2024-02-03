@@ -4,7 +4,13 @@ import { AddUpdateMovieModal } from "../../components/movie-details/AddUpdateMov
 
 describe("AddUpdateMovieModal component", () => {
   const mockMovie = {
-    // mock movie object
+    title: "Sample Movie",
+    description: "This is a sample movie description",
+    poster: "https://example.com/poster.jpg",
+    trailer: "https://www.youtube.com/watch?v=1234",
+    userId: "1234",
+    id:"1234"
+
   };
 
   const mockOperation = "Create";
