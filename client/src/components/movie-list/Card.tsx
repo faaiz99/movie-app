@@ -110,6 +110,7 @@ export const Card = ({
                     </div>
                     <div className="mt-auto w-full ">
                       <Button
+                        data-testid="watch-now-button"
                         onClick={() =>
                           navigate(`/movie/${titleToSlug(movie.title)}`)
                         }
@@ -133,6 +134,7 @@ export const Card = ({
 
       {showAddModal && (
         <AddUpdateMovieModal
+          data-testid="add-modal"
           movie={{
             id: "",
             userId: userId,

@@ -108,6 +108,7 @@ export const Card = ({
               {canModify(userId, review.userId) && (
                 <div className="flex justify-end space-x-5">
                   <Button
+                    data-testid="edit-button"
                     onClick={() => {
                       setCurrentReview(review);
                       setShowUpdateModal(true);
@@ -120,6 +121,7 @@ export const Card = ({
                     <HiOutlinePencilSquare />
                   </Button>
                   <Button
+                    data-testid="delete-button"
                     onClick={() => {
                       setCurrentReview(review);
                       setShowDeleteModal(true);

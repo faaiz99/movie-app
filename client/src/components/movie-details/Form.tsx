@@ -50,6 +50,7 @@ const Form = (props: FormProps) => {
           Movie
         </h1>
         <form
+          data-testid="form"
           className="space-y-4 md:space-y-6"
           onSubmit={handleSubmit(onSubmit)}
         >
