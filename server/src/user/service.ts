@@ -1,7 +1,9 @@
 import { User } from "@prisma/client";
-import { UserRepository } from "./repository";
-import { createToken } from "../utils/auth";
+
 import { db } from "../../lib/prisma.db";
+import { createToken } from "../utils/auth";
+
+import { UserRepository } from "./repository";
 export class CreateUserDTO {
 	id: string;
 	firstName: string;

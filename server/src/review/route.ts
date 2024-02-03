@@ -1,14 +1,20 @@
 import { Router } from "express";
+import { checkSchema } from "express-validator";
+
 import {
 	createReview,
-	updateReviewById,
 	deleteReviewById,
 	getReviewById,
 	getReviews,
+	updateReviewById,
 } from "./controller";
-import { checkSchema } from "express-validator";
 const router = Router();
 import { validateToken } from "../middewares/auth";
+
+/**
+ * reviews/:movieId [POST,GET]
+ * review/:reviewId [GET,POST,DELETE]
+ */
 
 router.post(
 	"/reviews/:movieId",
@@ -49,23 +55,26 @@ router.post(
 	),
 	createReview
 );
-router.get("/reviews/:movieId", checkSchema(
-	{
-		movieId: {
-			isString: true,
-			notEmpty: true,
-			errorMessage: "MovieId is required",
-			isLength: {
-				options: { min: 36, max: 36 },
-				errorMessage: "MovieId must be 36 characters",
-			},
-		}
-	},
-	["params"],
-
-), getReviews);
 router.get(
-	"/reviews/:reviewId",
+	"/reviews/:movieId",
+	checkSchema(
+		{
+			movieId: {
+				isString: true,
+				notEmpty: true,
+				errorMessage: "MovieId is required",
+				isLength: {
+					options: { min: 36, max: 36 },
+					errorMessage: "MovieId must be 36 characters",
+				},
+			},
+		},
+		["params"]
+	),
+	getReviews
+);
+router.get(
+	"/review/:reviewId",
 	checkSchema(
 		{
 			reviewId: {
@@ -83,10 +92,20 @@ router.get(
 	getReviewById
 );
 router.post(
-	"/reviews/:reviewId",
+	"/review/:reviewId",
 	validateToken,
 	checkSchema(
 		{
+			reviewId: {
+				isString: true,
+				notEmpty: true,
+				errorMessage: "ReviewId is required",
+				isLength: {
+					options: { min: 36, max: 36 },
+					errorMessage: "ReviewId must be 36 characters",
+				},
+				in: ["params"],
+			},
 			movieId: {
 				isString: true,
 				notEmpty: true,
@@ -95,6 +114,7 @@ router.post(
 					options: { min: 36, max: 36 },
 					errorMessage: "MovieId must be 36 characters",
 				},
+				in: ["body"],
 			},
 			title: {
 				isString: true,
@@ -129,7 +149,7 @@ router.post(
 	updateReviewById
 );
 router.delete(
-	"/reviews/:reviewId",
+	"/review/:reviewId",
 	validateToken,
 	checkSchema(
 		{

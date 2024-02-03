@@ -1,4 +1,5 @@
-import { PrismaClient, Movie } from "@prisma/client";
+import { Movie,PrismaClient } from "@prisma/client";
+
 import { IMovieRepository } from "./service";
 export class MovieRepository implements IMovieRepository {
 	private prisma: PrismaClient;
@@ -12,27 +13,28 @@ export class MovieRepository implements IMovieRepository {
 					{
 						title: {
 							equals: characters,
+							mode: "insensitive",
 						},
 					},
 					{
 						title: {
-							contains: characters
-						}
-					}, {
-						title: {
-							endsWith: characters
-						}
-					}, {
-						title: {
-							startsWith: characters
-						}
+							contains: characters,
+							mode: "insensitive",
+						},
 					},
 					{
-						description: {
-							contains: characters
-						}
-					}
-				]
+						title: {
+							endsWith: characters,
+							mode: "insensitive",
+						},
+					},
+					{
+						title: {
+							startsWith: characters,
+							mode: "insensitive",
+						},
+					},
+				],
 			},
 		});
 	}
@@ -58,38 +60,38 @@ export class MovieRepository implements IMovieRepository {
 						firstName: true,
 						lastName: true,
 						email: true,
-					}
-				}
-			}
+					},
+				},
+			},
 		});
 	}
-	async getById(id: string): Promise<Movie | null> {
+	async getByTitle(title: string): Promise<Movie | null> {
 		return await this.prisma.movie.findUnique({
 			where: {
-				id: id,
+				title: title,
 			},
-			include: {
-				reviews: {
-					include: {
-						user: {
-							select: {
-								id: true,
-								firstName: true,
-								lastName: true,
-								email: true,
-							},
-						},
-					},
-				},
-				user: {
-					select: {
-						id: true,
-						firstName: true,
-						lastName: true,
-						email: true,
-					},
-				},
-			},
+			// include: {
+			// 	reviews: {
+			// 		include: {
+			// 			user: {
+			// 				select: {
+			// 					id: true,
+			// 					firstName: true,
+			// 					lastName: true,
+			// 					email: true,
+			// 				},
+			// 			},
+			// 		},
+			// 	},
+			// 	user: {
+			// 		select: {
+			// 			id: true,
+			// 			firstName: true,
+			// 			lastName: true,
+			// 			email: true,
+			// 		},
+			// 	},
+			// },
 		});
 	}
 	async create(movie: Partial<Movie>): Promise<Movie> {

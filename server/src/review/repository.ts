@@ -1,4 +1,5 @@
 import { PrismaClient, Review } from "@prisma/client";
+
 import { IReviewRepository } from "./service";
 
 export class ReviewRepository implements IReviewRepository {
@@ -6,10 +7,19 @@ export class ReviewRepository implements IReviewRepository {
 	constructor(prisma: PrismaClient) {
 		this.prisma = prisma;
 	}
-	async getAll(movieId:string): Promise<Review[]> {
+	async getAll(movieId: string): Promise<Review[]> {
 		return await this.prisma.review.findMany({
-			where :{
-				movieId:movieId
+			where: {
+				movieId: movieId,
+			},
+			include: {
+				user: {
+					select: {
+						id: true,
+						firstName: true,
+						lastName: true,
+					},
+				},
 			},
 		});
 	}
@@ -37,7 +47,9 @@ export class ReviewRepository implements IReviewRepository {
 			where: {
 				id: id,
 			},
-			data: review,
+			data: {
+				...review,
+			},
 		});
 	}
 	async deletebyId(id: string): Promise<void> {

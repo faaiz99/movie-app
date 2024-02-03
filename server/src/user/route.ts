@@ -1,7 +1,9 @@
 import { Router } from "express";
-import { login, register, deleteUser } from "./controller";
 import { checkSchema } from "express-validator";
+
 import { validateToken } from "../middewares/auth";
+
+import { deleteUser, login, register } from "./controller";
 
 const router = Router();
 

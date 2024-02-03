@@ -1,15 +1,14 @@
 import { Movie } from "@prisma/client";
-import { MovieRepository } from "./repository";
+
 import { db } from "../../lib/prisma.db";
+
 import { CreateMovieDTO } from "./dto/create";
 import { UpdateMovieDTO } from "./dto/update";
-
-
-
+import { MovieRepository } from "./repository";
 
 export interface IMovieRepository {
   getMovies(): Promise<Movie[]>;
-  getById(movieId: string): Promise<Movie | null>;
+  getByTitle(title: string): Promise<Movie | null>;
   create(movie: Partial<Movie>): Promise<Movie>;
   updateById(movieId: string, movie: Partial<Movie>): Promise<Movie>;
   deleteById(movieId: string): Promise<void>;
@@ -42,8 +41,8 @@ export const getMovies = async () => {
 	return await movieRepository.getMovies();
 };
 
-export const getMovieById = async (movieId: string) => {
-	return await movieRepository.getById(movieId);
+export const getMovieByTitle = async (movieTitle: string) => {
+	return await movieRepository.getByTitle(movieTitle);
 };
 
 export const deleteMovieById = async (movieId: string) => {

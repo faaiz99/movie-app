@@ -1,8 +1,10 @@
-import { Request, Response, RequestHandler, NextFunction } from "express";
-import * as userService from "./service";
+import { NextFunction, Request, RequestHandler, Response } from "express";
+import { validationResult } from "express-validator";
+
 import { handleError } from "../middewares/error";
 import { handleResponse } from "../utils/response";
-import { validationResult } from "express-validator";
+
+import * as userService from "./service";
 
 export const register: RequestHandler = async (
 	req: Request,

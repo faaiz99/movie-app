@@ -1,5 +1,5 @@
 export const Policy = {
-	origin: "*", 
+	origin: "*",
 	methods: ["GET", "POST", "DELETE"],
 	allowedHeaders: ["Content-Type", "authorization"],
 	credentials: true,

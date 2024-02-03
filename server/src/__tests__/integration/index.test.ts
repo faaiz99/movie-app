@@ -1,4 +1,5 @@
 import request from "supertest";
+
 import app from "../../app";
 describe("GET - Movie api - 200 OK", () => {
 	let token: string;

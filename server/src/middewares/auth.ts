@@ -1,5 +1,7 @@
-import { Request, Response, NextFunction, RequestHandler } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
+
 import { verifyToken } from "../utils/auth";
+
 import { handleError } from "./error";
 export const validateToken: RequestHandler = (
 	req: Request,

@@ -1,7 +1,8 @@
+import { Review } from "@prisma/client";
+
+import { ReviewRepository } from "../../review/repository";
 import * as reviewService from "../../review/service";
 import { CreateReviewDTO, UpdateReviewDTO } from "../../review/service";
-import { Review } from "@prisma/client";
-import { ReviewRepository } from "../../review/repository";
 
 jest.mock("../../review/repository");
 

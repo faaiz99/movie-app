@@ -1,7 +1,9 @@
 import { PrismaClient, User } from "@prisma/client";
+
+import { comparePasswords, hashPassword } from "../utils/password";
+
 import { IUserRepository } from "./service";
 import { CreateUserDTO, LoginUserDTO } from "./service";
-import { comparePasswords, hashPassword } from "../utils/password";
 export class UserRepository implements IUserRepository {
 	private prisma: PrismaClient;
 	constructor(prisma: PrismaClient) {
@@ -18,7 +20,7 @@ export class UserRepository implements IUserRepository {
 				password: encodedPassword,
 			},
 			select: {
-				id:true,
+				id: true,
 				email: true,
 				firstName: true,
 				lastName: true,

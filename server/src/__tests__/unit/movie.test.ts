@@ -1,7 +1,8 @@
+import { Movie } from "@prisma/client";
+
+import { MovieRepository } from "../../movie/repository";
 import * as movieService from "../../movie/service";
 import { CreateMovieDTO, UpdateMovieDTO } from "../../movie/service";
-import { Movie } from "@prisma/client";
-import { MovieRepository } from "../../movie/repository";
 
 describe("Movie Service", () => {
 	let mockMovie: Movie;

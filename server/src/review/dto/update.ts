@@ -3,4 +3,6 @@ export class UpdateReviewDTO {
 	title?: string;
 	rating?: number;
 	description?: string;
+	userId?: string;
+	movieId?: string;
 }

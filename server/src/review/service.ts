@@ -1,12 +1,13 @@
 import { Review } from "@prisma/client";
-import { ReviewRepository } from "./repository";
+
 import { db } from "../../lib/prisma.db";
+
 import { CreateReviewDTO } from "./dto/create";
 import { UpdateReviewDTO } from "./dto/update";
-
+import { ReviewRepository } from "./repository";
 
 export interface IReviewRepository {
-  getAll(movieId:string): Promise<Review[]>;
+  getAll(movieId: string): Promise<Review[]>;
   getById(reviewId: string): Promise<Review | null>;
   create(review: CreateReviewDTO, movieId: string): Promise<Review>;
   updatebyId(reviewId: string, review: Partial<Review>): Promise<Review>;
@@ -28,7 +29,7 @@ export const createReview = async (
 	return await reviewRepository.create(reviewDTO, movieId);
 };
 
-export const getReviews = async (movieId:string) => {
+export const getReviews = async (movieId: string) => {
 	return await reviewRepository.getAll(movieId);
 };
 
@@ -48,6 +49,8 @@ export const updateReviewById = async (
 	reviewDTO.rating = review.rating;
 	reviewDTO.title = review.title;
 	reviewDTO.description = review.description;
+	reviewDTO.userId = review.userId;
+	reviewDTO.movieId = review.movieId;
 
 	return await reviewRepository.updatebyId(reviewId, reviewDTO);
 };

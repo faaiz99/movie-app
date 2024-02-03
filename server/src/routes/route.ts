@@ -1,7 +1,8 @@
 import { Router } from "express";
+
 import { movieRouter } from "../movie/route";
-import { userRouter } from "../user/route";
 import { reviewRouter } from "../review/route";
+import { userRouter } from "../user/route";
 
 const router = Router();
 

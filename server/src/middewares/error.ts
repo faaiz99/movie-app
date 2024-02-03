@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Response, NextFunction } from "express";
+import { NextFunction, Response } from "express";
 export const handleError = (
 	error: any,
 	res: Response,

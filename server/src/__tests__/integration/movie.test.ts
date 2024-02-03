@@ -1,4 +1,5 @@
 import request from "supertest";
+
 import app from "../../app";
 
 type Payload = {
@@ -106,6 +107,7 @@ describe("Movie - Controller", () => {
 	let token: string;
 	let userId: string;
 	let movieId: string | undefined;
+	let movieTitle: string | undefined;
 	const testUser = {
 		email: "test@gmail.com",
 		firstName: "test",
@@ -135,6 +137,7 @@ describe("Movie - Controller", () => {
 			.set("authorization", `Bearer ${token}`)
 			.send(payload);
 		movieId = createTestMovie.body.id;
+		movieTitle = createTestMovie.body.title;
 	});
 
 	afterAll(async () => {
@@ -168,29 +171,29 @@ describe("Movie - Controller", () => {
 			expect(response.body.length).toBeGreaterThan(0);
 		});
 		it("GET api/movies/movieId should return 200 OK movie by id", async () => {
-			if (movieId) {
+			if (movieTitle) {
 				const response = await request(app)
-					.get(`/api/movies/${movieId}`)
+					.get(`/api/movie/${movieTitle}`)
 					.set("authorization", `Bearer ${token}`);
 				expect(response.status).toBe(200);
 				expect(response.body).toBeDefined();
 				expect(response.body).toHaveProperty("reviews");
-				expect(response.body.id).toEqual(movieId);
+				expect(response.body.title).toEqual(movieTitle);
 			}
 		});
 		it("GET api/movies/movieId should return 422 Unprocessable Content with missing MovieId", async () => {
-			const modifiedMovieId = undefined;
+			const modifiedMovieTitle = undefined;
 			const response = await request(app)
-				.get(`/api/movies/${modifiedMovieId}`)
+				.get(`/api/movie/${modifiedMovieTitle}`)
 				.set("authorization", `Bearer ${token}`);
 			expect(response.status).toBe(422);
 			expect(response.body).toBeDefined();
 			expect(response.body.length).toBeGreaterThan(0);
 		});
 		it("GET api/movies/movieId should return 404 Movie Not Found with mismatched MovieId", async () => {
-			const modifiedMovieId = "8fcc29dd-4961-4be1-8cf0-ce179634a4ce";
+			const modifiedMovieTitle = "8fcc29dd";
 			const response = await request(app)
-				.get(`/api/movies/${modifiedMovieId}`)
+				.get(`/api/movie/${modifiedMovieTitle}`)
 				.set("authorization", `Bearer ${token}`);
 			expect(response.status).toBe(404);
 			expect(response.body.message).toEqual("Movie Not Found");
@@ -241,14 +244,14 @@ describe("Movie - Controller", () => {
 	});
 	describe("Update Movie", () => {
 		it("POST api/movies/movieId should return 403 No Token with missing auth header", async () => {
-			const response = await request(app).get(`/api/movies/${movieId}`);
+			const response = await request(app).get(`/api/movie/${movieId}`);
 			expect(response.status).toBe(403);
 			expect(response.body.status).toEqual(false);
 			expect(response.body.message).toEqual("No token provided!");
 		});
 		it("POST api/movies/movieId should return 401 Unauthorized with invalid token", async () => {
 			const response = await request(app)
-				.get(`/api/movies/${movieId}`)
+				.get(`/api/movie/${movieId}`)
 				.set("authorization", `Bearer ${token}1`)
 				.send(payload);
 			expect(response.status).toBe(401);
@@ -264,7 +267,7 @@ describe("Movie - Controller", () => {
 				userId: userId,
 			};
 			const response = await request(app)
-				.post(`/api/movies/${movieId}`)
+				.post(`/api/movie/${movieId}`)
 				.set("authorization", `Bearer ${token}`)
 				.send(payload);
 			expect(response.status).toBe(200);
@@ -278,7 +281,7 @@ describe("Movie - Controller", () => {
 		it("POST api/movies/movieId should return 404 Movie Not Found with invalid MovieId", async () => {
 			const modifiedMovieId = "8fcc29dd-4961-4be1-8cf0-ce179634a4ce";
 			const response = await request(app)
-				.post(`/api/movies/${modifiedMovieId}`)
+				.post(`/api/movie/${modifiedMovieId}`)
 				.set("authorization", `Bearer ${token}`)
 				.send(payload);
 			expect(response.status).toBe(404);
@@ -289,7 +292,7 @@ describe("Movie - Controller", () => {
 			const modifiedPayload = JSON.parse(JSON.stringify(payload));
 			delete modifiedPayload.userId;
 			const response = await request(app)
-				.post(`/api/movies/${modifiedMovieId}`)
+				.post(`/api/movie/${modifiedMovieId}`)
 				.set("authorization", `Bearer ${token}`)
 				.send(payload);
 			expect(response.status).toBe(422);
@@ -414,21 +417,21 @@ describe("Movie - Controller", () => {
 
 	afterAll(async () => {
 		await request(app)
-			.delete(`/api/movies/${movieId}`)
+			.delete(`/api/movie/${movieId}`)
 			.set("authorization", `Bearer ${token}`);
 		await request(app).delete(`/api/user/${testUser.email}`);
 	});
 	describe("Delete Movie", () => {
 		it("DELETE api/movies/movieId should return 200 Movie Deleted with valid data", async () => {
 			const response = await request(app)
-				.delete(`/api/movies/${movieId}`)
+				.delete(`/api/movie/${movieId}`)
 				.set("authorization", `Bearer ${token}`);
 			expect(response.status).toBe(200);
 		});
 		it("DELETE api/movies/movieId should return 422 Movie Not Deleted with missing MovieId", async () => {
 			const modifiedMovieId = undefined;
 			const response = await request(app)
-				.delete(`/api/movies/${modifiedMovieId}`)
+				.delete(`/api/movie/${modifiedMovieId}`)
 				.set("authorization", `Bearer ${token}`);
 			expect(response.status).toBe(422);
 			expect(response.body).toBeDefined();
@@ -437,7 +440,7 @@ describe("Movie - Controller", () => {
 		it("DELETE api/movies/movieId should return 404 Movie Not Found with mismatched MovieId", async () => {
 			const modifiedMovieId = "8fcc29dd-4961-4be1-8cf0-ce179634a4ce";
 			const response = await request(app)
-				.delete(`/api/movies/${modifiedMovieId}`)
+				.delete(`/api/movie/${modifiedMovieId}`)
 				.set("authorization", `Bearer ${token}`);
 			expect(response.status).toBe(404);
 			expect(response.body.message).toEqual("Movie Not Found");

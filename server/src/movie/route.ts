@@ -1,15 +1,17 @@
 import { Router } from "express";
+import { checkSchema } from "express-validator";
+
+import { validateToken } from "../middewares/auth";
+
 import {
 	createMovie,
-	getMovies,
-	getMovieById,
 	deleteMovieById,
-	updateMovieById,
-	getMoviesWithMostReviews,
+	getMovieByTitle,
+	getMovies,
 	getMoviesByCharactersInTheirName,
+	getMoviesWithMostReviews,
+	updateMovieById,
 } from "./controller";
-import { validateToken } from "../middewares/auth";
-import { checkSchema } from "express-validator";
 const router = Router();
 
 router.post(
@@ -48,27 +50,8 @@ router.post(
 	}),
 	createMovie
 );
-router.get("/movies", getMovies);
-router.get(
-	"/movies/:movieId",
-	checkSchema(
-		{
-			movieId: {
-				isString: true,
-				notEmpty: true,
-				errorMessage: "MovieId is required",
-				isLength: {
-					options: { min: 36, max: 36 },
-					errorMessage: "MovieId must be 36 characters",
-				},
-			},
-		},
-		["params"]
-	),
-	getMovieById
-);
 router.post(
-	"/movies/:movieId",
+	"/movie/:movieId",
 	validateToken,
 	checkSchema(
 		{
@@ -120,7 +103,7 @@ router.post(
 	updateMovieById
 );
 router.delete(
-	"/movies/:movieId",
+	"/movie/:movieId",
 	validateToken,
 	checkSchema(
 		{
@@ -137,6 +120,26 @@ router.delete(
 		["params"]
 	),
 	deleteMovieById
+);
+
+router.get("/movies", getMovies);
+router.get(
+	"/movie/:movieTitle",
+	checkSchema(
+		{
+			movieTitle: {
+				isString: true,
+				notEmpty: true,
+				errorMessage: "Movie Title is required",
+				isLength: {
+					options: { min: 5, max: 150 },
+					errorMessage: "Movie Title must be min 5 characters",
+				},
+			},
+		},
+		["params"]
+	),
+	getMovieByTitle
 );
 router.get("/movies-featured", getMoviesWithMostReviews);
 router.get(

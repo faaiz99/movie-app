@@ -1,5 +1,6 @@
 // __tests__/unit/auth.test.ts
 import jwt from "jsonwebtoken";
+
 import { verifyToken } from "../../utils/auth";
 
 jest.mock("jsonwebtoken");

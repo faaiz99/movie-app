@@ -1,8 +1,10 @@
-import { Request, Response, RequestHandler, NextFunction } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
+import { validationResult } from "express-validator";
+
 import { handleError } from "../middewares/error";
 import { handleResponse } from "../utils/response";
+
 import * as reviewService from "./service";
-import { validationResult } from "express-validator";
 
 export const createReview: RequestHandler = async (
 	req: Request,
