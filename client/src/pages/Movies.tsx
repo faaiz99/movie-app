@@ -19,7 +19,6 @@ export const Movies = () => {
     isPending: isFeaturedMoviesPending,
   } = useFeaturedMovies();
 
-
   const {
     data: movies,
     isError: isMoviesError,
