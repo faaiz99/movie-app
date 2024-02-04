@@ -39,9 +39,9 @@ This application uses a variety of technologies in its stack:
 2. Create a `.env` file in the `server` directory with the following variables:
 
    ```env
-   SALT=your_salt
-   JWT_SECRET=your_jwt_secret
-   DATABASE_URL=your_database_url
+   SALT=
+   JWT_SECRET=
+   DATABASE_URL=
    ```
 3. Build the Docker images:
 
@@ -86,7 +86,7 @@ This application uses a variety of technologies in its stack:
 
 ## Usage
 
-After starting the server and client, you can access the application at `http://localhost:3000`.
+After starting the server and client, you can access the application at `http://localhost:5173`.
 
 ## Testing
 
@@ -136,5 +136,3 @@ npm run test:integration
 
 This project is licensed under the [MIT License](LICENSE).
 ```
-
-Remember to replace `your_salt`, `your_jwt_secret`, and `your_database_url` with your actual values.

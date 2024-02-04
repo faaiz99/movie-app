@@ -105,16 +105,6 @@ const Form = (props: FormProps) => {
                 {errors.description?.message}
               </span>
             )}
-            {errors && (
-              <span className="text-xs font-semibold text-red-500">
-                {errors.description?.message}
-                {errors.id?.message}
-                {errors.userId?.message}
-                {errors.poster?.message}
-                {errors.trailer?.message}
-                {errors.title?.message}
-              </span>
-            )}
           </div>
           <Button
             data-testid="submit"

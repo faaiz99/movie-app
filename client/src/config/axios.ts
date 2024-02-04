@@ -25,9 +25,6 @@ api.interceptors.response.use(
     let message;
     let status;
     switch (error.response.status) {
-      case 401: {
-        throw new Error("Token Expired. Please login again.");
-      }
       case 403: {
         throw new Error(
           "Forbidden: You do not have permission to access this resource.",

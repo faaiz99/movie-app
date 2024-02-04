@@ -28,6 +28,7 @@ export const Login = () => {
     const { email, password, remember } = data;
     try {
       const response = await authenticationUser({ email, password });
+      alert(response);
       if (response) setLoading(false);
       localStorage.setItem("movie-night-token", response.token);
       remember
@@ -35,6 +36,7 @@ export const Login = () => {
         : setSession({ ...response.user, token: "" });
       navigate("/");
     } catch (error) {
+      alert(error);
       console.log(error);
     } finally {
       setLoading(false);

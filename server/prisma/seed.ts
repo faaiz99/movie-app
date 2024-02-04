@@ -51,7 +51,7 @@ function getMovies(): Array<Movie> {
 			title: "Napoleon",
 			poster:
 				"https://upload.wikimedia.org/wikipedia/en/2/2e/Napoleon_Film_poster.jpg",
-			trailer: "https://www.youtube.com/watch?v=uYPbbksJxIg",
+			trailer: "https://www.youtube.com/watch?v=OAZWXUkrjPc",
 			description:
 				"A look at the military commander's origins and his swift, ruthless climb to emperor, viewed through the prism of his addictive and often volatile relationship with his wife and one true love, Josephine",
 		},
