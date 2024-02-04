@@ -42,7 +42,7 @@ function getMovies(): Array<Movie> {
 		{
 			title: "Oppenheimer",
 			poster:
-				"https://en.wikipedia.org/wiki/Oppenheimer_(film)#/media/File:Oppenheimer_(film).jpg",
+				"https://upload.wikimedia.org/wikipedia/en/4/4a/Oppenheimer_%28film%29.jpg",
 			trailer: "https://www.youtube.com/watch?v=uYPbbksJxIg",
 			description:
 				"During World War II, Lt. Gen. Leslie Groves Jr. appoints physicist J. Robert Oppenheimer to work on the top-secret Manhattan Project. Oppenheimer and a team of scientists spend years developing and designing the atomic bomb. Their work comes to fruition on July 16, 1945, as they witness the world's first nuclear explosion, forever changing the course of history.",
@@ -50,7 +50,7 @@ function getMovies(): Array<Movie> {
 		{
 			title: "Napoleon",
 			poster:
-				"https://en.wikipedia.org/wiki/Napoleon_(2023_film)#/media/File:Napoleon_Film_poster.jpg",
+				"https://upload.wikimedia.org/wikipedia/en/2/2e/Napoleon_Film_poster.jpg",
 			trailer: "https://www.youtube.com/watch?v=uYPbbksJxIg",
 			description:
 				"A look at the military commander's origins and his swift, ruthless climb to emperor, viewed through the prism of his addictive and often volatile relationship with his wife and one true love, Josephine",

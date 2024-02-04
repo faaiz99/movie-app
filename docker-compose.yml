@@ -12,7 +12,9 @@ services:
       - movie-app
 
   server:
-    build: ./server
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
     container_name: server
     restart: always
     ports:
@@ -20,12 +22,12 @@ services:
     depends_on:
       - postgres
     environment:
-      - DB_HOST=postgres-db
+      - DB_HOST=postgres
       - DB_PORT=5432
-      - DB_NAME=movie-db
-      - DB_USER=admin
-      - DB_PASSWORD=pass
-      - DATABASE_URL="postgresql://postgres:postgres@postgres:5432/TEST_DB?schema=public"
+      - DB_NAME=TEST_DB
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/TEST_DB?schema=public
 
     networks:
       - movie-app
@@ -40,8 +42,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: TEST_DB
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
     restart: unless-stopped
     networks:
       - movie-app
@@ -49,5 +49,4 @@ services:
 networks:
   movie-app:
     driver: bridge
-volumes:
-  postgres-data:
+
