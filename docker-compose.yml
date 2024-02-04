@@ -25,7 +25,7 @@ services:
       - DB_NAME=postgres
       - DB_USER=postgres
       - DB_PASSWORD=admin
-      - DATABASE_URL=postgresql://postgres:admin@database:5432/postgres?schema=public&connect_timeout=300"
+      - DATABASE_URL=postgresql://postgres:admin@database:5432/postgres?schema=public"
     networks:
       - movie-app
 
