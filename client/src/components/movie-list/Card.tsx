@@ -71,7 +71,7 @@ export const Card = ({
           </div>
 
           <div className=" flex w-full flex-wrap items-start justify-center gap-5 lg:gap-10">
-            {movies.map((movie) => {
+            {movies && movies.map((movie) => {
               const isExpanded = expandedMovies[movie.id as string];
               return (
                 <Component
