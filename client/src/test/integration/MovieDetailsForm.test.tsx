@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import  Form  from "../../components/movie-details/Form";
+import Form from "../../components/movie-details/Form";
 
 describe("Form component", () => {
   const mockMovieInputs = {
@@ -11,23 +11,34 @@ describe("Form component", () => {
     userId: "123",
   };
 
-  const handleSubmit = vi.fn();
+  const onSubmit = vi.fn();
+  const handleSubmit = vi.fn(onSubmit);
 
   it("renders the form with correct initial values", () => {
-    render(<Form movieInputs={mockMovieInputs} onSubmit={handleSubmit} />);
+    render(
+      <Form
+        movie={mockMovieInputs}
+        operation="Create"
+        handleAddUpdateMovie={handleSubmit}
+      />,
+    );
 
-    expect(screen.getByLabelText("Title")).toHaveValue(mockMovieInputs.title);
-    expect(screen.getByLabelText("Description")).toHaveValue(
-      mockMovieInputs.description
+    expect(screen.getByTestId("title")).toHaveValue(mockMovieInputs.title);
+    expect(screen.getByTestId("description")).toHaveValue(
+      mockMovieInputs.description,
     );
-    expect(screen.getByLabelText("Poster")).toHaveValue(mockMovieInputs.poster);
-    expect(screen.getByLabelText("Trailer")).toHaveValue(
-      mockMovieInputs.trailer
-    );
+    fireEvent.click(screen.getByRole("button", { name: "Create" }));
+    expect(handleSubmit).toHaveBeenCalledWith(mockMovieInputs);
   });
 
   it("calls the onSubmit function with the updated movie inputs when the form is submitted", () => {
-    render(<Form movieInputs={mockMovieInputs} onSubmit={handleSubmit} />);
+    render(
+      <Form
+        movie={mockMovieInputs}
+        operation="Update"
+        handleAddUpdateMovie={handleSubmit}
+      />,
+    );
 
     const updatedMovieInputs = {
       ...mockMovieInputs,
@@ -35,15 +46,14 @@ describe("Form component", () => {
       description: "This is an updated movie",
     };
 
-    fireEvent.change(screen.getByLabelText("Title"), {
+    fireEvent.change(screen.getByTestId("title"), {
       target: { value: updatedMovieInputs.title },
     });
-    fireEvent.change(screen.getByLabelText("Description"), {
+    fireEvent.change(screen.getByTestId("description"), {
       target: { value: updatedMovieInputs.description },
     });
 
-    fireEvent.submit(screen.getByTestId("form"));
-
+    fireEvent.click(screen.getByTestId("button-test-id"));
     expect(handleSubmit).toHaveBeenCalledWith(updatedMovieInputs);
   });
 });

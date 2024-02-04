@@ -12,6 +12,7 @@ export const Search = () => {
   }
   return (
     <div
+      data-testid="search-container"
       onClick={() => setShow(!show)}
       className="hidden w-72 cursor-pointer gap-0 rounded-md border-2 border-gray-300 shadow-md outline-none hover:bg-gray-200 focus:ring-0 dark:border-gray-700 dark:hover:bg-gray-700 lg:flex"
     >

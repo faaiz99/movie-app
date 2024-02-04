@@ -40,7 +40,7 @@ export const Signup = () => {
         console.log("res", response);
       }
     } catch (error) {
-      alert(error);
+      alert("Error occured");
     } finally {
       setLoading(false);
     }

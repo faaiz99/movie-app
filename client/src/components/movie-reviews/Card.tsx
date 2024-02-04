@@ -55,12 +55,16 @@ export const Card = ({
 
   const [currentReview, setCurrentReview] = useState<Review>();
   return (
-    <div className="w-auto flex-col bg-gray-50  px-5 dark:bg-gray-900 lg:p-5 ">
+    <div
+      data-testid="review-card"
+      className="w-auto flex-col bg-gray-50  px-5 dark:bg-gray-900 lg:p-5 "
+    >
       <div className="flex justify-between pb-5">
         <h5 className="flex space-x-2 text-xl font-semibold tracking-tight text-gray-700 dark:text-white lg:block">
           {`Reviews (${reviews.length})`}
         </h5>{" "}
         <Button
+          data-testid="add-button"
           title={``}
           color="green"
           size={"md"}
@@ -79,6 +83,7 @@ export const Card = ({
         return (
           <>
             <div
+              data-testid="review-card-details"
               key={review.id}
               className="max-w-md py-1  lg:max-w-2xl lg:py-2.5"
             >
@@ -108,7 +113,7 @@ export const Card = ({
               {canModify(userId, review.userId) && (
                 <div className="flex justify-end space-x-5">
                   <Button
-                    data-testid="edit-button"
+                    dataTestId="edit-button"
                     onClick={() => {
                       setCurrentReview(review);
                       setShowUpdateModal(true);
@@ -121,7 +126,7 @@ export const Card = ({
                     <HiOutlinePencilSquare />
                   </Button>
                   <Button
-                    data-testid="delete-button"
+                    dataTestId="delete-button"
                     onClick={() => {
                       setCurrentReview(review);
                       setShowDeleteModal(true);

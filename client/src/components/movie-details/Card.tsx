@@ -49,6 +49,7 @@ export const Card = ({ movie, userId }: MovieDetailsCardProps) => {
           {canModify(userId, movie.userId) && (
             <div className="flex justify-end space-x-5">
               <Button
+                dataTestId="edit-button"
                 onClick={() => {
                   setCurrentMovie(movie);
                   setShowUpdateModal(true);
@@ -61,6 +62,7 @@ export const Card = ({ movie, userId }: MovieDetailsCardProps) => {
                 <HiOutlinePencilSquare />
               </Button>
               <Button
+                dataTestId="delete-button"
                 onClick={() => {
                   setCurrentMovie(movie);
                   setShowDeleteModal(true);

@@ -16,6 +16,7 @@ export const Authenticated = () => {
   }
   return (
     <Dropdown
+      data-testid="authenticated"
       arrowIcon={false}
       inline
       label={

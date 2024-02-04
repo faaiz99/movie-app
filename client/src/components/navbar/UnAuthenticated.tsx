@@ -7,6 +7,7 @@ export const UnAuthenticated = () => {
   /** CHECK IF LABEL CAN BE REPLACED */
   return (
     <Dropdown
+      data-testid="unauthenticated"
       arrowIcon={false}
       inline
       label={

@@ -45,12 +45,16 @@ export const Card = ({
   return (
     <>
       <section className="bg-gray-50 dark:bg-gray-900 ">
-        <div className=" mx-auto flex flex-col items-center justify-center px-6 py-6 lg:py-0">
+        <div
+          data-testid="movie-card"
+          className=" mx-auto flex flex-col items-center justify-center px-6 py-6 lg:py-0"
+        >
           <div className="flex justify-between space-x-5">
             <h3 className="p-10 text-center text-3xl font-semibold italic dark:text-white lg:text-4xl">
               {title}
             </h3>
             <Button
+              dataTestId="add-movie-button"
               title={``}
               color="green"
               size={"md"}
@@ -71,6 +75,7 @@ export const Card = ({
               const isExpanded = expandedMovies[movie.id as string];
               return (
                 <Component
+                  data-testid="movie-detail-card"
                   horizontal
                   key={movie.id}
                   className="w-full rounded-md border-2 border-gray-300 shadow-xl dark:border-gray-700 lg:h-[387px]"
@@ -110,7 +115,7 @@ export const Card = ({
                     </div>
                     <div className="mt-auto w-full ">
                       <Button
-                        data-testid="watch-now-button"
+                        dataTestId="watch-now-button"
                         onClick={() =>
                           navigate(`/movie/${titleToSlug(movie.title)}`)
                         }

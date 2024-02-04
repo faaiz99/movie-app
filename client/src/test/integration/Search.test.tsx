@@ -1,18 +1,27 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Search } from "../../components/movie-search/Search";
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+const queryClient = new QueryClient();
 describe("Search component", () => {
   it("renders the search input field", () => {
-    render(<Search />);
-    const searchInput = screen.getByPlaceholderText("Search your favourite movies...");
-    expect(searchInput).toBeInTheDocument();
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Search />
+      </QueryClientProvider>,
+    );
+    const searchInput = screen.getByText("Search your favourite movies...");
+    expect(searchInput).toBeVisible();
   });
 
   it("toggles the modal on click", () => {
-    render(<Search />);
-    const searchContainer = screen.getByRole("button");
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Search />
+      </QueryClientProvider>,
+    );
+    const searchContainer = screen.getByTestId("search-container");
     fireEvent.click(searchContainer);
-    const modalElement = screen.getByTestId("modal");
-    expect(modalElement).toBeInTheDocument();
+    const modalElement = screen.getByRole("dialog");
+    expect(modalElement).toBeValid();
   });
 });

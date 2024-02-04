@@ -62,6 +62,7 @@ const Form = (props: FormProps) => {
               Title
             </Label>
             <input
+              data-testid="title"
               {...register("title", { required: true })}
               type="text"
               name="title"
@@ -87,6 +88,7 @@ const Form = (props: FormProps) => {
               Description
             </Label>
             <input
+              data-testid="description"
               {...register("description", { required: true })}
               type="text"
               name="description"
@@ -115,6 +117,7 @@ const Form = (props: FormProps) => {
             )}
           </div>
           <Button
+            data-testid="submit"
             type="submit"
             className="w-full rounded-md"
             isProcessing={false}

@@ -22,6 +22,7 @@ export const Modal = ({ show, onClose }: ModalProps) => {
   return (
     <>
       <Component
+        data-testid="modal"
         show={show}
         dismissible={false}
         onClose={onClose}

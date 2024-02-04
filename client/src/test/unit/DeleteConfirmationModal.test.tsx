@@ -14,15 +14,17 @@ describe("DeleteConfirmationModal component", () => {
 
   beforeEach(() => {
     mockProps.handleShowDeleteModal.mockClear();
-    render(<DeleteConfirmationModal
-      type="review"
-      show={true}
-      handleShowDeleteModal={mockProps.handleShowDeleteModal}
-      reviewId="123"
-      movieId="456"
-      message="Are you sure you want to delete?"
-      handleDeletion={mockProps.handleDeletion}
-    />);
+    render(
+      <DeleteConfirmationModal
+        type="review"
+        show={true}
+        handleShowDeleteModal={mockProps.handleShowDeleteModal}
+        reviewId="123"
+        movieId="456"
+        message="Are you sure you want to delete?"
+        handleDeletion={mockProps.handleDeletion}
+      />,
+    );
   });
 
   it("renders the modal with the correct message", () => {

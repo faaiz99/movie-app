@@ -1,15 +1,18 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Card } from "../../components/movie-list/Card";
 import { BrowserRouter } from "react-router-dom";
+import { Movie } from "../../services/movie";
 describe("Card component", () => {
   const mockTitle = "Movie List";
-  const mockMovies = [
+  const mockMovies: Movie[] = [
     {
       id: "1",
       title: "Movie 1",
       description: "Description 1",
       poster: "poster1.jpg",
       trailer: "trailer1.mp4",
+      userId: "123",
+      reviews: [],
     },
     {
       id: "2",
@@ -17,8 +20,11 @@ describe("Card component", () => {
       description: "Description 2",
       poster: "poster2.jpg",
       trailer: "trailer2.mp4",
+      userId: "123",
+      reviews: [],
     },
   ];
+
   const mockIsAuthenticated = true;
   const mockUserId = "123";
   const mockRank = true;
@@ -33,8 +39,7 @@ describe("Card component", () => {
           userId={mockUserId}
           rank={mockRank}
         />
-      </BrowserRouter>
-
+      </BrowserRouter>,
     );
   });
 
@@ -44,7 +49,7 @@ describe("Card component", () => {
   });
 
   it("renders the movie cards correctly", () => {
-    const movieElements = screen.getAllByTestId("movie-card");
+    const movieElements = screen.getAllByTestId("movie-details-card");
     expect(movieElements.length).toBe(mockMovies.length);
   });
 
@@ -55,18 +60,18 @@ describe("Card component", () => {
     fireEvent.click(readMoreButton);
 
     expect(firstMovieElement).toHaveTextContent(
-      `${mockMovies[0].description.substring(0, 200)}...`
+      `${mockMovies[0].description.substring(0, 200)}...`,
     );
 
     fireEvent.click(readMoreButton);
 
     expect(firstMovieElement).toHaveTextContent(
-      `${mockMovies[0].description.substring(0, 100)}...`
+      `${mockMovies[0].description.substring(0, 100)}...`,
     );
   });
 
   it("opens the add modal when the button is clicked", () => {
-    const addButton = screen.getByText(/Add/i);
+    const addButton = screen.getByTestId("add-movie-button");
     fireEvent.click(addButton);
 
     const addModal = screen.getByTestId("add-modal");

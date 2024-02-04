@@ -8,14 +8,16 @@ const mockMovie = {
   description: "This is a sample movie description",
   loading: false,
   trailer: "https://www.youtube.com/watch?v=1234",
-  userId: "1234"
+  userId: "1234",
 };
 
 describe("Card component", () => {
   it("renders the movie title and description", () => {
     render(<Card {...mockMovie} />);
     const titleElement = screen.getByText("Sample Movie...");
-    const descriptionElement = screen.getByText("This is a sample movie description...");
+    const descriptionElement = screen.getByText(
+      "This is a sample movie description...",
+    );
     expect(titleElement).toBeInTheDocument();
     expect(descriptionElement).toBeInTheDocument();
   });
@@ -36,7 +38,7 @@ describe("Card component", () => {
           trailer={mockMovie.trailer}
           userId={mockMovie.userId}
         />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
     const buttonElement = screen.getByText("Watch Now");
     buttonElement.click();

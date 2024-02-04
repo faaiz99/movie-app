@@ -10,12 +10,15 @@
     "format": "npx prettier . --write",
     "preview": "vite preview",
     "test": "vitest",
+    "test:unit": "vitest test/unit",
+    "test:integration": "vitest test/integration",
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
     "@tanstack/react-query": "^5.18.0",
     "axios": "^1.6.7",
+    "axios-mock-adapter": "^1.22.0",
     "flowbite-react": "^0.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -38,6 +41,7 @@
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
     "@vitejs/plugin-react-swc": "^3.6.0",
+    "@vitest/coverage-v8": "^1.2.2",
     "autoprefixer": "^10.4.17",
     "eslint": "^8.55.0",
     "eslint-plugin-react": "^7.33.2",
