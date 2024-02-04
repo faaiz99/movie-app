@@ -7,12 +7,12 @@ COPY package.json .
 RUN npm cache clean --force
 
 RUN npm install
-
+RUN npm install -g ts-node
 COPY . .
 
 RUN npx prisma generate
 
-RUN npx prisma db seed
+# RUN npx prisma db seed
 
 EXPOSE 3000
 

@@ -20,14 +20,14 @@ services:
     depends_on:
       - database
     environment:
-      - SALT = 10
-      - JWT_SECRET = "SECRET"
-      - DB_HOST=localhost
+      - SALT=10
+      - JWT_SECRET="SECRET"
+      - DB_HOST=database
       - DB_PORT=5432
       - DB_NAME=postgres
       - DB_USER=postgres
-      - DB_PASSWORD=pass
-      - DATABASE_URL=postgresql://postgres:admin@localhost:5432/postgres?schema=public
+      - DB_PASSWORD=admin
+      - DATABASE_URL=postgresql://postgres:admin@postgres-db:5432/postgres?schema=public&connect_timeout=300"
     networks:
       - movie-app
 
