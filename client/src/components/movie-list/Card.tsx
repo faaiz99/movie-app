@@ -71,68 +71,69 @@ export const Card = ({
           </div>
 
           <div className=" flex w-full flex-wrap items-start justify-center gap-5 lg:gap-10">
-            {movies && movies.map((movie) => {
-              const isExpanded = expandedMovies[movie.id as string];
-              return (
-                <Component
-                  data-testid="movie-detail-card"
-                  horizontal
-                  key={movie.id}
-                  className="w-full rounded-md border-2 border-gray-300 shadow-xl dark:border-gray-700 lg:h-[387px]"
-                  renderImage={() => (
-                    <img
-                      loading="lazy"
-                      src={movie.poster}
-                      alt={`${movie.title} + poster picture`}
-                      className="h-64 w-auto rounded-l md:h-full lg:h-96 lg:w-64"
-                    />
-                  )}
-                >
-                  <div className=" flex h-full flex-col justify-start gap-5 md:gap-0 lg:gap-0">
-                    <div className="flex flex-col ">
-                      <h5 className="flex space-x-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white lg:block">
-                        {movie.title}
-                        {rank && ` (${movie._count?.reviews})`}
-                      </h5>
+            {movies &&
+              movies.map((movie) => {
+                const isExpanded = expandedMovies[movie.id as string];
+                return (
+                  <Component
+                    data-testid="movie-detail-card"
+                    horizontal
+                    key={movie.id}
+                    className="w-full rounded-md border-2 border-gray-300 shadow-xl dark:border-gray-700 lg:h-[387px]"
+                    renderImage={() => (
+                      <img
+                        loading="lazy"
+                        src={movie.poster}
+                        alt={`${movie.title} + poster picture`}
+                        className="h-64 w-auto rounded-l md:h-full lg:h-96 lg:w-64"
+                      />
+                    )}
+                  >
+                    <div className=" flex h-full flex-col justify-start gap-5 md:gap-0 lg:gap-0">
+                      <div className="flex flex-col ">
+                        <h5 className="flex space-x-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white lg:block">
+                          {movie.title}
+                          {rank && ` (${movie._count?.reviews})`}
+                        </h5>
 
-                      <Star />
-                      <p className="font-normal text-gray-700 dark:text-gray-400">
-                        {isExpanded
-                          ? `${movie.description.substring(0, 200)}...`
-                          : `${movie.description.substring(0, 100)}...`}
-                        <button
-                          className="flex flex-col text-sm hover:underline"
+                        <Star />
+                        <p className="font-normal text-gray-700 dark:text-gray-400">
+                          {isExpanded
+                            ? `${movie.description.substring(0, 200)}...`
+                            : `${movie.description.substring(0, 100)}...`}
+                          <button
+                            className="flex flex-col text-sm hover:underline"
+                            onClick={() =>
+                              setExpandedMovies({
+                                ...expandedMovies,
+                                [movie.id as string]: !isExpanded,
+                              })
+                            }
+                          >
+                            {isExpanded ? "Read Less" : "Read More"}
+                          </button>
+                        </p>
+                      </div>
+                      <div className="mt-auto w-full ">
+                        <Button
+                          dataTestId="watch-now-button"
                           onClick={() =>
-                            setExpandedMovies({
-                              ...expandedMovies,
-                              [movie.id as string]: !isExpanded,
-                            })
+                            navigate(`/movie/${titleToSlug(movie.title)}`)
                           }
+                          title={"Watch Now"}
+                          color="failure"
+                          className={`w-full rounded-md lg:w-[270px] ${
+                            isExpanded ? "lg:mt-10" : "md:mt-10 lg:mt-24"
+                          }`}
+                          isProcessing={false}
                         >
-                          {isExpanded ? "Read Less" : "Read More"}
-                        </button>
-                      </p>
+                          <HiOutlineArrowRight className="ml-2 h-5 w-5" />
+                        </Button>
+                      </div>
                     </div>
-                    <div className="mt-auto w-full ">
-                      <Button
-                        dataTestId="watch-now-button"
-                        onClick={() =>
-                          navigate(`/movie/${titleToSlug(movie.title)}`)
-                        }
-                        title={"Watch Now"}
-                        color="failure"
-                        className={`w-full rounded-md lg:w-[270px] ${
-                          isExpanded ? "lg:mt-10" : "md:mt-10 lg:mt-24"
-                        }`}
-                        isProcessing={false}
-                      >
-                        <HiOutlineArrowRight className="ml-2 h-5 w-5" />
-                      </Button>
-                    </div>
-                  </div>
-                </Component>
-              );
-            })}
+                  </Component>
+                );
+              })}
           </div>
         </div>
       </section>

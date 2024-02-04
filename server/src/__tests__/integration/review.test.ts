@@ -3,18 +3,18 @@ import request from "supertest";
 import app from "../../app";
 
 type ReviewPayload = {
-	title: string;
-	description: string;
-	rating: number;
-	userId?: string;
+  title: string;
+  description: string;
+  rating: number;
+  userId?: string;
 };
 
 type MoviewPayload = {
-	title: string;
-	description: string;
-	poster: string;
-	trailer: string;
-	userId?: string;
+  title: string;
+  description: string;
+  poster: string;
+  trailer: string;
+  userId?: string;
 };
 
 describe("Review - Controller", () => {

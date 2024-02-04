@@ -19,7 +19,7 @@ export const register: RequestHandler = async (
 			const data = await userService.register(req.body);
 			handleResponse(res, 201, data);
 		} catch (error: any) {
-			console.log("error in register",error);
+			console.log("error in register", error);
 			error.statusCode = 409;
 			handleError(error, res, next);
 		}

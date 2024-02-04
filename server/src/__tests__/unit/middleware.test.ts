@@ -1,4 +1,4 @@
-import { NextFunction,Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 import { validateToken } from "../../middewares/auth";
 import { verifyToken } from "../../utils/auth";

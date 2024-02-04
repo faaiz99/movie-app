@@ -1,4 +1,4 @@
 {
-	"alias-resolver.type": "custom",
-	"alias-resolver.accessPath": ""
+  "alias-resolver.type": "custom",
+  "alias-resolver.accessPath": ""
 }

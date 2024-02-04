@@ -29,9 +29,8 @@ export const Movies = () => {
 
   const isAuthenticated = checkUserAuth();
   if (isMoviesPending || isFeaturedMoviesPending) return <Spinner />;
-  if (isMoviesError || isFeaturedMoviesError)
-    navigate("/error")
-    // return <ErrorModal show={true} message={"Movies could not be fetched"} />;
+  if (isMoviesError || isFeaturedMoviesError) navigate("/error");
+  // return <ErrorModal show={true} message={"Movies could not be fetched"} />;
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { Movie,PrismaClient } from "@prisma/client";
+import { Movie, PrismaClient } from "@prisma/client";
 
 import { IMovieRepository } from "./service";
 export class MovieRepository implements IMovieRepository {
@@ -40,31 +40,28 @@ export class MovieRepository implements IMovieRepository {
 	}
 	async getMoviesWithMostReviews(): Promise<Movie[]> {
 		return await this.prisma.movie.findMany({
-			include:{
-				_count:{
-					select:{
-						reviews:true
-					}
-				}
+			include: {
+				_count: {
+					select: {
+						reviews: true,
+					},
+				},
 			},
 			orderBy: {
-				reviews:{
-					_count:"desc"
-				}
-			}
+				reviews: {
+					_count: "desc",
+				},
+			},
 		});
 	}
 	async getMovies(): Promise<Movie[]> {
-		return await this.prisma.movie.findMany({
-
-		});
+		return await this.prisma.movie.findMany({});
 	}
 	async getByTitle(title: string): Promise<Movie | null> {
 		return await this.prisma.movie.findUnique({
 			where: {
 				title: title,
 			},
-
 		});
 	}
 	async create(movie: Partial<Movie>): Promise<Movie> {
