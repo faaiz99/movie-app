@@ -1,17 +1,17 @@
 version: '3.8'
 
 services:
-  frontend:
+  client:
     build: ./client
-    container_name: server
+    container_name: client
     ports:
       - 4173:4173
     depends_on:
-      - backend
+      - server
     networks:
       - movie-app
 
-  backend:
+  server:
     build: ./server
     container_name: server
     restart: always
@@ -20,14 +20,12 @@ services:
     depends_on:
       - database
     environment:
-      - SALT=10
-      - JWT_SECRET="SECRET"
-      - DB_HOST=database
+      - DB_HOST=localhost
       - DB_PORT=5432
       - DB_NAME=postgres
       - DB_USER=postgres
       - DB_PASSWORD=admin
-      - DATABASE_URL=postgresql://postgres:admin@postgres-db:5432/postgres?schema=public&connect_timeout=300"
+      - DATABASE_URL=postgresql://postgres:admin@database:5432/postgres?schema=public&connect_timeout=300"
     networks:
       - movie-app
 
