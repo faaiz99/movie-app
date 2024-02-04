@@ -1,3 +1,3 @@
 
 server/.env
-*.js
+client/.vscode/launch.json
