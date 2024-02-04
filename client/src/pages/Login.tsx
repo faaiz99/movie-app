@@ -33,8 +33,6 @@ export const Login = () => {
       remember
         ? setSession({ ...response.user, token: response.token })
         : setSession({ ...response.user, token: "" });
-
-      console.log("res", response);
       navigate("/");
     } catch (error) {
       console.log(error);

@@ -1,8 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-// import { db } from "../lib/prisma.db";
-
-const db = new PrismaClient();
+import { db } from "../lib/prisma.db";
 
 type User = {
 	email: string;

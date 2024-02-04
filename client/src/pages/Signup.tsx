@@ -37,10 +37,9 @@ export const Signup = () => {
         setLoading(false);
         alert("Registered Successfully");
         navigate("/login");
-        console.log("res", response);
       }
     } catch (error) {
-      alert("Error occured");
+      alert(error);
     } finally {
       setLoading(false);
     }
