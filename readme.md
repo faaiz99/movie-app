@@ -36,14 +36,20 @@ This application uses a variety of technologies in its stack:
    ```bash
    cd movie-app
    ```
+2. Create a `.env` file in the `server` directory with the following variables:
 
-2. Build the Docker images:
+   ```env
+   SALT=your_salt
+   JWT_SECRET=your_jwt_secret
+   DATABASE_URL=your_database_url
+   ```
+3. Build the Docker images:
 
    ```bash
    docker-compose build
    ```
 
-3. Start the Docker containers:
+4. Start the Docker containers:
 
    ```bash
    docker-compose up
