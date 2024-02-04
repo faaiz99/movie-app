@@ -1,14 +1,13 @@
 import { Router } from "express";
-import { db } from "lib/prisma.db";
 
+import { db } from "../../lib/prisma.db";
 import { movieRouter } from "../movie/route";
 import { reviewRouter } from "../review/route";
 import { userRouter } from "../user/route";
-
 const router = Router();
 
 router.get("/", async (req, res) => {
-	function getUsers(): Array<User> {
+	function getUsers(): Array<any> {
 		return [
 			{
 				email: "johnadams29@movie.app",
@@ -25,7 +24,7 @@ router.get("/", async (req, res) => {
 		];
 	}
 	
-	function getMovies(): Array<Movie> {
+	function getMovies(): Array<any> {
 		return [
 			{
 				title: "Oppenheimer",
