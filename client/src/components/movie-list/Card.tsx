@@ -12,7 +12,7 @@ import { NotAuthenticatedModal } from "..";
 
 type CardProps = {
   title: string;
-  movies: Movie[];
+  movies: Movie[] | undefined;
   userId: string;
   isAuthenticated: boolean;
   rank?: boolean;

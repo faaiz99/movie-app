@@ -1,9 +1,10 @@
 import { lazy } from "react";
 import { useMovies, useFeaturedMovies } from "../hooks/useMovie";
 import { Spinner } from "../components";
-import { ErrorModal } from "../components";
+// import { ErrorModal } from "../components";
 import { useAuthStore } from "../store/store";
 import { checkUserAuth } from "../utils/checkAuthentication";
+import { useNavigate } from "react-router-dom";
 
 const MovieListCard = lazy(() =>
   import("../components").then(({ MovieListCard }) => ({
@@ -12,6 +13,7 @@ const MovieListCard = lazy(() =>
 );
 
 export const Movies = () => {
+  const navigate = useNavigate();
   const userId = useAuthStore((state) => state.session.id);
   const {
     data: featuredMovies,
@@ -28,7 +30,8 @@ export const Movies = () => {
   const isAuthenticated = checkUserAuth();
   if (isMoviesPending || isFeaturedMoviesPending) return <Spinner />;
   if (isMoviesError || isFeaturedMoviesError)
-    return <ErrorModal show={true} message={"Movies could not be fetched"} />;
+    navigate("/error")
+    // return <ErrorModal show={true} message={"Movies could not be fetched"} />;
 
   return (
     <>

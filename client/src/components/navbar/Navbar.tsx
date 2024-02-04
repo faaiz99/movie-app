@@ -42,18 +42,7 @@ export const Navbar = () => {
         <Search />
         <DarkThemeToggle />
         {isAuthenticated ? <Authenticated /> : <UnAuthenticated />}
-
-        <Component.Toggle />
       </div>
-      <Component.Collapse>
-        {/* <Component.Link href="#" active >
-      Movie Night
-    </Component.Link> */}
-        {/* <Component.Link href="#">About</Component.Link>
-    <Component.Link href="#">Services</Component.Link>
-    <Component.Link href="#">Pricing</Component.Link>
-    <Component.Link href="#">Contact</Component.Link> */}
-      </Component.Collapse>
     </Component>
   );
 };

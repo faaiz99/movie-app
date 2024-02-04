@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./client
+    container_name: server
+    ports:
+      - 4173:4173
+    depends_on:
+      - backend
+    networks:
+      - movie-app
+
+  backend:
+    build: ./server
+    container_name: server
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - database
+    environment:
+      - SALT = 10
+      - JWT_SECRET = "SECRET"
+      - DB_HOST=localhost
+      - DB_PORT=5432
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=pass
+      - DATABASE_URL=postgresql://postgres:admin@localhost:5432/postgres?schema=public
+    networks:
+      - movie-app
+
+  database:
+    image: postgres
+    container_name: postgres-db
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+    networks:
+      - movie-app
+
+networks:
+  movie-app:
+    driver: bridge
