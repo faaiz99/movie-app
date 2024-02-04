@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 // Ideally this should come from an environment variable
 const salt: number = parseInt(process.env.SALT || "10");
