@@ -1,7 +1,8 @@
 import bcrypt from "bcryptjs";
 
-// Ideally this should come from an environment variable
-const salt: number = parseInt(process.env.SALT || "10");
+import { config } from "../config/env.config";
+
+const salt: number = parseInt(config.SALT || "10");
 
 export const comparePasswords = async (
 	password: string,

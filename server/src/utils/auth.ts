@@ -1,11 +1,12 @@
 import jwt from "jsonwebtoken";
 
+import { config } from "../config/env.config";
 type Payload = {
   id: string;
 };
 
 export const createToken = (payload: Payload) => {
-	const secret = process.env.JWT_SECRET;
+	const secret = config.JWT_SECRET;
 	if (!secret) {
 		throw new Error("JWT secret is not defined");
 	}
@@ -13,7 +14,7 @@ export const createToken = (payload: Payload) => {
 };
 
 export const verifyToken = (token: string) => {
-	const secret = process.env.JWT_SECRET;
+	const secret = config.JWT_SECRET;
 	if (!secret) throw new Error("JWT secret is not defined");
 	try {
 		return jwt.verify(token, secret);
