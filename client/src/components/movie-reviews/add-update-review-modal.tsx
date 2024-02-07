@@ -1,36 +1,35 @@
 import { Modal } from "flowbite-react";
 import { useState } from "react";
-import { Movie } from "../../services/movie";
-import { useCreateMovie, useUpdateMovie } from "../../hooks/useMovie";
-import { useNavigate } from "react-router-dom";
-import Form from "./Form";
-
+import { Review } from "../../services/review";
+import { useUpdateReview } from "../../hooks/useReview";
+import { useCreateReview } from "../../hooks/useReview";
+import Form from "./form";
 type AddUpdateReviewModalProps = {
-  movie: Movie;
+  review: Review;
   operation: "Create" | "Update";
   show: boolean;
   handleShowAddUpdateModal: () => void;
 };
 
-export const AddUpdateMovieModal = ({
-  movie,
+export const AddUpdateReviewModal = ({
+  review,
   operation,
   show,
   handleShowAddUpdateModal,
 }: AddUpdateReviewModalProps) => {
   const [openModal] = useState(show);
-  const navigate = useNavigate();
-  const createMutation = useCreateMovie();
-  const updateMutation = useUpdateMovie();
-
-  const handleAddUpdateMovie = (movie: Movie, operation: string) => {
+  const createMutation = useCreateReview();
+  const updateMutation = useUpdateReview();
+  const handleAddUpdateReview = (
+    review: Omit<Review, "id">,
+    operation: string,
+  ) => {
     switch (operation) {
       case "Create": {
-        createMutation.mutate(movie, {
+        createMutation.mutate(review, {
           onSuccess: () => {
-            alert("Movie added successfully");
+            alert("Review added successfully");
             handleShowAddUpdateModal();
-            navigate("/");
           },
           onError: (error) => {
             alert(error);
@@ -40,11 +39,10 @@ export const AddUpdateMovieModal = ({
         break;
       }
       case "Update": {
-        updateMutation.mutate(movie, {
+        updateMutation.mutate(review, {
           onSuccess: () => {
-            alert("Movie updated successfully");
+            alert("Review updated successfully");
             handleShowAddUpdateModal();
-            navigate("/");
           },
           onError: (error) => {
             alert(error);
@@ -70,9 +68,9 @@ export const AddUpdateMovieModal = ({
         <Modal.Header />
         <Modal.Body>
           <Form
-            movie={movie}
+            review={review}
             operation={operation}
-            handleAddUpdateMovie={handleAddUpdateMovie}
+            handleAddUpdateReview={handleAddUpdateReview}
           />
         </Modal.Body>
       </Modal>

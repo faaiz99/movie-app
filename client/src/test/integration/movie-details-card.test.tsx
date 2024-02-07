@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { Card } from "../../components/movie-details/Card";
+import { Card } from "../../components/movie-details/card";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
 const queryClient = new QueryClient();

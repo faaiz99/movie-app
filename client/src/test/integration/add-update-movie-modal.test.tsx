@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import { AddUpdateMovieModal } from "../../components/movie-details/AddUpdateMovieModal";
+import { AddUpdateMovieModal } from "../../components/movie-details/add-update-movie-modal";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient();
 

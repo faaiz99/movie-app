@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import { Navbar } from "../../components/navbar/Navbar";
-import { checkUserAuth } from "../../utils/checkAuthentication";
+import { Navbar } from "../../components/navbar/navbar";
+import { checkUserAuth } from "../../hooks/useAuth";
+
 import { Mock } from "vitest";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";

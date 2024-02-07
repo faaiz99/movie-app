@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { Modal } from "../../components/movie-search/Modal";
+import { Modal } from "../../components/movie-search/modal";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient();
 describe("Modal component", () => {

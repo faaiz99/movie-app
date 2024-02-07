@@ -1,7 +1,7 @@
 import { Modal as Component, TextInput, Label } from "flowbite-react";
 import { useState, useRef } from "react";
 import { Movie } from "../../services/movie";
-import { Card } from "./Card";
+import { Card } from "./card";
 import { useSearchMovie } from "../../hooks/useMovie";
 type ModalProps = {
   show: boolean;

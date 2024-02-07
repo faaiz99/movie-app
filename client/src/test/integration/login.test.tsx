@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import { Login } from "../../pages/Login";
+import { Login } from "../../pages/login";
 
 describe("Login page", () => {
   it("renders the login form", () => {

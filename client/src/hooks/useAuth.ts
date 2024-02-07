@@ -1,17 +1,7 @@
-// import { useQuery, useMutation } from "@tanstack/react-query";
-// import { authenticationUser, registerUser } from "../services/api";
-
-// export function useAuthenticationUser({ email, password}) {
-// 	return useQuery({
-// 		refetchOnWindowFocus: false,
-// 		queryKey: ["authentication-user"],
-// 		queryFn: () => authenticationUser({ email, password}),
-// 	});
-// }
-// export function useRegisterUser() {
-// 	return useQuery({
-// 		refetchOnWindowFocus: false,
-// 		queryKey: ["register-user"],
-// 		queryFn: ()=>registerUser(),
-// 	});
-// }
+import { useAuthStore } from "../store/store";
+export function checkUserAuth(): boolean {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { email } = useAuthStore((state) => state.session);
+  if (email.length !== 0) return true;
+  else return false;
+}

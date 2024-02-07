@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Form from "../../components/movie-reviews/Form";
+import Form from "../../components/movie-reviews/form";
 import { Review } from "../../services/review";
 
 describe("Form component", () => {

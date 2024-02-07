@@ -1,6 +1,6 @@
 import { Movie } from "../../services/movie";
 import { useState } from "react";
-import { canModify } from "../../utils/canModify";
+import { canModify } from "../../utils/can-modify";
 import { Button } from "..";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { HiOutlinePencilSquare } from "react-icons/hi2";

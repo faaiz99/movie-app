@@ -1,5 +1,4 @@
-import { convertShortLinkToEmbedLink } from "../../utils/youtubeLinkConverter";
-
+import { convertShortLinkToEmbedLink } from "../../utils/youtube-link-converter";
 type TrailerEmbedProps = {
   link: string;
   title: string;

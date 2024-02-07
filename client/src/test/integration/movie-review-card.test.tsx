@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Card } from "../../components/movie-reviews/Card";
+import { Card } from "../../components/movie-reviews/card";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Review } from "../../services/review";
 

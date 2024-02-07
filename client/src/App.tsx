@@ -5,21 +5,21 @@ import { lazy, Suspense } from "react";
 import { Spinner } from "./components";
 
 const Error = lazy(() =>
-  import("./pages/Error").then(({ Error }) => ({ default: Error })),
+  import("./pages/error").then(({ Error }) => ({ default: Error })),
 );
 const Movies = lazy(() =>
-  import("./pages/Movies").then(({ Movies }) => ({ default: Movies })),
+  import("./pages/movies").then(({ Movies }) => ({ default: Movies })),
 );
 const MovieDetails = lazy(() =>
-  import("./pages/MovieDetails").then(({ MovieDetails }) => ({
+  import("./pages/movie-details").then(({ MovieDetails }) => ({
     default: MovieDetails,
   })),
 );
 const Signup = lazy(() =>
-  import("./pages/Signup").then(({ Signup }) => ({ default: Signup })),
+  import("./pages/signup").then(({ Signup }) => ({ default: Signup })),
 );
 const Login = lazy(() =>
-  import("./pages/Login").then(({ Login }) => ({ default: Login })),
+  import("./pages/login").then(({ Login }) => ({ default: Login })),
 );
 const Footer = lazy(() =>
   import("./components").then(({ Footer }) => ({ default: Footer })),

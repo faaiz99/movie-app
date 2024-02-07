@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { DeleteConfirmationModal } from "../../components/modal/DeleteConfirmationModal";
+import { DeleteConfirmationModal } from "../../components/modal/delete-confirmation-modal";
 
 describe("DeleteConfirmationModal component", () => {
   const mockProps = {

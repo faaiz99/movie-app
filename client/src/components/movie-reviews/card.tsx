@@ -1,7 +1,7 @@
 import { Review } from "../../services/review";
 import { Button } from "..";
 import { Rating } from "..";
-import { canModify } from "../../utils/canModify";
+import { canModify } from "../../utils/can-modify";
 import { useDeleteReview } from "../../hooks/useReview";
 import { HiOutlinePlus } from "react-icons/hi2";
 import { HiOutlineTrash } from "react-icons/hi2";

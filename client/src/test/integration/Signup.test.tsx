@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { Signup } from "../../pages/Signup";
+import { Signup } from "../../pages/signup";
 import { BrowserRouter } from "react-router-dom";
 
 describe("Signup component", () => {

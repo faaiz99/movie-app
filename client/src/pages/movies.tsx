@@ -3,7 +3,7 @@ import { useMovies, useFeaturedMovies } from "../hooks/useMovie";
 import { Spinner } from "../components";
 // import { ErrorModal } from "../components";
 import { useAuthStore } from "../store/store";
-import { checkUserAuth } from "../utils/checkAuthentication";
+import { checkUserAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 const MovieListCard = lazy(() =>

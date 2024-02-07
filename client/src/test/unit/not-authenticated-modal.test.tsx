@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { NotAuthenticatedModal } from "../../components/modal/NotAuthenticatedModal";
+import { NotAuthenticatedModal } from "../../components/modal/not-authenticated-modal";
 import { BrowserRouter } from "react-router-dom";
 
 describe("NotAuthenticatedModal component", () => {

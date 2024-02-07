@@ -3,7 +3,7 @@ import { HiOutlineArrowRight } from "react-icons/hi";
 import { Button } from "..";
 import { Movie } from "../../services/movie";
 import { useNavigate } from "react-router-dom";
-import { titleToSlug } from "../../utils/titleToSlug";
+import { titleToSlug } from "../../utils/title-to-slug";
 
 export const Card = ({ poster, title, description, loading }: Movie) => {
   const navigate = useNavigate();

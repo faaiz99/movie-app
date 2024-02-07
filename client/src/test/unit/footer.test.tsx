@@ -1,5 +1,5 @@
 import { render, fireEvent, screen } from "@testing-library/react";
-import { Footer } from "../../components/footer/Footer";
+import { Footer } from "../../components/footer/footer";
 import { createMemoryHistory } from "history";
 import { BrowserRouter } from "react-router-dom";
 

@@ -3,9 +3,9 @@ import popcornDark from "../../assets/popcorn-dark.svg";
 import popcornLight from "../../assets/popcorn-light.webp";
 import { useThemeMode, DarkThemeToggle } from "flowbite-react";
 import { Search } from "..";
-import { Authenticated } from "./Authenticated";
-import { UnAuthenticated } from "./UnAuthenticated";
-import { checkUserAuth } from "../../utils/checkAuthentication";
+import { Authenticated } from "./authenticated";
+import { UnAuthenticated } from "./unauthenticated";
+import { checkUserAuth } from "../../hooks/useAuth";
 
 export const Navbar = () => {
   const { mode } = useThemeMode();

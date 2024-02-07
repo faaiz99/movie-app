@@ -1,15 +1,15 @@
 import { lazy } from "react";
 import { useParams } from "react-router-dom";
-import { slugToTitle } from "../utils/slugToTitle";
-import { Spinner } from "../components/";
-import { ErrorModal } from "../components/";
+import { Spinner } from "../components";
+import { ErrorModal } from "../components";
 import { useMovie } from "../hooks/useMovie";
 import { useReviews } from "../hooks/useReview";
-import { checkUserAuth } from "../utils/checkAuthentication";
 import { useAuthStore } from "../store/store";
+import { slugToTitle } from "../utils/slug-to-title";
+import { checkUserAuth } from "../hooks/useAuth";
 
 const MovieDetailsCard = lazy(() =>
-  import("../components/").then(({ MovieDetailsCard }) => ({
+  import("../components").then(({ MovieDetailsCard }) => ({
     default: MovieDetailsCard,
   })),
 );

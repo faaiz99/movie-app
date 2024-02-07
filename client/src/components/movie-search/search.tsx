@@ -2,7 +2,7 @@ import searchDark from "../../assets/search-dark.webp";
 import searchLight from "../../assets/search-light.svg";
 import { useThemeMode } from "flowbite-react";
 import { useState } from "react";
-import { Modal } from "./Modal";
+import { Modal } from "./modal";
 export const Search = () => {
   const { mode } = useThemeMode();
 
