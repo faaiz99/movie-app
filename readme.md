@@ -9,7 +9,7 @@ A full-stack application for movie enthusiasts. Browse, review, and discuss your
 - [Description](#description)
 - [Tech Stack](#tech-stack)
 - [Installation](#installation)
-- [Requirements] (#requirements)
+- [Requirements](#requirements)
 - [Usage](#usage)
 - [Testing](#testing)
 - [License](#license)
@@ -87,8 +87,11 @@ This application uses a variety of technologies in its stack:
 
 ## Requirements 
 
+   ```bash
    nodejs v18 or above
    npm v10 or above
+   docker v25 or above
+   ```
 
 ## Usage
 
