@@ -87,11 +87,10 @@ This application uses a variety of technologies in its stack:
 
 ## Requirements 
 
-   ```bash
-   nodejs v18 or above
-   npm v10 or above
-   docker v25 or above
-   ```
+   -nodejs v18 or above
+   -npm v10 or above
+   -docker v25 or above
+
 
 ## Usage
 
