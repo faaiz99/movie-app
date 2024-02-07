@@ -19,45 +19,45 @@ export interface IMovieRepository {
 const movieRepository = new MovieRepository(db);
 
 export const getMoviesByCharactersInTheirName = async (characters: string) => {
-	return await movieRepository.getMoviesByCharactersInTheirName(characters);
+  return await movieRepository.getMoviesByCharactersInTheirName(characters);
 };
 
 export const getMoviesWithMostReviews = async () => {
-	return await movieRepository.getMoviesWithMostReviews();
+  return await movieRepository.getMoviesWithMostReviews();
 };
 
 export const createMovie = async (movie: CreateMovieDTO) => {
-	const movieDTO = new CreateMovieDTO();
-	movieDTO.title = movie.title;
-	movieDTO.description = movie.description;
-	movieDTO.poster = movie.poster;
-	movieDTO.trailer = movie.trailer;
-	movieDTO.userId = movie.userId;
+  const movieDTO = new CreateMovieDTO();
+  movieDTO.title = movie.title;
+  movieDTO.description = movie.description;
+  movieDTO.poster = movie.poster;
+  movieDTO.trailer = movie.trailer;
+  movieDTO.userId = movie.userId;
 
-	return await movieRepository.create(movieDTO);
+  return await movieRepository.create(movieDTO);
 };
 
 export const getMovies = async () => {
-	return await movieRepository.getMovies();
+  return await movieRepository.getMovies();
 };
 
 export const getMovieByTitle = async (movieTitle: string) => {
-	return await movieRepository.getByTitle(movieTitle);
+  return await movieRepository.getByTitle(movieTitle);
 };
 
 export const deleteMovieById = async (movieId: string) => {
-	return await movieRepository.deleteById(movieId);
+  return await movieRepository.deleteById(movieId);
 };
 
 export const updateMovieById = async (
-	movieId: string,
-	movie: UpdateMovieDTO
+  movieId: string,
+  movie: UpdateMovieDTO
 ) => {
-	const movieDTO = new UpdateMovieDTO();
-	movieDTO.title = movie.title;
-	movieDTO.description = movie.description;
-	movieDTO.poster = movie.poster;
-	movieDTO.trailer = movie.trailer;
+  const movieDTO = new UpdateMovieDTO();
+  movieDTO.title = movie.title;
+  movieDTO.description = movie.description;
+  movieDTO.poster = movie.poster;
+  movieDTO.trailer = movie.trailer;
 
-	return await movieRepository.updateById(movieId, movieDTO);
+  return await movieRepository.updateById(movieId, movieDTO);
 };

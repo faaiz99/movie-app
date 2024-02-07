@@ -6,7 +6,7 @@ import { userRouter } from "../user/route";
 const router = Router();
 
 router.get("/", async (req, res) => {
-	res.send("Movie API running");
+  res.send("Movie API running");
 });
 router.use(userRouter);
 router.use(movieRouter);
