@@ -11,7 +11,7 @@ declare global {
 }
 
 if (!global.__db) {
-  global.__db = new PrismaClient();
+	global.__db = new PrismaClient();
 }
 
 const db: PrismaClient = global.__db;
