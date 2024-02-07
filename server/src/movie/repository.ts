@@ -65,15 +65,10 @@ export class MovieRepository implements IMovieRepository {
 		});
 	}
 	async create(movie: Partial<Movie>): Promise<Movie> {
-		const { title, description, poster, trailer, userId } = movie;
 		return await this.prisma.movie.create({
 			data: {
-				title: title,
-				description: description,
-				poster: poster,
-				trailer: trailer,
-				userId: userId,
-			},
+				...movie,
+			}
 		});
 	}
 	async updateById(id: string, movie: Partial<Movie>): Promise<Movie> {
