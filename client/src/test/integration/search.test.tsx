@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { Search } from "../../components/movie-search/search";
+import { Search } from "../../components/movie_search/search";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient();
 describe("Search component", () => {

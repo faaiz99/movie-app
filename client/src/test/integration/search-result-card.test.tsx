@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Card } from "../../components/movie-search/card";
+import { Card } from "../../components/movie_search/card";
 import { vi } from "vitest";
 import { BrowserRouter } from "react-router-dom";
 const mockMovie = {

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { AddUpdateReviewModal } from "../../components/movie-reviews/add-update-review-modal";
+import { AddUpdateReviewModal } from "../../components/movie_reviews/add-update-review-modal";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Review } from "../../services/review";
 const queryClient = new QueryClient();

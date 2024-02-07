@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { Card } from "../../components/movie-list/card";
+import { Card } from "../../components/movie_list/card";
 import { BrowserRouter } from "react-router-dom";
 import { Movie } from "../../services/movie";
 describe("Card component", () => {

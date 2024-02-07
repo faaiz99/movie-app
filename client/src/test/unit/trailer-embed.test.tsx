@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { TrailerEmbed } from "../../components/trailer-embed/trailer-embed";
+import { TrailerEmbed } from "../../components/trailer_embed/trailer-embed";
 
 describe("TrailerEmbed component", () => {
   const mockLink = "abcdefg"; // Only the video ID

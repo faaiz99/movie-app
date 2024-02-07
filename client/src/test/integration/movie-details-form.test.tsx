@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Form from "../../components/movie-details/form";
+import Form from "../../components/movie_details/form";
 
 describe("Form component", () => {
   const mockMovieInputs = {
