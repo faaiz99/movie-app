@@ -37,12 +37,16 @@ This application uses a variety of technologies in its stack:
    ```bash
    cd movie-app
    ```
-2. Create a `.env` file in the `server` directory with the following variables:
+2. Create a `.env` file in the `movie-app` directory with the following variables:
 
    ```env
    SALT=
    JWT_SECRET=
    DATABASE_URL=
+   DB_HOST=
+   DB_NAME=
+   DB_USER=
+   DB_PASS=
    ```
 3. Build the Docker images:
 
@@ -58,12 +62,16 @@ This application uses a variety of technologies in its stack:
 
 ### Running Without Docker
 
-1. Create a `.env` file in the `server` directory with the following variables:
+1. Create a `.env` file in the `movie-app` directory with the following variables:
 
    ```env
-   SALT=your_salt
-   JWT_SECRET=your_jwt_secret
-   DATABASE_URL=your_database_url
+   SALT=
+   JWT_SECRET=
+   DATABASE_URL=
+   DB_HOST=
+   DB_NAME=
+   DB_USER=
+   DB_PASS=
    ```
 
 2. Install the server dependencies and start the server:
