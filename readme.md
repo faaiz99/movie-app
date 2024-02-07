@@ -85,11 +85,11 @@ This application uses a variety of technologies in its stack:
    npm run preview
    ```
 
-## Requirements 
+## Requirements
 
-   -nodejs v18 or above
-   -npm v10 or above
-   -docker v25 or above
+- Node.js: v18 or above
+- npm: v10 or above
+- Docker: v25 or above
 
 
 ## Usage
