@@ -47,6 +47,8 @@ This application uses a variety of technologies in its stack:
    DB_NAME=
    DB_USER=
    DB_PASS=
+   DB_PORT=
+   PORT=
    ```
 3. Build the Docker images:
 
