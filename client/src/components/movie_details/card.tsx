@@ -87,7 +87,7 @@ export const Card = ({ movie, userId }: MovieDetailsCardProps) => {
         <DeleteConfirmationModal
           type={"movie"}
           message={"Are you sure you want to delete this movie?"}
-          movieId={currentMovie!.id}
+          movieId={currentMovie.id}
           show={showDeleteModal}
           handleShowDeleteModal={handleShowDeleteModal}
           handleDeletion={handleDeleteMovie}
@@ -95,7 +95,7 @@ export const Card = ({ movie, userId }: MovieDetailsCardProps) => {
       )}
       {showUpdateModal && (
         <AddUpdateMovieModal
-          movie={currentMovie!}
+          movie={currentMovie}
           operation={"Update"}
           show={showUpdateModal}
           handleShowAddUpdateModal={handleShowUpdateModal}
