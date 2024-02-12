@@ -78,6 +78,8 @@ async function seed() {
 			},
 		});
 	});
+	const listOfUsers = await db.user.findMany();
+	console.log(listOfUsers);
 	const testUser = await db.user.findFirst({
 		where: {
 			email: "johnadams29@movie.app",
@@ -85,7 +87,7 @@ async function seed() {
 	});
 	const movies = getMovies();
 	console.log("Seeding movies...");
-	if (!testUser) throw new Error("User not found");
+	if (!testUser) throw new Error("User Account not found");
 	movies.forEach(async (movie) => {
 		await db.movie.create({
 			data: {
