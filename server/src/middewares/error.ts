@@ -13,6 +13,7 @@ export const handleError = (
 			message: message,
 			stack: process.env.NODE_ENV === "development" ? error.stack : {},
 		});
+		return; // Stop the function execution here
 	}
 	// If the error is not an instance of Error, create a new Error object
 	const errorObject = new Error("Internal Server Error");
@@ -22,6 +23,4 @@ export const handleError = (
 		message: message,
 		stack: process.env.NODE_ENV === "development" ? errorObject.stack : {},
 	});
-
-	//next(error as Error);
 };
