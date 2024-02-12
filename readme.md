@@ -42,7 +42,7 @@ This application uses a variety of technologies in its stack:
    ```env
    SALT=
    JWT_SECRET=
-   DATABASE_URL=
+   DATABASE_URL= 
    DB_HOST=
    DB_NAME=
    DB_USER=
@@ -62,16 +62,12 @@ This application uses a variety of technologies in its stack:
 
 ### Running Without Docker
 
-1. Create a `.env` file in the `movie-app` directory with the following variables:
+1. Create a `.env` file in the `movie-app/server` directory with the following variables:
 
    ```env
    SALT=
    JWT_SECRET=
    DATABASE_URL=
-   DB_HOST=
-   DB_NAME=
-   DB_USER=
-   DB_PASS=
    ```
 
 2. Install the server dependencies and start the server:
