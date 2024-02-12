@@ -42,7 +42,6 @@ This application uses a variety of technologies in its stack:
    ```env
    SALT=
    JWT_SECRET=
-   DATABASE_URL= 
    DB_HOST=
    DB_NAME=
    DB_USER=
