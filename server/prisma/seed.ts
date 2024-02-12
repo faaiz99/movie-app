@@ -1,41 +1,36 @@
 import { db } from "../lib/prisma.db";
 
 type User = {
-  email: string;
-  firstName: string;
-  lastName: string;
-  password: string;
-};
-
-type Movie = {
-  title: string;
-  poster: string;
-  trailer: string;
-  description: string;
-};
-
-type Review = {
-  title: string;
-  description: string;
-  rating: number;
-};
+	email: string;
+	firstName: string;
+	lastName: string;
+	password: string;
+  };
+  
+  type Movie = {
+	title: string;
+	poster: string;
+	trailer: string;
+	description: string;
+  };
 
 db.$connect();
-function getUsers(): Array<User> {
+
+async function getUsers(): Promise<User[]> {
 	return [
 		{
-			email: "johnadams29@movie.app",
-			firstName: "john",
-			lastName: "adams",
-			password: "test@Password",
+		  email: "johnadams29@movie.app",
+		  firstName: "john",
+		  lastName: "adams",
+		  password: "test@Password",
 		},
 		{
-			email: "mikejason84@movie.app",
-			firstName: "mike",
-			lastName: "jason",
-			password: "test@Password",
+		  email: "mikejason84@movie.app",
+		  firstName: "mike",
+		  lastName: "jason",
+		  password: "test@Password",
 		},
-	];
+	  ];
 }
 
 function getMovies(): Array<Movie> {
@@ -69,38 +64,42 @@ function getMovies(): Array<Movie> {
 
 async function seed() {
 	console.log("Seeding database...");
-
-	const users = getUsers();
-	users.forEach(async (user) => {
-		console.log("Seeding users...");
-		await db.user.create({
-			data: {
-				...user,
+  
+	try {
+	  const users = await getUsers();
+	  console.log("Seeding users...");
+	  for (const user of users) {
+			await db.user.create({
+		  data: {
+					...user,
+		  },
+			});
+	  }
+  
+	  const testUser = await db.user.findFirst({
+			where: {
+		  email: "johnadams29@movie.app",
 			},
-		});
-	});
-	const listOfUsers = await db.user.findMany();
-	console.log(listOfUsers);
-	const testUser = await db.user.findFirst({
-		where: {
-			email: "johnadams29@movie.app",
-		},
-	});
-	const movies = getMovies();
-	console.log("Seeding movies...");
-	if (!testUser) throw new Error("User Account not found");
-	movies.forEach(async (movie) => {
-		await db.movie.create({
-			data: {
-				title: movie.title,
-				poster: movie.poster,
-				trailer: movie.trailer,
-				description: movie.description,
-				userId: testUser.id,
-			},
-		});
-	});
+	  });
+	  if (!testUser) throw new Error("User Account not found");
+  
+	  const movies = getMovies();
+	  console.log("Seeding movies...");
+	  for (const movie of movies) {
+			await db.movie.create({
+		  data: {
+					...movie,
+					userId: testUser.id,
+		  },
+			});
+	  }
+  
+	  console.log("Database seeding completed.");
+	} catch (error) {
+	  console.error("Error seeding database:", error);
+	} finally {
+	  await db.$disconnect();
+	}
 }
-
+  
 seed();
-db.$disconnect();
