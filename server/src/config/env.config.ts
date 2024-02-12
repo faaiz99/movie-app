@@ -7,6 +7,5 @@ export const config = {
 	JWT_SECRET: process.env.JWT_SECRET || "secret",
 	SALT: process.env.SALT || "10",
 	DATABASE_URL:
-    process.env.DATABASE_URL ||
-    "postgresql://postgres:postgres@postgres:5432/TEST_DB?schema=public",
+    process.env.DATABASE_URL
 };

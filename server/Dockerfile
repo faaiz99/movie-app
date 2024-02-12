@@ -9,6 +9,7 @@ RUN npm install
 RUN npm install -g ts-node
 RUN npm install -g prisma
 
+
 COPY . .
 
 EXPOSE 3000
