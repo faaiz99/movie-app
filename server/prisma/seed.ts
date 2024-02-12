@@ -20,6 +20,7 @@ type Review = {
   rating: number;
 };
 
+db.$connect();
 function getUsers(): Array<User> {
 	return [
 		{
