@@ -3,7 +3,7 @@ import { Review } from "./review";
 
 /** Movie API Calls */
 export type Movie = {
-  id?: string;
+  id: string;
   title: string;
   description: string;
   poster: string;

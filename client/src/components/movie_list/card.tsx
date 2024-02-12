@@ -41,7 +41,6 @@ export const Card = ({
     useState(false);
   const handleShowNotAuthenticatedModal = () =>
     setShowNotAuthenticatedModal((prev) => !prev);
-
   return (
     <>
       <section className="bg-gray-50 dark:bg-gray-900 ">
